@@ -1,14 +1,15 @@
+import { Sign } from "../constance/action.enum";
 import { Action, ISignUer, IUser } from "../typing_action";
 
 export const userReducer = (state: ISignUer = {}, action: Action): ISignUer => {
     switch (action.type) {
-        case "REQUEST":
+        case Sign.SIGNIN_REQUEST:
             return { loading: true };
-        case "SUCCESS":
+        case Sign.SIGNIN_SUCCESS:
             return { loading: false, userInfo: action.payload as IUser }
-        case "FAIL":
+        case Sign.SIGNIN_FAIL:
             return { loading: false, error: action.error }
-        case "SIGN_OUT":
+        case Sign.SIGN_OUT:
             return {}
         default:
             return state

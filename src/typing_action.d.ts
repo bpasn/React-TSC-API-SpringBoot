@@ -1,17 +1,20 @@
+import { Sign, EProduct } from "./constance/action.enum"
+
+
 interface ActionRequest {
-    type: "REQUEST"
+    type: Sign.SIGNIN_REQUEST
 }
 interface ActionResponse {
-    type: "SUCCESS"
+    type: Sign.SIGNIN_SUCCESS
     payload?: any
 }
 
 interface ActionFail {
-    type: "FAIL"
+    type: Sign.SIGNIN_FAIL
     error?: any
 }
 interface ActionSignOut {
-    type: "SIGN_OUT"
+    type: Sign.SIGN_OUT
 }
 
 export type Action = ActionRequest | ActionResponse | ActionFail | ActionSignOut
@@ -31,15 +34,15 @@ interface ISignUer {
 
 
 interface IProductRequest {
-    type: "PRODUCT_REQUEST"
+    type: EProduct.PRODUCT_REQUEST
 }
 interface IProductRespnse {
-    type: "PRODUCT_SUCCESS"
+    type: EProduct.PRODUCT_SUCCESS
     payload?: any
 }
 
 interface IProductFail {
-    type: "PRODUCT_FAIL"
+    type: EProduct.PRODUCT_FAIL
     error?: any
 }
 

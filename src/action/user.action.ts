@@ -1,22 +1,25 @@
-import axios from "axios"
+import { AxiosInstance } from "axios"
 import { AppDispatch } from "../store"
+import AppSetting from "../constance/AppSetting"
+import { Sign } from "../constance/action.enum"
 
-export const signIn = (bodySign: { email: string, password: string }) => {
+export const signIn = (axiosHook: AxiosInstance, bodySign: ISignInRequest) => {
     return async (dispatch: AppDispatch) => {
-        dispatch({ type: "REQUEST" })
+        console.log("BODY ",bodySign)
+        dispatch({ type: Sign.SIGNIN_REQUEST })
         try {
-            const { data } = await axios.post('/api/login', bodySign)
+            const { data } = await axiosHook.post(AppSetting.URI_SIGNIN, bodySign)
             if (data) {
-                dispatch({ type: "SUCCESS", payload: data.payload })
-                localStorage.setItem('userInfo', JSON.stringify(data.payload))
+                dispatch({ type: Sign.SIGNIN_SUCCESS, payload: data })
+                localStorage.setItem('userInfo', JSON.stringify(data))
             }
         } catch (error) {
             console.log(error)
-            dispatch({ type: "FAIL", error: error })
+            dispatch({ type: Sign.SIGNIN_FAIL, error: error })
         }
     }
 }
 export const signOut = () => (dispatch: AppDispatch) => {
     localStorage.removeItem('userInfo')
-    dispatch({ type: "SIGN_OUT" })
+    dispatch({ type: Sign.SIGN_OUT })
 }

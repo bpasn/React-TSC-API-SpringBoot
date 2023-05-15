@@ -1,26 +1,23 @@
 import { Alert, Box, Button, Container, TextField, Typography } from '@mui/material'
 import React, { ChangeEvent, FormEvent } from 'react'
-import { useAppDispatch, useAppSelector } from '../hook'
-import { Action } from '../typing_action'
+import { useAppDispatch, useAppSelector} from '../hook'
 import { signIn } from '../action/user.action'
 import { useNavigate } from 'react-router-dom'
-
+import useAxiosHook from '../axios-hook/axiosHook'
 type Props = {}
 
 const Signinpage = (props: Props) => {
-    const [bodySign, setBodySign] = React.useState<{ email: string, password: string }>({
-        email: '',
-        password: ''
-    })
-    const dispatch = useAppDispatch()
-    const navigate = useNavigate()
+    const [bodySign, setBodySign] = React.useState<ISignInRequest>();
+    const axiosHook = useAxiosHook();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const { userInfo, loading, error } = useAppSelector(state => state.SignUser)
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        dispatch<any>(signIn(bodySign))
+        dispatch<any>(signIn(axiosHook,bodySign as ISignInRequest))
     }
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setBodySign({ ...bodySign, [e.target.name]: e.target.value })
+        setBodySign({ ...bodySign, [e.target.name]: e.target.value }as ISignInRequest) 
     }
     React.useEffect(() => {
         if (userInfo) {
@@ -46,11 +43,11 @@ const Signinpage = (props: Props) => {
                         required
                         margin='normal'
                         fullWidth
-                        label="Email address"
-                        name="email"
-                        id='email'
-                        type='email'
-                        autoComplete='email'
+                        label="Username"
+                        name="username"
+                        id='username'
+                        type='username'
+                        autoComplete='username'
                         autoFocus
                     />
                     <TextField
