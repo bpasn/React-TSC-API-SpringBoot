@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css';
-
+import ProtectComponent from './components/ProtectComponent';
+import Signinpage from './page/Signinpage';
+import Layout from './components/Layout';
+import ProductDetail from './page/product/productDetail/ProductDetail';
+import ProductPage from './page/ProductPage';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter >
+        <Routes>
+          <Route path={'/'} element={<ProtectComponent />} >
+            <Route element={<Layout />}>
+              <Route index element={<ProductPage />}/>
+              <Route path='/product/detail/:id' element={<ProductDetail  />} />
+            </Route>
+          </Route>
+          <Route path='/login' element={<Signinpage />} />
+        </Routes>
+      </BrowserRouter>
   );
 }
 
