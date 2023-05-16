@@ -1,12 +1,13 @@
+import { EProduct } from './../constance/action.enum';
 import {  IPorductAction, IProduct } from "../typing_action";
 
 export const productReducer = (state: IProduct = {}, action: IPorductAction): IProduct => {
     switch (action.type) {
-        case "PRODUCT_REQUEST":
+        case EProduct.PRODUCT_REQUEST:
             return { loading: true };
-        case "PRODUCT_SUCCESS":
+        case EProduct.PRODUCT_SUCCESS:
             return { loading: false, products: action.payload };
-        case "PRODUCT_FAIL":
+        case EProduct.PRODUCT_FAIL:
             return { loading: false, error: action.error };
         default:
             return state;

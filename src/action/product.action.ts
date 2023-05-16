@@ -1,14 +1,14 @@
-import Constants from "../static/static.cont";
+import { EProduct } from "../constance/action.enum";
 import { AppDispatch, AppState } from "../store";
 import { AxiosInstance, AxiosResponse } from 'axios'
 export const productAction = (axiosHook: AxiosInstance) => async (dispatch: AppDispatch, getState: AppState) => {
-    dispatch({ type: "PRODUCT_REQUEST" })
+    dispatch({ type:EProduct.PRODUCT_REQUEST })
     try {
-        const product:AxiosResponse<IProducts, any> = await axiosHook.get(Constants.GET_ALL_PRODUCT)
-        dispatch({ type: "PRODUCT_SUCCESS", payload: product.data })
+        const product = await axiosHook.get('/api/product')
+        dispatch({ type: EProduct.PRODUCT_SUCCESS, payload: product.data.payload })
     } catch (error) {
         dispatch({
-            type: "PRODUCT_FAIL",
+            type: EProduct.PRODUCT_FAIL,
             error: error
         })
     }

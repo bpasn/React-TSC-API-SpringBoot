@@ -9,21 +9,17 @@ import useAxiosHook from '../axios-hook/axiosHook'
 type Props = {}
 
 const Signinpage = (props: Props) => {
-    const [bodySign, setBodySign] = React.useState<SignInRequest>({
-        username: '',
-        password: ''
-    })
+    const [bodySign, setBodySign] = React.useState<ISignInRequest>();
     const axiosHook = useAxiosHook();
-    const dispatch = useAppDispatch()
-    const navigate = useNavigate()
-    const location =useLocation();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const { userInfo, loading, error } = useAppSelector(state => state.SignUser)
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        dispatch<any>(signIn(axiosHook,bodySign))
+        dispatch<any>(signIn(axiosHook,bodySign as ISignInRequest))
     }
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setBodySign({ ...bodySign, [e.target.name]: e.target.value })
+        setBodySign({ ...bodySign, [e.target.name]: e.target.value }as ISignInRequest) 
     }
     React.useEffect(() => {
         
