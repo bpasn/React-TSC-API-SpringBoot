@@ -8,7 +8,8 @@ import ProductPage from './page/ProductPage';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import ProtectProduct from './components/product/ProtectProduct';
 import Exception from './page/Exception';
-
+// import './assets/css/fa-icons.css'
+import './assets/css/faa-icons.css'
 import React from 'react';
 import AddProduct from './page/admin/AddProduct';
 function App() {
