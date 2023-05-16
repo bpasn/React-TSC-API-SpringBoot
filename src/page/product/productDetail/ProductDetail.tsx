@@ -5,13 +5,13 @@ import data from '../../../data.json';
 import ProductDetailImage from '../../../components/product/productDetail/productDetailImage/ProductDetailImage';
 import ProductDescription from '../../../components/product/productDetail/productDescription/ProductDescription';
 interface Props {
-  product?: IProducts
+  product?: IProductss
 }
 
 const ProductDetail: React.FC<Props> = ({ product }: Props) => {
   const params = useParams<{ id: string }>();
 
-  const _product = data.find((product: IProducts) => product.id === Number(params.id))
+  const _product = data.find((product: IProductss) => product.id === Number(params.id))
   return (
     <Box component={'main'}>
       <Box sx={{

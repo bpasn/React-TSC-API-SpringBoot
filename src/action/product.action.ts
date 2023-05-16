@@ -1,10 +1,11 @@
+import Constants from "../static/static.cont";
 import { AppDispatch, AppState } from "../store";
-import { AxiosInstance } from 'axios'
+import { AxiosInstance, AxiosResponse } from 'axios'
 export const productAction = (axiosHook: AxiosInstance) => async (dispatch: AppDispatch, getState: AppState) => {
     dispatch({ type: "PRODUCT_REQUEST" })
     try {
-        const product = await axiosHook.get('/api/product')
-        dispatch({ type: "SUCCESS", payload: product.data.payload })
+        const product:AxiosResponse<IProducts, any> = await axiosHook.get(Constants.GET_ALL_PRODUCT)
+        dispatch({ type: "PRODUCT_SUCCESS", payload: product.data })
     } catch (error) {
         dispatch({
             type: "PRODUCT_FAIL",

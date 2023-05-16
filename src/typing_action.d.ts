@@ -19,9 +19,11 @@ export type Action = ActionRequest | ActionResponse | ActionFail | ActionSignOut
 
 interface IUser {
     email: string,
+    username:string,
     firstName: string,
     lastName: string,
-    token: string
+    token: string,
+    roles:string[]
 }
 interface ISignUer {
     loading?: boolean;

@@ -1,4 +1,4 @@
-import { Action, IPorductAction, IProduct } from "../typing_action";
+import {  IPorductAction, IProduct } from "../typing_action";
 
 export const productReducer = (state: IProduct = {}, action: IPorductAction): IProduct => {
     switch (action.type) {

@@ -1,18 +1,10 @@
-import { Box, Grid, styled } from '@mui/material'
-import {Image , CarouselProvider, Dot, Slide, Slider } from 'pure-react-carousel';
+import { Box, Grid} from '@mui/material'
+import {Image , CarouselProvider,  Slide, Slider } from 'pure-react-carousel';
 import { ImageTab } from './Styled';
 
 interface Props {
     images?: string[]
 }
-const settings = {
-    speed: 5 * 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    swipeToSlide: true,
-    edgeFriction: 5000,
-};
-
 
 const ProductDetailImage = ({ images }: Props) => {
 

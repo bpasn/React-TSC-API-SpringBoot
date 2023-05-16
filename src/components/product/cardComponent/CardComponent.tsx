@@ -1,9 +1,9 @@
 import { Box , Typography } from '@mui/material'
 import { CardContentCustom, CardCustom, CardMediaCustom } from './styledComponents'
-import { Link, NavLink } from 'react-router-dom'
+import {  NavLink } from 'react-router-dom'
 
 type Props = {
-    product:IProducts,
+    product:IProductss,
 }
 
 
@@ -18,7 +18,7 @@ const CardComponent = ({product}: Props) => {
                             height="100%"
                             width={"100%"}
                             src={product.image[0]}
-                            alt={"item.title"}
+                            alt={product.productTitle}
                             loading="lazy"
                         />
                         <Box sx={{
@@ -48,7 +48,7 @@ const CardComponent = ({product}: Props) => {
                     lineHeight: '1.4em',
                     fontSize: '1.6rem',
                 }}>
-                    {product.productTitle}
+                    {product.description}
                 </Typography>
                 <Typography component={"p"} color="text.secondary" sx={{
                     fontWeight: 500,

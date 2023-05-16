@@ -1,32 +1,36 @@
-import { Alert, Box, Button, Container, TextField, Typography } from '@mui/material'
-import React, { ChangeEvent, FormEvent } from 'react'
-import { useAppDispatch, useAppSelector } from '../hook'
-import { Action } from '../typing_action'
-import { signIn } from '../action/user.action'
-import { useNavigate } from 'react-router-dom'
+import { Alert, Box, Button, Container, DialogTitle, TextField, Typography } from '@mui/material'
+import Dialog from '@mui/material/Dialog';
 
+import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../hook'
+import { signIn } from '../action/user.action'
+import {  useLocation, useNavigate } from 'react-router-dom'
+import useAxiosHook from '../axios-hook/axiosHook'
 type Props = {}
 
 const Signinpage = (props: Props) => {
-    const [bodySign, setBodySign] = React.useState<{ email: string, password: string }>({
-        email: '',
+    const [bodySign, setBodySign] = React.useState<SignInRequest>({
+        username: '',
         password: ''
     })
+    const axiosHook = useAxiosHook();
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+    const location =useLocation();
     const { userInfo, loading, error } = useAppSelector(state => state.SignUser)
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        dispatch<any>(signIn(bodySign))
+        dispatch<any>(signIn(axiosHook,bodySign))
     }
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setBodySign({ ...bodySign, [e.target.name]: e.target.value })
     }
     React.useEffect(() => {
+        
         if (userInfo) {
             navigate('/')
         }
-    }, [dispatch, navigate, userInfo])
+    }, [navigate, userInfo])
     return (
         <Container component={'div'} maxWidth="xs">
             <Box sx={{
@@ -38,19 +42,21 @@ const Signinpage = (props: Props) => {
                     Sign In
                 </Typography>
                 <Container component={"form"} sx={{ mt: 1 }} onSubmit={handleSubmit}>
-                    {error && <Alert severity="error">{
-                        error.response && error.response.data ? error.response.data : error.message
+                    {error && <Alert severity="error" sx={{
+                        alignItems:"center"
+                    }}>{
+                        error.response && error.response.data ? error.response.data.error : error.message
                     }</Alert>}
                     <TextField
                         onChange={handleChange}
                         required
                         margin='normal'
                         fullWidth
-                        label="Email address"
-                        name="email"
-                        id='email'
-                        type='email'
-                        autoComplete='email'
+                        label="Username"
+                        name="username"
+                        id='username'
+                        type='username'
+                        autoComplete='username'
                         autoFocus
                     />
                     <TextField

@@ -4,12 +4,11 @@ import { productAction } from '../action/product.action'
 import useAxiosHook from '../axios-hook/axiosHook'
 import { Box, } from '@mui/material'
 import CardComponent from '../components/product/cardComponent/CardComponent'
-import { ThemeProvider, createTheme, Typography } from '@mui/material'
+import { ThemeProvider, createTheme } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { styled } from '@mui/styles'
 import { Link } from 'react-router-dom'
 import data from '../data.json';
-import { IProduct } from '../typing_action'
 type Props = {}
 const theme = createTheme({
     breakpoints: {
@@ -86,8 +85,7 @@ const ProductPage = (props: Props) => {
     const axiosHook = useAxiosHook()
     React.useEffect(() => {
         dispatch<any>(productAction(axiosHook))
-    }, [userInfo])
-    console.log(userInfo)
+    }, [axiosHook, dispatch, userInfo])
     return (
         <ThemeProvider theme={theme} >
             <Box component={"main"}>
@@ -112,11 +110,11 @@ const ProductPage = (props: Props) => {
                         columnSpacing={2}
                     >
                         {
-                            data.map((product: IProducts, index: number) => {
+                            data.map((product: IProductss, index: number) => {
                                 return (
-                                <Grid xs={12} sm={12} md={3} key={product.id}>
-                                    <CardComponent product={product} />
-                                </Grid>)
+                                    <Grid xs={12} sm={12} md={3} key={product.id}>
+                                        <CardComponent product={product} />
+                                    </Grid>)
                             })
                         }
                     </Grid>

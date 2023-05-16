@@ -1,6 +1,6 @@
 import { Action, ISignUer, IUser } from "../typing_action";
 
-export const userReducer = (state: ISignUer = {}, action: Action): ISignUer => {
+export const userReducer = (state: ISignUer= {}, action: Action): ISignUer => {
     switch (action.type) {
         case "REQUEST":
             return { loading: true };

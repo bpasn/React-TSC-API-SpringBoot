@@ -1,9 +1,26 @@
-import { Box, Button, FormControl, InputBase, InputLabel, List, ListItem, MenuItem, Select, SelectChangeEvent, ThemeProvider, Typography, createTheme, styled } from '@mui/material'
-import React, { ReactElement, useState } from 'react'
-import { TextSubtitle, TextTitle, TextTitleProduct, Title } from './Styled';
+import {
+    Button, 
+    FormControl, 
+    InputBase, 
+    List, 
+    ListItem, 
+    MenuItem, 
+    Select, 
+    SelectChangeEvent, 
+    ThemeProvider, 
+    Typography, 
+    createTheme, 
+    styled 
+} from '@mui/material'
+import React, {  useState } from 'react'
+import { 
+    TextSubtitle, 
+    TextTitle, 
+    TextTitleProduct, 
+    Title } from './Styled';
 
 interface Props {
-    product?: IProducts
+    product?: IProductss
 }
 
 

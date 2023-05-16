@@ -1,18 +1,18 @@
-import axios from "axios"
+import { AxiosInstance } from "axios"
 import { AppDispatch } from "../store"
+import Constants from "../static/static.cont"
 
-export const signIn = (bodySign: { email: string, password: string }) => {
+export const signIn = (axiosHook:AxiosInstance ,bodySign: SignInRequest) => {
     return async (dispatch: AppDispatch) => {
         dispatch({ type: "REQUEST" })
         try {
-            const { data } = await axios.post('/api/login', bodySign)
+            const { data } = await axiosHook.post(Constants.SIGNIN_USER, bodySign)
             if (data) {
-                dispatch({ type: "SUCCESS", payload: data.payload })
-                localStorage.setItem('userInfo', JSON.stringify(data.payload))
+                dispatch({ type: "SUCCESS", payload: data })
+                localStorage.setItem('userInfo', JSON.stringify(data))
             }
         } catch (error) {
-            console.log(error)
-            dispatch({ type: "FAIL", error: error })
+            dispatch({ type: "FAIL", error:  error })
         }
     }
 }

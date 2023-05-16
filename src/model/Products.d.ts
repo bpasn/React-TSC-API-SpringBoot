@@ -1,4 +1,4 @@
-interface IProducts {
+interface IProductss {
     id: number
     image: string[]
     productTitle: string

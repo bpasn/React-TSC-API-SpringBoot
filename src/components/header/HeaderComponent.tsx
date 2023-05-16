@@ -6,7 +6,6 @@ import {
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
-import { ThemeProvider, makeStyles } from '@mui/styles';
 
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -26,7 +25,7 @@ import {
     ToolbarCustom,
     drawer
 } from './styledComponent';
-import { Link } from 'react-router-dom';
+import { ThemeProvider } from '@mui/styles';
 
 interface Props {
     window?: () => Window;
@@ -35,11 +34,7 @@ const navItem: string[] = [
     "Shop", "LookBook", "About", "Contact"
 ]
 
-const _makeStyle = makeStyles({
-    active: {
-        "textDecoration": "underlined"
-    }
-})
+
 const theme = createTheme({
     breakpoints: {
         values: {
@@ -55,7 +50,6 @@ const theme = createTheme({
 
 
 const HeaderComponent = (props: Props) => {
-    const useStyle = _makeStyle()
     const { window } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
     const [active, setActive] = useState("shop")
