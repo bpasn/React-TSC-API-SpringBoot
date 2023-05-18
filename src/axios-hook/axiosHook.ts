@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { useAppDispatch, useAppSelector } from '../hook'
 import { useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { signOut } from '../action/user.action'
 const axiosPrivate = axios.create({
     withCredentials: true
@@ -49,7 +49,7 @@ const useAxiosHook = () => {
                 runWhen: (config:InternalAxiosRequestConfig) => config.url !== "/login",
             }
         )
-    }, [userInfo])
+    }, [dispatch, navigate, userInfo])
 
     return axiosPrivate
 }

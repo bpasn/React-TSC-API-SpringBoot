@@ -1,0 +1,86 @@
+{
+    "category": [
+        "Electronics",
+        "Apparel",
+        "Clothing",
+        "Furniture"
+    ],
+    "size": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL",
+        "XXXL"
+    ],
+    "brand": [
+        "Microsoft",
+        "Samsung",
+        "HP",
+        "Ford"
+    ],
+    "color": [
+        "Black",
+        "White",
+        "Blue",
+        "Red",
+        "Green"
+    ],
+    "status": [
+        "In Stock",
+        "Out Of Stock"
+    ],
+    "visibility": [
+        "Yes",
+        "No"
+    ],
+    "attributeSet": [
+        "Default",
+        "Furniture",
+        "Shoes",
+        "Cell Phones",
+        "Monitors",
+        "Clothing"
+    ],
+    "productType": [
+        "Simple Product",
+        "Configurable Product",
+        "Bundle Product",
+        "Grouped Product",
+        "Virtual Product",
+        "Downloadable Product"
+    ],
+    "menu": [
+        {
+            "main": "Ecommerce",
+            "url":"/admin/ecommerce",
+            "sub": [
+                {
+                    "name":"Add/Edit Product",
+                    "url":"/admin/ecommerce/add-product"
+                },
+                {
+                    "name":"Add/Edit Categories",
+                    "url":"/admin/ecommerce/add-categories"
+                }
+                
+            ]
+        },
+        {
+            "main": "UI Kit",
+            "url":"/admin/ui-kit",
+            "sub": [
+                {
+                    "name":"Helper Classes",
+                    "url":"/admin/ui-kit/helper-classes"
+                },
+                {
+                    "name":"Color Library",
+                    "url":"/admin/ui-kit/color-library"
+                }
+                
+                
+            ]
+        }
+    ]
+}
