@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../hook'
+import { useAppSelector } from '../../redux/hook'
 import { Navigate, Outlet } from 'react-router-dom'
 type Props = {}
 
@@ -6,7 +6,7 @@ const ProtectProduct = (props: Props) => {
     const userState = useAppSelector(state => state.SignUser)
     const { userInfo } = userState
 
-    return userInfo?.roles?.includes("ROLE_ADMIN") ? <Navigate to={"/admin/ecommercek/add-product"}/> : <Outlet />
+    return userInfo?.roles?.includes("ROLE_ADMIN") ? <Navigate to={"/admin/ecommerce/add-product"}/> : <Outlet />
     //  : <Navigate to={'/Execption'} replace state={{
     //     form: location.pathname,
     //     message: "Access denide",

@@ -1,5 +1,5 @@
 import { EProduct } from "../constance/action.enum";
-import { AppDispatch, AppState } from "../store";
+import { AppDispatch, AppState } from "../redux/store";
 import { AxiosInstance } from 'axios'
 export const productAction = (axiosHook: AxiosInstance) => async (dispatch: AppDispatch, getState: AppState) => {
     dispatch({ type:EProduct.PRODUCT_REQUEST })

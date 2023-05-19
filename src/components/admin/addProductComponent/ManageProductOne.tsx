@@ -3,8 +3,10 @@ import React from 'react'
 import SelectCustomComponent from '../customComponent/SelectCustomComponent'
 import { ButtonCustom, SelectCuttom } from '../../../page/admin/ecommerce/addProduct/AddProductStyle'
 import { BsFillImageFill } from "react-icons/bs"
-import ModelPopup from '../../ModelPopup'
-
+// import ModelPopup from '../../ModelPopup'
+import { useAppDispatch } from '../../../redux/hook'
+import { SelectBox } from '../customComponent/SelectBox'
+import dataMock from '../../../mock/datamock.json'
 type Props = {}
 interface IFormManage1 {
   attributeSet: string,
@@ -19,27 +21,28 @@ const ManageProductOne = (props: Props) => {
     attributeSet: "Default",
     productType: "Simple Product"
   })
+  const dispatch = useAppDispatch();
   const formRef = React.useRef()
   const handleChange = (event: React.ChangeEvent<any>) => {
     setManageForm(prve => ({ ...prve, [event.target.name]: event.target.value }))
   }
   const handleContinute = (event: React.FormEvent<HTMLInputElement>): void => {
     event.preventDefault();
-    setShowModel(false);
-
+    dispatch<any>({ type: "hide" })
     console.log(manageForm)
   }
+
   return (
     <Grid container sx={{
       backgroundColor: "#fff",
       borderRadius: '5px',
       marginBottom: "40px"
     }}>
-      <ModelPopup
+      {/* <ModelPopup
         open={showModel}
         setState={setShowModel}
         callback={handleContinute}
-      />
+      /> */}
       <Grid item sm={12} xs={12} md={12} >
         <Box className="statbox widget box box-shadow"
           component={'div'}>
@@ -65,7 +68,14 @@ const ManageProductOne = (props: Props) => {
             ref={formRef}
             onSubmit={(e) => {
               e.preventDefault();
-              setShowModel(true);
+              dispatch<any>({
+                type: "show",
+                payload: {
+                  title: "Confirm Submit",
+                  description: "Do you really want to submit the form?",
+                  callback: handleContinute
+                }
+              })
             }}>
             <Grid container >
               {/* LEFT */}
@@ -165,7 +175,7 @@ const ManageProductOne = (props: Props) => {
                       Attribute Set :
                     </Grid>
                     <Grid item md={7} sm={12} xs={12}>
-                      <SelectCuttom
+                      {/* <SelectCuttom
                         name="attributeSet"
                         onChange={handleChange}
                         value={manageForm.attributeSet}>
@@ -181,7 +191,11 @@ const ManageProductOne = (props: Props) => {
                               value={option}>{option}
                             </option>
                           ))}
-                      </SelectCuttom>
+                      </SelectCuttom> */}
+                      <SelectBox
+                        options={dataMock.attributeSet}
+                        onChange={handleChange} 
+                        name={''} />
                       {/* <SelectCustomComponent
                         changeHandle={handleChange}
                         name="attributeSet"

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAppDispatch, useAppSelector } from '../hook'
+import { useAppDispatch, useAppSelector } from '../redux/hook'
 import { productAction } from '../action/product.action'
 import useAxiosHook from '../axios-hook/axiosHook'
 import { Box, } from '@mui/material'
@@ -8,7 +8,7 @@ import { ThemeProvider, createTheme } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { styled } from '@mui/styles'
 import { Link } from 'react-router-dom'
-import data from '../data.json';
+import data from '../mock/data.json';
 type Props = {}
 const theme = createTheme({
     breakpoints: {

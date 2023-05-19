@@ -1,4 +1,4 @@
-import { Sign, EProduct } from "./constance/action.enum"
+import { Sign, EProduct } from "../constance/action.enum"
 
 
 interface ActionRequest {
@@ -14,7 +14,9 @@ interface ActionFail {
     error?: any
 }
 interface ActionSignOut {
-    type: Sign.SIGN_OUT
+    type: Sign.SIGN_OUT,
+    popup?: boolean;
+    callback?: (param: any) => any;
 }
 
 export type Action = ActionRequest | ActionResponse | ActionFail | ActionSignOut
@@ -22,11 +24,11 @@ export type Action = ActionRequest | ActionResponse | ActionFail | ActionSignOut
 
 interface IUser {
     email: string,
-    username:string,
+    username: string,
     firstName: string,
     lastName: string,
     token: string,
-    roles:string[]
+    roles: string[]
 }
 interface ISignUer {
     loading?: boolean;
@@ -55,3 +57,5 @@ interface IProduct {
     products?: [];
     error?: any
 }
+
+export type IPopupAction = { type: "show", payload: IPopup } | { type: "hide" }

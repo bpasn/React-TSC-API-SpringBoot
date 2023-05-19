@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { ButtonCustom, ButtonCustom2 } from '../page/admin/ecommerce/addProduct/AddProductStyle';
+import { useAppDispatch, useAppSelector } from '../redux/hook';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -21,31 +22,18 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-interface Props {
-    open?: boolean;
-    title?: string,
-    description?: string,
-    setState?: React.Dispatch<React.SetStateAction<boolean>>;
-    // handleClose?: () => void;
-    handleOpen?: () => void;
-    callback?: (params: any) => any;
+interface Props extends IPopup{
+    
 }
-const ModelPopup: React.FunctionComponent<Props> = (
-    { open = false,
-        title = "Confirm Submit",
-        description = "Do you really want to submit the form?",
-        handleOpen,
-        setState,
-        callback }: Props
+const ModelPopup: React.FunctionComponent<Props> = (props: Props
 ) => {
-    // const [open, setOpen] = React.useState(false);
-    // const handleOpen = () => setOpen(true);
-    const handleClose = () => setState?.(false);
+    const dispatch = useAppDispatch();
+    const { title, description, callback,settingPopup } = useAppSelector(state => state.Popup);
     return (
         <div>
             <Modal
-                open={open}
-                onClose={handleClose}
+                open={settingPopup}
+                onClose={() => dispatch<any>({type:"hide"})}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
@@ -65,7 +53,7 @@ const ModelPopup: React.FunctionComponent<Props> = (
                         columnGap: ".25rem"
                     }}>
                         <Box textAlign={"center"} margin={"0 auto"}>
-                            <ButtonCustom2 type='button' variant={"danger"} onClick={handleClose}>Cancle</ButtonCustom2>
+                            <ButtonCustom2 type='button' variant={"danger"} onClick={() => dispatch<any>({type:"hide"})}>Cancle</ButtonCustom2>
                         </Box>
                         <Box textAlign={"center"} margin={"0 auto"}>
                             <ButtonCustom type='button' onClick={callback}>Confirm</ButtonCustom>
@@ -73,7 +61,7 @@ const ModelPopup: React.FunctionComponent<Props> = (
                     </Box>
                 </Box>
             </Modal>
-        </div>
+        </div >
     );
 }
 export default ModelPopup;

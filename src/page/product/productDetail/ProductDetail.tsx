@@ -1,7 +1,7 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import data from '../../../data.json';
+import data from '../../../mock/data.json';
 import ProductDetailImage from '../../../components/product/productDetail/productDetailImage/ProductDetailImage';
 import ProductDescription from '../../../components/product/productDetail/productDescription/ProductDescription';
 interface Props {

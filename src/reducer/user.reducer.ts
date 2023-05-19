@@ -1,5 +1,5 @@
 import { Sign } from "../constance/action.enum";
-import { Action, ISignUer, IUser } from "../typing_action";
+import { Action, ISignUer, IUser } from "../interface/typing_action";
 
 export const userReducer = (state: ISignUer= {}, action: Action): ISignUer => {
     switch (action.type) {

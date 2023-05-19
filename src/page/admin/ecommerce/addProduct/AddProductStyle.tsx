@@ -1,4 +1,4 @@
-import { Grid, Theme, Typography, styled } from "@mui/material";
+import { Grid, Typography, styled } from "@mui/material";
 import { TypographyProps } from '@mui/material/Typography';
 
 interface VariantProps {
@@ -113,6 +113,9 @@ export const SelectCuttom = styled('select')({
     border: "1px solid #ced4da",
     '@media(prefers-reduced-motion: reduce)': {
         transition: "none"
+    },
+    '& ::focus-visable':{
+        border: "1px solid #ced4da",
     },
     '& option': {
         fontWeight: 'normal',

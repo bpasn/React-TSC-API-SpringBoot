@@ -1,6 +1,6 @@
 import { Alert, Box, Button, Container, TextField, Typography } from '@mui/material'
 import React, { ChangeEvent, FormEvent } from 'react'
-import { useAppDispatch, useAppSelector } from '../hook'
+import { useAppDispatch, useAppSelector } from '../redux/hook'
 import { signIn } from '../action/user.action'
 import {  useNavigate } from 'react-router-dom'
 import useAxiosHook from '../axios-hook/axiosHook'
@@ -37,7 +37,8 @@ const Signinpage = (props: Props) => {
                 </Typography>
                 <Container component={"form"} sx={{ mt: 1 }} onSubmit={handleSubmit}>
                     {error && <Alert severity="error" sx={{
-                        alignItems:"center"
+                        alignItems:"center",
+                        fontSize:'14px'
                     }}>{
                         error.response && error.response.data ? error.response.data.error : error.message
                     }</Alert>}

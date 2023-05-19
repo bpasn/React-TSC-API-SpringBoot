@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, compose, Action } from 'redux'
 import thunk, { ThunkAction } from 'redux-thunk'
-import reducerCombinde from './combineReducer'
-import initialState from './initialState';
-import { Action as _Action } from './typing_action';
+import reducerCombinde from '../redux/combineReducer'
+import initialState from '../redux/initialState';
+import { Action as _Action } from '../interface/typing_action';
 
 declare global {
     interface Window {

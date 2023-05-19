@@ -1,5 +1,5 @@
 import { EProduct } from './../constance/action.enum';
-import {  IPorductAction, IProduct } from "../typing_action";
+import {  IPorductAction, IProduct } from "../interface/typing_action";
 
 export const productReducer = (state: IProduct = {}, action: IPorductAction): IProduct => {
     switch (action.type) {

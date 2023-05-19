@@ -1,5 +1,5 @@
 import * as React from 'react';
-import dataMock from '../../datamock.json';
+import dataMock from '../../mock/datamock.json';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
