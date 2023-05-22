@@ -16,6 +16,7 @@ type Props = {
     defaultText?: string;
     onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
+// React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement
 
 const SelectBox = ({
     value,

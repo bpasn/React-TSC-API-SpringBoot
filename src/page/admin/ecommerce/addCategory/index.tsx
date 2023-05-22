@@ -1,7 +1,7 @@
 import ProductPageLayout from '../../ProductPageLayout'
 import { Box, Card, CardContent, CardHeader, Grid, Typography } from '@mui/material'
 import { ButtonCustom, FromGroupGrid, InputCustom, InputFileCustom, TextAreaCustom } from '../addProduct/AddProductStyle'
-import SelectCustomComponent from '../../../../components/admin/customComponent/SelectCustomComponent'
+import { SelectBox } from '../../../../components/admin/customComponent/SelectBox'
 
 type Props = {}
 
@@ -103,9 +103,12 @@ function addCategory({ type, title, form }: { type: 'SUB' | 'MAIN', title: strin
                                                     Is Active :
                                                 </Grid>
                                                 <Grid item xs={12} md={8} sm={12}>
-                                                    <SelectCustomComponent name="isActive" listOption={['Yes', 'No']} value={''} setState={function (value: any): void {
-                                                        throw new Error('Function not implemented.')
-                                                    }} />
+                                                    <SelectBox
+                                                    options={['Yes', 'No']}
+                                                    value=''
+                                                    name='isActive'
+                                                    onChange={() => {}}
+                                                    />
                                                 </Grid>
                                             </FromGroupGrid>
 

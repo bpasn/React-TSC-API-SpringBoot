@@ -209,7 +209,7 @@ export const InputCustom = styled('input')({
     width: '100%',
     height: 'calc(1.5em + .75rem + 10px)',
     padding: '.375rem .75rem',
-    fontSize: '1rem',
+    fontSize: '1.35rem',
     fontWeight: 400,
     lineHeight: 1.5,
     color: '#495057',

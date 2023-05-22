@@ -42,6 +42,12 @@
         "Monitors",
         "Clothing"
     ],
+    "taxClass": [
+        "Electronics",
+        "Apparel",
+        "Clothing",
+        "Furniture"
+    ],
     "productType": [
         "Simple Product",
         "Configurable Product",
@@ -53,33 +59,30 @@
     "menu": [
         {
             "main": "Ecommerce",
-            "url":"/admin/ecommerce",
+            "url": "/admin/ecommerce",
             "sub": [
                 {
-                    "name":"Add/Edit Product",
-                    "url":"/admin/ecommerce/add-product"
+                    "name": "Add/Edit Product",
+                    "url": "/admin/ecommerce/add-product"
                 },
                 {
-                    "name":"Add/Edit Categories",
-                    "url":"/admin/ecommerce/add-categories"
+                    "name": "Add/Edit Categories",
+                    "url": "/admin/ecommerce/add-categories"
                 }
-                
             ]
         },
         {
             "main": "UI Kit",
-            "url":"/admin/ui-kit",
+            "url": "/admin/ui-kit",
             "sub": [
                 {
-                    "name":"Helper Classes",
-                    "url":"/admin/ui-kit/helper-classes"
+                    "name": "Helper Classes",
+                    "url": "/admin/ui-kit/helper-classes"
                 },
                 {
-                    "name":"Color Library",
-                    "url":"/admin/ui-kit/color-library"
+                    "name": "Color Library",
+                    "url": "/admin/ui-kit/color-library"
                 }
-                
-                
             ]
         }
     ]

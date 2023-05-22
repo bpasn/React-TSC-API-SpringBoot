@@ -1,48 +1,75 @@
 import { Box, FormControl, Grid, Typography } from '@mui/material'
 import React from 'react'
-import SelectCustomComponent from '../customComponent/SelectCustomComponent'
-import { ButtonCustom, SelectCuttom } from '../../../page/admin/ecommerce/addProduct/AddProductStyle'
+import { ButtonCustom } from '../../../page/admin/ecommerce/addProduct/AddProductStyle'
 import { BsFillImageFill } from "react-icons/bs"
-// import ModelPopup from '../../ModelPopup'
 import { useAppDispatch } from '../../../redux/hook'
 import { SelectBox } from '../customComponent/SelectBox'
 import dataMock from '../../../mock/datamock.json'
+import axios from 'axios'
 type Props = {}
 interface IFormManage1 {
   attributeSet: string,
   productType: string,
-  // imageProduct:string,
+  files: File[]
+  imageProduct: {
+    base64: string | ArrayBuffer | null;
+    filename: string;
+  }[],
 }
 const ManageProductOne = (props: Props) => {
-  const [attributeType, setAttributeType] = React.useState<string>("Default");
-  const [productType, setProductType] = React.useState<string>("Simple Product");
-  const [showModel, setShowModel] = React.useState<boolean>(false);
   const [manageForm, setManageForm] = React.useState<IFormManage1>({
     attributeSet: "Default",
-    productType: "Simple Product"
+    productType: "Simple Product",
+    files: [],
+    imageProduct: []
   })
   const dispatch = useAppDispatch();
   const formRef = React.useRef()
-  const handleChange = (event: React.ChangeEvent<any>) => {
+  const filesRef = React.useRef<HTMLInputElement | null>();
+
+  const inputFileChange = () => {
+    let files = filesRef.current?.files
+    if (!files?.length) return;
+    for (let i: number = 0; i < files.length; i++) {
+      let reader = new FileReader();
+      let file = files[i];
+      if(files[i]){
+        setManageForm(prve => ({
+          ...prve, files: [
+            ...prve.files, file
+          ],
+        }))
+      }
+      let url = reader.readAsDataURL(files[i])
+      let filename = files[i].name;
+      reader.onload = () => {
+        setManageForm(prve => ({
+          ...prve, imageProduct: [
+            ...prve.imageProduct, {
+              filename: filename,
+              base64: reader.result as string,
+            },
+          ],
+        }))
+      }
+    }
+  }
+  
+
+  const handleChange =  (event: React.ChangeEvent<any>) => {
     setManageForm(prve => ({ ...prve, [event.target.name]: event.target.value }))
   }
-  const handleContinute = (event: React.FormEvent<HTMLInputElement>): void => {
+  const handleContinute = async (event: React.FormEvent<HTMLInputElement>): Promise<void> => {
     event.preventDefault();
     dispatch<any>({ type: "hide" })
-    console.log(manageForm)
+    await axios.post('/api/product/test',manageForm)
   }
-
   return (
     <Grid container sx={{
       backgroundColor: "#fff",
       borderRadius: '5px',
       marginBottom: "40px"
     }}>
-      {/* <ModelPopup
-        open={showModel}
-        setState={setShowModel}
-        callback={handleContinute}
-      /> */}
       <Grid item sm={12} xs={12} md={12} >
         <Box className="statbox widget box box-shadow"
           component={'div'}>
@@ -76,7 +103,8 @@ const ManageProductOne = (props: Props) => {
                   callback: handleContinute
                 }
               })
-            }}>
+            }}
+          >
             <Grid container >
               {/* LEFT */}
               <Grid item xl={4} lg={4} md={12} sm={12} xs={12} textAlign={"center"} mb={5} >
@@ -97,6 +125,10 @@ const ManageProductOne = (props: Props) => {
                       borderStyle: 'none',
                       overflowClipMargin: "content-box",
                       overflow: "clip",
+                      '& img': {
+                        height: '110px',
+                        objectFit: 'contain',
+                      },
                       '& svg': {
                         verticalAlign: "middle",
                         width: "110px",
@@ -104,7 +136,7 @@ const ManageProductOne = (props: Props) => {
                       }
                     }}
                   >
-                    {false ? <img src="https://designreset.com/preview-equation/default/assets/img/t-shirt-5.jpg" alt="" />
+                    {manageForm.imageProduct.length ? <img src={manageForm.imageProduct[0].base64 as string} alt="" />
                       : <BsFillImageFill />}
                   </Box>
                 </Box>
@@ -112,6 +144,9 @@ const ManageProductOne = (props: Props) => {
                 {/* thumbs-img */}
                 <Box mt={4} display={"flex"} justifyContent={"center"}
                   sx={{
+                    flexFlow: "wrap",
+                    rowGap: '1rem',
+                    columnGap: '1rem',
                     '& img': {
                       width: "50px",
                       verticalAlign: "middle",
@@ -121,10 +156,12 @@ const ManageProductOne = (props: Props) => {
                     }
                   }}
                 >
-                  {/* <Box mr={2}>
-                      <img src="https://designreset.com/preview-equation/default/assets/img/t-shirt-3.jpg" alt="" />
+                  {manageForm.imageProduct.length ? manageForm.imageProduct.slice(1).map((img, index: number) => (
+                    <Box mr={2} key={img.filename + index}>
+                      <img src={img.base64 as string} alt="product" />
                     </Box>
-                    <Box mr={2}>
+                  )) : <></>}
+                  {/* <Box mr={2}>
                       <img src="https://designreset.com/preview-equation/default/assets/img/t-shirt-2.jpg" alt="" />
                     </Box>
                     <Box mr={2}>
@@ -145,18 +182,20 @@ const ManageProductOne = (props: Props) => {
                     border: "1px dashed"
                   }}>
                     <i className='fa fa-plus-circle'></i>
-                    <input type="file" name="imageProducts[]" multiple style={{
-                      position: "absolute",
-                      left: 0,
-                      right: 0,
-                      top: 0,
-                      bottom: 0,
-                      opacity: 0,
-                      cursor: "pointer",
-                      zIndex: '99999',
-                      width: "50px",
-                      height: "50px"
-                    }} />
+                    <Box component="input"
+                      onChange={inputFileChange}
+                      type="file" name="imageProducts[]" ref={filesRef} multiple style={{
+                        position: "absolute",
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                        opacity: 0,
+                        cursor: "pointer",
+                        zIndex: '99999',
+                        width: "50px",
+                        height: "50px"
+                      }} />
                   </Box>
                 </Box>
               </Grid>
@@ -175,40 +214,11 @@ const ManageProductOne = (props: Props) => {
                       Attribute Set :
                     </Grid>
                     <Grid item md={7} sm={12} xs={12}>
-                      {/* <SelectCuttom
-                        name="attributeSet"
-                        onChange={handleChange}
-                        value={manageForm.attributeSet}>
-                        {[
-                          'Default',
-                          'Furniture',
-                          'Shoes',
-                          'Cell Phones',
-                          'Monitors',
-                          'Clothing',].map((option: string) => (
-                            <option
-                              key={option}
-                              value={option}>{option}
-                            </option>
-                          ))}
-                      </SelectCuttom> */}
                       <SelectBox
                         options={dataMock.attributeSet}
-                        onChange={handleChange} 
-                        name={''} />
-                      {/* <SelectCustomComponent
-                        changeHandle={handleChange}
-                        name="attributeSet"
-                        listOption={[
-                          'Default',
-                          'Furniture',
-                          'Shoes',
-                          'Cell Phones',
-                          'Monitors',
-                          'Clothing',]}
-                          value={manageForm?.attributeSet} 
-                          setState={setManageForm}
-                      /> */}
+                        onChange={handleChange}
+                        name={'attributeSet'} />
+
                     </Grid>
                   </Grid>
                   <br></br>
@@ -219,12 +229,11 @@ const ManageProductOne = (props: Props) => {
                       Product Type :
                     </Grid>
                     <Grid item md={7} xs={12} sm={12}>
-                      <SelectCustomComponent
-                        changeHandle={handleChange}
+                      <SelectBox
                         name="productType"
-                        setState={setManageForm}
+                        onChange={handleChange}
                         value={manageForm.productType}
-                        listOption={['Simple Product', 'Configurable Product', 'Bundle Product', 'Grouped Product', 'Virtual Product', 'Downloadable Product']} />
+                        options={dataMock.productType} />
                     </Grid>
                   </Grid>
                   <br></br>

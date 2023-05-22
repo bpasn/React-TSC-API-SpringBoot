@@ -1,11 +1,20 @@
 import { Box, Card, CardContent, CardHeader, Grid, Typography } from '@mui/material'
-import React from 'react'
 import { BoxCheckBoxCustom, ButtonCustom, CheckBoxCustom, CheckBoxLable, FromGroupGrid, InputCustom, InputFileCustom, TextAreaCustom } from '../../../page/admin/ecommerce/addProduct/AddProductStyle'
-import SelectCustomComponent from '../customComponent/SelectCustomComponent'
-
+import { SelectBox } from '../customComponent/SelectBox'
+import dataMock from '../../../mock/datamock.json';
+import React from 'react';
 type Props = {}
 
 const ManageProductTow = (props: Props) => {
+
+    const [formData, setFormData] = React.useState({
+        
+    });
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        setFormData(prve => ({ ...prve, [event.target.name]: event.target.value }))
+    }
+    console.log(formData)
     return (
         <Grid container sx={{
             backgroundColor: "#fff",
@@ -34,14 +43,14 @@ const ManageProductTow = (props: Props) => {
                         </Grid>
                     </Box>
                     <Box className="widget-content widget-content-area add-manage-product-2">
-                        <Grid container spacing={4}>
+                        <Grid container spacing={4}  padding="0 15px">
                             {/* LEFT */}
-                            <Grid item xl={7} lg={7} xs={12} md={12} >
+                            <Grid item xl={7} lg={7} xs={12} md={12}>
                                 <Card
                                     sx={{
                                         marginBottom: "20px",
                                         backgroundColor: "#fff",
-                                        borderRadius: ".25rem"
+                                        borderRadius: ".25rem",
                                     }}
                                 >
                                     <CardHeader
@@ -70,7 +79,7 @@ const ManageProductTow = (props: Props) => {
                                                         Name :
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
-                                                        <InputCustom name="name" />
+                                                        <InputCustom onChange={handleChange} name="name" />
                                                     </Grid>
                                                 </FromGroupGrid>
 
@@ -80,7 +89,7 @@ const ManageProductTow = (props: Props) => {
                                                         Description :
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
-                                                        <TextAreaCustom name="description" rows={4} cols={5} />
+                                                        <TextAreaCustom onChange={handleChange} name="description" rows={4} cols={5} />
                                                     </Grid>
                                                 </FromGroupGrid>
 
@@ -90,7 +99,7 @@ const ManageProductTow = (props: Props) => {
                                                         Short Description :
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
-                                                        <TextAreaCustom name="shortDescription" rows={4} cols={5} />
+                                                        <TextAreaCustom onChange={handleChange} name="shortDescription" rows={4} cols={5} />
                                                     </Grid>
                                                 </FromGroupGrid>
 
@@ -100,9 +109,13 @@ const ManageProductTow = (props: Props) => {
                                                         Category :
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
-                                                        <SelectCustomComponent defaultText='Select Category' name="category" listOption={['Electronics', 'Apparel', 'Clothing', 'Furniture']} value={''} setState={function (value: any): void {
-                                                            throw new Error('Function not implemented.')
-                                                        }} />
+                                                        <SelectBox
+                                                            options={dataMock.category}
+                                                            name="category"
+                                                            value=""
+                                                            defaultText='Select Category'
+                                                            onChange={handleChange}
+                                                        />
                                                     </Grid>
                                                 </FromGroupGrid>
 
@@ -112,9 +125,13 @@ const ManageProductTow = (props: Props) => {
                                                         Brand :
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
-                                                        <SelectCustomComponent defaultText='Select Brand ' name="brand" listOption={['Microsoft', 'Samsung', 'HP', 'Ford']} value={''} setState={function (value: any): void {
-                                                            throw new Error('Function not implemented.')
-                                                        }} />
+                                                        <SelectBox
+                                                            defaultText='Select Brand'
+                                                            options={dataMock.brand}
+                                                            name="brand"
+                                                            value=""
+                                                            onChange={handleChange}
+                                                        />
                                                     </Grid>
                                                 </FromGroupGrid>
 
@@ -124,15 +141,13 @@ const ManageProductTow = (props: Props) => {
                                                         Color :
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
-                                                        <SelectCustomComponent defaultText='Select Color' name="color" listOption={[
-                                                            'Black',
-                                                            'White',
-                                                            'Blue',
-                                                            'Red',
-                                                            'Green'
-                                                        ]} value={''} setState={function (value: any): void {
-                                                            throw new Error('Function not implemented.')
-                                                        }} />
+                                                        <SelectBox
+                                                            defaultText='Select Color'
+                                                            options={dataMock.color}
+                                                            name="color"
+                                                            value=""
+                                                            onChange={handleChange}
+                                                        />
                                                     </Grid>
                                                 </FromGroupGrid>
 
@@ -142,17 +157,13 @@ const ManageProductTow = (props: Props) => {
                                                         Size :
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
-                                                        <SelectCustomComponent defaultText='Select Size' name="size" listOption={[
-                                                            'S',
-                                                            'M',
-                                                            'L',
-                                                            'XL',
-                                                            'XXL',
-                                                            'XXXL'
-
-                                                        ]} value={''} setState={function (value: any): void {
-                                                            throw new Error('Function not implemented.')
-                                                        }} />
+                                                        <SelectBox
+                                                            defaultText='Select Size'
+                                                            options={dataMock.size}
+                                                            name="size"
+                                                            value=""
+                                                            onChange={handleChange}
+                                                        />
                                                     </Grid>
                                                 </FromGroupGrid>
 
@@ -162,7 +173,7 @@ const ManageProductTow = (props: Props) => {
                                                         SKU :
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
-                                                        <InputCustom name='SKU' />
+                                                        <InputCustom onChange={handleChange} name='SKU' />
                                                     </Grid>
                                                 </FromGroupGrid>
 
@@ -172,7 +183,7 @@ const ManageProductTow = (props: Props) => {
                                                         Weight :
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
-                                                        <InputCustom name='weight' />
+                                                        <InputCustom onChange={handleChange} name='weight' />
                                                     </Grid>
                                                 </FromGroupGrid>
 
@@ -182,14 +193,12 @@ const ManageProductTow = (props: Props) => {
                                                         Status :
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
-                                                        <SelectCustomComponent
-                                                            defaultText="Please Select "
+                                                        <SelectBox
+                                                            options={dataMock.status}
                                                             name="status"
-                                                            listOption={[]}
-                                                            value={''}
-                                                            setState={function (value: any): void {
-                                                                throw new Error('Function not implemented.')
-                                                            }} />
+                                                            value=""
+                                                            onChange={handleChange}
+                                                        />
                                                     </Grid>
                                                 </FromGroupGrid>
 
@@ -199,14 +208,12 @@ const ManageProductTow = (props: Props) => {
                                                         Visibility :
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
-                                                        <SelectCustomComponent
-                                                            defaultText="Please Select"
+                                                        <SelectBox
+                                                            options={dataMock.visibility}
                                                             name="visibility"
-                                                            listOption={[]}
-                                                            value={''}
-                                                            setState={function (value: any): void {
-                                                                throw new Error('Function not implemented.')
-                                                            }} />
+                                                            value=""
+                                                            onChange={handleChange}
+                                                        />
                                                     </Grid>
                                                 </FromGroupGrid>
 
@@ -216,7 +223,7 @@ const ManageProductTow = (props: Props) => {
                                                         Country of Manufacture :
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
-                                                        <InputCustom placeholder='Type a Country...' name='countryOfManufacture' />
+                                                        <InputCustom onChange={handleChange} placeholder='Type a Country...' name='countryOfManufacture' />
                                                     </Grid>
                                                 </FromGroupGrid>
                                             </Box>
@@ -225,9 +232,10 @@ const ManageProductTow = (props: Props) => {
                                 </Card>
                             </Grid>
                             {/* RIGHT */}
-                            <Grid item xl={5} lg={5} md={12}>
+                            <Grid item xl={5} lg={5} md={12} >
                                 <Card
                                     sx={{
+                                       
                                         marginBottom: "20px",
                                         backgroundColor: "#fff",
                                         borderRadius: ".25rem"
@@ -258,7 +266,7 @@ const ManageProductTow = (props: Props) => {
                                                     Price :
                                                 </Grid>
                                                 <Grid item xs={12} md={8} sm={12}>
-                                                    <InputCustom name="price" />
+                                                    <InputCustom onChange={handleChange} name="price" />
                                                 </Grid>
                                             </FromGroupGrid>
 
@@ -268,9 +276,12 @@ const ManageProductTow = (props: Props) => {
                                                     Tax Class :
                                                 </Grid>
                                                 <Grid item xs={12} md={8} sm={12}>
-                                                    <SelectCustomComponent defaultText='Select Category' name="taxClass" listOption={['Electronics', 'Apparel', 'Clothing', 'Furniture']} value={''} setState={function (value: any): void {
-                                                        throw new Error('Function not implemented.')
-                                                    }} />
+                                                    <SelectBox
+                                                        options={dataMock.taxClass}
+                                                        name="textClass"
+                                                        value=""
+                                                        onChange={handleChange}
+                                                    />
                                                 </Grid>
                                             </FromGroupGrid>
 
@@ -280,7 +291,7 @@ const ManageProductTow = (props: Props) => {
                                                     Discount :
                                                 </Grid>
                                                 <Grid item xs={12} md={8} sm={12}>
-                                                    <InputCustom name="discount" />
+                                                    <InputCustom onChange={handleChange} name="discount" />
                                                 </Grid>
                                             </FromGroupGrid>
 
@@ -290,7 +301,7 @@ const ManageProductTow = (props: Props) => {
                                                     Coupon :
                                                 </Grid>
                                                 <Grid item xs={12} md={8} sm={12}>
-                                                    <InputCustom name="coupon" />
+                                                    <InputCustom onChange={handleChange} name="coupon" />
                                                 </Grid>
                                             </FromGroupGrid>
 
@@ -300,7 +311,7 @@ const ManageProductTow = (props: Props) => {
                                                 </Grid>
                                                 <Grid item xs={12} md={8} sm={12}>
                                                     <BoxCheckBoxCustom>
-                                                        <CheckBoxCustom type='checkbox' />
+                                                        <CheckBoxCustom onChange={handleChange} type='checkbox' />
                                                         <CheckBoxLable >Check to Apply</CheckBoxLable>
                                                     </BoxCheckBoxCustom>
                                                 </Grid>
@@ -355,7 +366,7 @@ const ManageProductTow = (props: Props) => {
                                                     QTY :
                                                 </Grid>
                                                 <Grid item xs={12} md={8} sm={12}>
-                                                    <InputCustom name="inventory" />
+                                                    <InputCustom onChange={handleChange} name="inventory" />
                                                 </Grid>
                                             </FromGroupGrid>
                                             {/*  KEYWORD */}
@@ -376,7 +387,7 @@ const ManageProductTow = (props: Props) => {
                                                     Keywords :
                                                 </Grid>
                                                 <Grid item xs={12} md={8} sm={12}>
-                                                    <InputCustom name="keyword" />
+                                                    <InputCustom onChange={handleChange} name="keyword" />
                                                 </Grid>
                                             </FromGroupGrid>
 
