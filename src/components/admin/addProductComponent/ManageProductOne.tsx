@@ -10,59 +10,61 @@ type Props = {}
 interface IFormManage1 {
   attributeSet: string,
   productType: string,
-  files: File[]
-  imageProduct: {
-    base64: string | ArrayBuffer | null;
-    filename: string;
-  }[],
+  files: File[],
 }
 const ManageProductOne = (props: Props) => {
   const [manageForm, setManageForm] = React.useState<IFormManage1>({
     attributeSet: "Default",
     productType: "Simple Product",
     files: [],
-    imageProduct: []
   })
+  const [imageProduct, setImageProduct] = React.useState<{
+    base64: string | ArrayBuffer | null;
+    filename: string;
+  }[]>([])
+  const [files, setFiles] = React.useState<File>();
+
   const dispatch = useAppDispatch();
   const formRef = React.useRef()
   const filesRef = React.useRef<HTMLInputElement | null>();
 
-  const inputFileChange = () => {
-    let files = filesRef.current?.files
+  const inputFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let files = event.target.files
     if (!files?.length) return;
     for (let i: number = 0; i < files.length; i++) {
       let reader = new FileReader();
       let file = files[i];
-      if(files[i]){
-        setManageForm(prve => ({
-          ...prve, files: [
-            ...prve.files, file
-          ],
-        }))
-      }
+      // setFiles(file);
+      setManageForm(prve => ({
+        ...prve,
+        files: [
+          ...prve.files, file
+        ],
+      }))
+
       let url = reader.readAsDataURL(files[i])
       let filename = files[i].name;
       reader.onload = () => {
-        setManageForm(prve => ({
-          ...prve, imageProduct: [
-            ...prve.imageProduct, {
-              filename: filename,
-              base64: reader.result as string,
-            },
-          ],
-        }))
+        setImageProduct(prve => ([...prve, { filename, base64: reader.result }]))
       }
     }
   }
-  
 
-  const handleChange =  (event: React.ChangeEvent<any>) => {
+
+  const handleChange = (event: React.ChangeEvent<any>) => {
     setManageForm(prve => ({ ...prve, [event.target.name]: event.target.value }))
   }
-  const handleContinute = async (event: React.FormEvent<HTMLInputElement>): Promise<void> => {
+  const handleContinute = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     dispatch<any>({ type: "hide" })
-    await axios.post('/api/product/test',manageForm)
+    const response = await axios.post('/api/product/test', {
+      ...manageForm
+    }, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    console.log(response.data.id)
   }
   return (
     <Grid container sx={{
@@ -92,6 +94,7 @@ const ManageProductOne = (props: Props) => {
           </Box>
           <Box className="widget-content widget-content-area add-manage-product-1"
             component={"form"}
+            id="manage1"
             ref={formRef}
             onSubmit={(e) => {
               e.preventDefault();
@@ -136,7 +139,7 @@ const ManageProductOne = (props: Props) => {
                       }
                     }}
                   >
-                    {manageForm.imageProduct.length ? <img src={manageForm.imageProduct[0].base64 as string} alt="" />
+                    {imageProduct.length ? <img src={imageProduct[0].base64 as string} alt="" />
                       : <BsFillImageFill />}
                   </Box>
                 </Box>
@@ -156,7 +159,7 @@ const ManageProductOne = (props: Props) => {
                     }
                   }}
                 >
-                  {manageForm.imageProduct.length ? manageForm.imageProduct.slice(1).map((img, index: number) => (
+                  {imageProduct.length ? imageProduct.slice(1).map((img, index: number) => (
                     <Box mr={2} key={img.filename + index}>
                       <img src={img.base64 as string} alt="product" />
                     </Box>
@@ -184,7 +187,7 @@ const ManageProductOne = (props: Props) => {
                     <i className='fa fa-plus-circle'></i>
                     <Box component="input"
                       onChange={inputFileChange}
-                      type="file" name="imageProducts[]" ref={filesRef} multiple style={{
+                      type="file" name="files" ref={filesRef} multiple style={{
                         position: "absolute",
                         left: 0,
                         right: 0,
