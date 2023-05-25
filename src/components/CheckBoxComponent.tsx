@@ -2,11 +2,12 @@ import React from 'react'
 import { CheckBoxCustom, CustomBox, LabelCustom } from '../page/auth/StyledAuth'
 import { Box } from '@mui/material'
 import { FormState, RegisterOptions, FieldValues, UseFormRegister, useForm } from "react-hook-form"
+import { JsxElement } from 'typescript'
 
 type Props = {
     id: string;
     name: string;
-    label?: string;
+    label?: React.ReactNode | React.ReactElement | JSX.Element | JSX.Element[];
     value: string;
     formState?: FormState<FieldValues>,
     register?: UseFormRegister<any>
@@ -34,15 +35,10 @@ const CheckBoxComponent = ({ value, label, id, options,
                 <CustomBox sx={{
                     marginRight: "1rem"
                 }}>
-                    <CheckBoxCustom {...register?.(name, { ...options })} id={id} type='checkbox' />
-                    <LabelCustom htmlFor={id}>{label}</LabelCustom>
+                    <CheckBoxCustom {...register?.(name, { ...options })} id={id} type='checkbox'  />
+                    <LabelCustom error={err ? true : false} htmlFor={id}>{label}</LabelCustom>
                 </CustomBox>
             </Box>
-            {err && err.type === 'required' && !ref.checked && (
-                <div style={{textAlign:"center"}}>
-                    <span role="alert" style={{ marginTop: "20px", textAlign: "center" }}>Pleas checked to continute</span>
-                </div>
-            )}
         </Box>
     )
 }

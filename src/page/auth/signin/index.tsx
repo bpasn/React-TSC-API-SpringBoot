@@ -60,9 +60,8 @@ const AuthSignIn = (props: Props) => {
                             id='checkbox1'
                             label='Remember me'
                             value=''
-                            name={'checkbox1'} options={{ required: true }}
-                            formState={formState}
-                            register={register} />
+                            name={'checkbox1'}
+                        />
                         <ButtonForm type='submit'>Sign in</ButtonForm>
                         <Box textAlign="center" marginTop="1rem" color={"#888da8"}>
                             <Link to="#">Forgot Password ?</Link>

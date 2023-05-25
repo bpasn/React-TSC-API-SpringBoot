@@ -151,7 +151,7 @@ export const FormControlTextFied = styled(Box)({
 
 })
 
-export const CheckBoxCustom = styled('input')({
+export const CheckBoxCustom = styled('input')((prop) => ({
     boxSizing: "border-box",
     padding: "0", 
     position: "absolute",
@@ -163,8 +163,8 @@ export const CheckBoxCustom = styled('input')({
     fontSize: "ingerit",
     lineHeight: "ingerit",
    
-})
-export const LabelCustom = styled("label")({
+}))
+export const LabelCustom = styled("label")<{error:boolean}>(prop => ({
     textTransform: "initial",
     fontSize: "14px",
     color: "#e95f2b",
@@ -191,6 +191,9 @@ export const LabelCustom = styled("label")({
         content:'""',
     },
     '&::after':{
+        borderRadius:"3px",
+        backgroundColor:prop.error ? 'red !improtant' : '#dee2e6',
+        opacity:prop.error ? '.3' : 0,
         position:"absolute",
         top:"0.25rem",
         left:"-2.5rem",
@@ -201,10 +204,9 @@ export const LabelCustom = styled("label")({
         background:"no-repeat 50%/50% 50%",
         [`${CheckBoxCustom}:checked`]:{
             bakgroundImage:`url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e")`
-
         }
     },
-})
+}))
 export const CustomBox = styled(Box)({
     position: "relative",
     display: "block",

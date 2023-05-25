@@ -5,7 +5,7 @@ type Props = {}
 const ProtectComponent = (props: Props) => {
     const userState = useAppSelector(state => state.SignUser)
     const { userInfo } = userState
-    return userInfo ? <Outlet /> :  <Outlet /> 
+    return userInfo ? <Outlet /> :  <Navigate to={'/signin'} replace />
     // <Navigate to={'/login'} replace />
 }
 
