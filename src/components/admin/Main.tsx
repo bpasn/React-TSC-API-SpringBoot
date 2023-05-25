@@ -10,6 +10,7 @@ export const MainAppBar = styled('main', { shouldForwardProp: (prop) => prop !==
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
+    paddingRight:"0",
     marginLeft: `-${drawerwidth}px`,
     ...(open && {
         transition: theme.transitions.create('margin', {

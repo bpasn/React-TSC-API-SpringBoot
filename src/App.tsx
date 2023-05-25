@@ -13,11 +13,8 @@ import LayoutAdmin from './components/admin/LayoutAdmin';
 import AddCategory from './page/admin/ecommerce/addCategory';
 import { useAppSelector } from './redux/hook';
 import ModelPopup from './components/ModelPopup';
-<<<<<<< Updated upstream
 import AuthSignIn from './page/auth/signin';
-=======
-import SignIn from './page/auth';
->>>>>>> Stashed changes
+import AuthSignUp from './page/auth/signup';
 function App() {
   const { settingPopup} = useAppSelector(state => state.Popup)
 
@@ -40,6 +37,7 @@ function App() {
         </Route>
         <Route path='/login' element={<Signinpage />} />
         <Route path='/signin' element={<AuthSignIn />} />
+        <Route path='/signup' element={<AuthSignUp />} />
         <Route path='/Execption' element={<Exception />} />
         <Route path='/*' element={<Exception />} />
       </Routes>

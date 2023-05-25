@@ -26,7 +26,7 @@ export const BoxAuthBackground = styled(Box)({
     backgroundAttachment: "fixed",
     display: "flex",
     alignItems: "center",
-    fontFamily:'"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif',
+    fontFamily: '"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif',
     paddingTop: "40px",
     paddingBottom: "40px",
     height: "100%",
@@ -151,6 +151,78 @@ export const FormControlTextFied = styled(Box)({
 
 })
 
+export const CheckBoxCustom = styled('input')({
+    boxSizing: "border-box",
+    padding: "0", 
+    position: "absolute",
+    zIndex: "-1",
+    opacity: "0",
+    overflow: "visible",
+    margin: 0,
+    fontFamily: "inherit",
+    fontSize: "ingerit",
+    lineHeight: "ingerit",
+   
+})
+export const LabelCustom = styled("label")({
+    textTransform: "initial",
+    fontSize: "14px",
+    color: "#e95f2b",
+    marginBottom: "16px", 
+    cursor: "pointer",
+    position:"relative",
+    verticalAlign:"top",
+    display:"inline-block",
+    '& a':{
+        color:"#e95f2b"
+    },
+    '&::before':{
+        borderRadius:"0.25rem",
+        backgroundColor:"#dee2e6",
+        border:"none",
+        transition:'background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out',
+        position:"absolute",
+        top:"0.25rem",
+        left:"-2.5rem",
+        display:"block",
+        width:"1.5rem",
+        height:"1.5rem",
+        pointerEvents:"none",
+        content:'""',
+    },
+    '&::after':{
+        position:"absolute",
+        top:"0.25rem",
+        left:"-2.5rem",
+        display:"block",
+        width:"1.5rem",
+        height:"1.5rem",
+        content:'""',
+        background:"no-repeat 50%/50% 50%",
+        [`${CheckBoxCustom}:checked`]:{
+            bakgroundImage:`url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e")`
+
+        }
+    },
+})
+export const CustomBox = styled(Box)({
+    position: "relative",
+    display: "block",
+    minHeight: "1.5rem",
+    paddingLeft: "1.5rem",
+    [`& ${CheckBoxCustom}:checked~${LabelCustom}::before`]:{
+        color:"#fff",
+        borderColor:"#007bff",
+        backgroundColor:"#007bff",
+        borderRadius:"0.25rem",
+        border:"none",
+    },
+    [`& ${CheckBoxCustom}:checked~${LabelCustom}:after`]:{
+        backgroundImage:`url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e")`,
+    }
+})
+
+
 
 const socialColor = (social: string) => {
     switch (social) {
@@ -164,10 +236,10 @@ const socialColor = (social: string) => {
 }
 
 export const ButtonForm = styled('button')({
-    color: '#fff!important',
+    color: '#fff',
     backgroundImage: 'linear-gradient(to right,#243949 0,#517fa4 100%)',
     backgroundColor: '#517fa4',
-    padding: '7px 20px',
+    padding: '10px 23px',
     textShadow: 'none',
     fontSize: '14px',
     fontWeight: 400,
@@ -179,9 +251,9 @@ export const ButtonForm = styled('button')({
     willChange: 'opacity,transform',
     transition: 'all .3s ease-out',
     webkitTransition: 'all .3s ease-out',
-    textAlign:"center",
-    width:"100%",
-    borderRadius:"1.875rem",
-    border:"none"
+    textAlign: "center",
+    width: "100%",
+    borderRadius: "1.875rem",
+    border: "none"
 
 })

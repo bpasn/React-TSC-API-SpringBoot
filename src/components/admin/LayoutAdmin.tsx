@@ -16,7 +16,7 @@ import { Link, Outlet } from 'react-router-dom';
 import { Button, Collapse, ListItem, Menu, MenuItem } from '@mui/material';
 import { TiShoppingCart } from 'react-icons/ti'
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
-
+import '../../assets/css/admin.css'
 import { AppBar } from './AppBar';
 import { DrawerHeader } from './DrawerHeader';
 import { MainAppBar } from './Main';
@@ -43,6 +43,22 @@ const theme = createTheme({
                     padding: "17px 12px 17px 48px",
                     fontWeight: 200,
                     color: "#888ea8"
+                }
+            }
+        },
+        MuiModal:{
+            styleOverrides:{
+                root:{
+                    [`${AppBar}`]:{
+                        backgroundColor:"tranparent"
+                    }
+                }
+            }
+        },
+        MuiAppBar:{
+            styleOverrides:{
+                root:{
+                    paddingRight:"0px !improtant"
                 }
             }
         }
@@ -72,8 +88,9 @@ export default function PersistentDrawerLeft() {
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ display: 'flex', backgroundColor: "#e9ecef" }}>
-                <AppBar drawerwidth={drawerwidth} position="fixed" open={open}>
+                <AppBar  drawerwidth={drawerwidth} position="fixed" open={open}>
                     <Toolbar sx={{
+                        paddingRight:"0px",
                         backgroundColor: "#fff",
                         '& .css-jzk4qw-MuiPaper-root-MuiAppBar-root': {
                             boxShadow: "none !improtant",
@@ -210,7 +227,7 @@ export default function PersistentDrawerLeft() {
                         ))}
                     </List>
                 </Drawer>
-                <MainAppBar drawerwidth={drawerwidth} open={open}>
+                <MainAppBar  drawerwidth={drawerwidth} open={open}>
                     <DrawerHeader />
                     {<Outlet />}
                 </MainAppBar>
