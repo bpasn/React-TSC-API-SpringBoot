@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { userReducer } from '../reducer/user.reducer'
+import { signUpReducer, userReducer } from '../reducer/user.reducer'
 import { productReducer } from '../reducer/product.reducer'
 export default combineReducers(
     {
@@ -24,7 +24,7 @@ export default combineReducers(
                     return state;
             }
         },
-        Error: (state: IError = { message: "", status: false, severity: "success" }, action: { type: string, payload: IError }) => {
+        Error: (state: IError = { message: "", status: false, severity: "success" }, action: { type: 'SHOW' | 'HIDE', payload: IError }) => {
             switch (action.type) {
                 case "SHOW":
                     return { ...state, message: action.payload.message, status: true, severity: action.payload.severity }
@@ -34,6 +34,7 @@ export default combineReducers(
                     return state;
 
             }
-        }
+        },
+        SignUp: signUpReducer
     }
 )

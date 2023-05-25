@@ -22,6 +22,10 @@ interface ActionSignOut {
 export type Action = ActionRequest | ActionResponse | ActionFail | ActionSignOut
 
 
+export type SignUp = {
+    type: Sign.SIGN_UP_REQUEST
+} | { type: Sign.SIGN_UP_SUCCESS } | { type: Sign.SIGN_UP_FAIL }
+
 interface IUser {
     email: string,
     username: string,

@@ -1,11 +1,15 @@
-import { BoxAuthBackground, ButtonForm, Division, FormControlTextFied, FormGroupCustom, IConSocial, InputField, LabelCustom, LabelForm, Line, SocialBox } from '../StyledAuth'
-import { Box, Grid, Typography } from '@mui/material'
+import { BoxAuthBackground, ButtonFormSubmit, Division, FormControlTextFied, FormGroupCustom, Line, SocialBox } from '../StyledAuth'
+import { Alert, Box, Grid, Stack, Typography } from '@mui/material'
 import ButtonSocialComponent from '../../../components/ButtonSocialComponent'
 import { Link } from 'react-router-dom'
-import { useForm, FieldValues } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import '../../../assets/css/index.css'
 import CheckBoxComponent from '../../../components/CheckBoxComponent'
 import InputComponent from '../../../components/InputComponent'
+import { useAppDispatch, useAppSelector } from '../../../redux/hook'
+import useAxiosHook from '../../../axios-hook/axiosHook'
+import { signIn } from '../../../action/user.action'
+import { useEffect } from 'react'
 type Props = {}
 interface Request {
     username: string;
@@ -14,8 +18,12 @@ interface Request {
 }
 const AuthSignIn = (props: Props) => {
     const { register, handleSubmit, formState } = useForm<Request>();
-    const onSubmit = (data: Request) => console.log()
-    console.log(formState.errors)
+    const { severity, status, message } = useAppSelector(state => state.Error);
+    const dispatch = useAppDispatch();
+    const onSubmit = (data: Request) => {
+        dispatch<any>(signIn(data))
+    }
+
     return (
         <BoxAuthBackground>
             <FormGroupCustom onSubmit={handleSubmit(onSubmit)}>
@@ -39,33 +47,62 @@ const AuthSignIn = (props: Props) => {
                             <Line side='right' />
                         </Division>
 
+                        {status ?
+                            (<Stack sx={{ width: '100%' }} mb={2} spacing={2} >
+                                <Alert sx={{
+                                    alignItems: "center",
+                                    fontSize: "14px",
+                                    fontFamily: 'Open Sans,"Helvetica Neue",Helvetica,Arial,sans-serif',
+                                    fontWeight: 600
+                                }} severity={severity}>{message}</Alert>
+                            </Stack>)
+                            : ''
+                        }
                         <FormControlTextFied marginBottom={"2.85rem"}>
                             <InputComponent
                                 formState={formState}
-                                options={{ required: true, maxLength: 30 }}
+                                options={{
+                                    required: true, maxLength: 30, minLength: {
+                                        value: 6,
+                                        message: "Username requirements: 6 characters or more"
+                                    }
+                                }}
                                 register={register}
                                 name={'username'}
                                 label='Login' />
                         </FormControlTextFied>
                         <FormControlTextFied marginBottom={"3rem"}>
                             <InputComponent
+                                type='password'
+                                suffixIcon={true}
                                 formState={formState}
-                                options={{ required: true, maxLength: 30 }}
+                                options={{
+                                    required: true,
+                                    pattern: {
+                                        value: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
+                                        message: "Password requirements: 8-20 characters, 1 number, 1 letter, 1 symbol."
+                                    }
+                                }}
                                 register={register}
                                 name={'password'}
                                 label='Password' />
                         </FormControlTextFied>
 
-                        <CheckBoxComponent
-                            id='checkbox1'
-                            label='Remember me'
-                            value=''
-                            name={'checkbox1'}
-                        />
-                        <ButtonForm type='submit'>Sign in</ButtonForm>
-                        <Box textAlign="center" marginTop="1rem" color={"#888da8"}>
-                            <Link to="#">Forgot Password ?</Link>
+                        <Box display={"flex"} justifyContent={"space-between"} mb={"1.5rem"} mt={"1rem"}>
+                            <CheckBoxComponent
+                                id='checkbox1'
+                                label='Remember me'
+                                value=''
+                                name={'checkbox1'}
+                            />
+                            <Box textAlign="center" color={"#5247bd"}>
+                                <Link to="#">Forgot Password ?</Link>
+                            </Box>
                         </Box>
+
+                        <ButtonFormSubmit disableTouchRipple type='submit'>Sign in</ButtonFormSubmit>
+
+
                     </Grid>
                     <Grid item sm={12} md={12}>
                         <Box textAlign="center">

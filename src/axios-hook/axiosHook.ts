@@ -34,7 +34,6 @@ const useAxiosHook = () => {
                 "error": string;
                 "message": string;
             }>) => {
-                console.log(error.response?.status)
                 if (error.response?.status === 401) {
                     // return navigate("/login",{
                     //     state:{

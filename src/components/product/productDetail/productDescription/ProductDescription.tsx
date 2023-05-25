@@ -67,7 +67,6 @@ const ProductDescription = ({ product }: Props) => {
 
     const handleChange = (e: SelectChangeEvent<string>, child: React.ReactNode) => {
         setSize(size => {
-            console.log(size)
             return {
                 size: e.target.value,
                 stock: 1

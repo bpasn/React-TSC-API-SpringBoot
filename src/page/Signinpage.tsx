@@ -14,7 +14,7 @@ const Signinpage = (props: Props) => {
     const { userInfo, loading, error } = useAppSelector(state => state.SignUser)
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        dispatch<any>(signIn(axiosHook,bodySign as ISignInRequest))
+        dispatch<any>(signIn(bodySign as ISignInRequest))
     }
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setBodySign({ ...bodySign, [e.target.name]: e.target.value }as ISignInRequest) 

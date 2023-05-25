@@ -103,14 +103,3 @@ export const HeaderIconBoxCart = styled(Box)({
 export const NavMobile = styled('nav')({
 
 })
-
-// (({theme}) => {
-//     const theme = useTheme();
-//     const matches = useMediaQuery(theme.breakpoints.up('sm'));
-//     console.log(matches)
-//     return ({
-//         width: { sm: "16%", md: "33%" },
-//         display: "flex",
-//         justifyContent: "flex-end"
-//     })
-// })

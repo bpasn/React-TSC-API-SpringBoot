@@ -14,7 +14,6 @@ const ManageProductTow = (props: Props) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setFormData(prve => ({ ...prve, [event.target.name]: event.target.value }))
     }
-    console.log(formData)
     return (
         <Grid container sx={{
             backgroundColor: "#fff",

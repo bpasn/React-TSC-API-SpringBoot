@@ -1,5 +1,6 @@
-import { Box } from "@mui/material";
+import { Box, SxProps } from "@mui/material";
 import styled from "@emotion/styled/macro";
+import MuiButton from "@mui/material/Button";
 
 export const LabelForm = styled("label")({
     display: "inline-block",
@@ -18,7 +19,8 @@ export const InputField = styled("input")({
     backgroundClip: "padding-box",
     border: "1px solid #ced4da",
     borderRaduis: "0.25rem",
-    transition: "border-color .15s ease-in-out,box-shadow .15s ease-in-out"
+    transition: "border-color .15s ease-in-out,box-shadow .15s ease-in-out",
+   
 })
 export const BoxAuthBackground = styled(Box)({
     backgroundImage: "linear-gradient(to top, #88d3ce 0%, #6e45e2 100%)",
@@ -153,7 +155,7 @@ export const FormControlTextFied = styled(Box)({
 
 export const CheckBoxCustom = styled('input')((prop) => ({
     boxSizing: "border-box",
-    padding: "0", 
+    padding: "0",
     position: "absolute",
     zIndex: "-1",
     opacity: "0",
@@ -162,65 +164,76 @@ export const CheckBoxCustom = styled('input')((prop) => ({
     fontFamily: "inherit",
     fontSize: "ingerit",
     lineHeight: "ingerit",
-   
+
 }))
-export const LabelCustom = styled("label")<{error:boolean}>(prop => ({
-    textTransform: "initial",
-    fontSize: "14px",
-    color: "#e95f2b",
-    marginBottom: "16px", 
-    cursor: "pointer",
-    position:"relative",
-    verticalAlign:"top",
-    display:"inline-block",
-    '& a':{
-        color:"#e95f2b"
-    },
-    '&::before':{
-        borderRadius:"0.25rem",
-        backgroundColor:"#dee2e6",
-        border:"none",
-        transition:'background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out',
-        position:"absolute",
-        top:"0.25rem",
-        left:"-2.5rem",
-        display:"block",
-        width:"1.5rem",
-        height:"1.5rem",
-        pointerEvents:"none",
-        content:'""',
-    },
-    '&::after':{
-        borderRadius:"3px",
-        backgroundColor:prop.error ? 'red !improtant' : '#dee2e6',
-        opacity:prop.error ? '.3' : 0,
-        position:"absolute",
-        top:"0.25rem",
-        left:"-2.5rem",
-        display:"block",
-        width:"1.5rem",
-        height:"1.5rem",
-        content:'""',
-        background:"no-repeat 50%/50% 50%",
-        [`${CheckBoxCustom}:checked`]:{
-            bakgroundImage:`url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e")`
-        }
-    },
-}))
+
+export const LabelCustom = styled("label")<{ error: boolean } & {
+    children?: React.ReactNode,
+    component?: React.ElementType<any> | undefined,
+    ref?: React.Ref<unknown> | undefined;
+    sx?: SxProps<any> | undefined
+}>(prop => {
+    return ({
+        textTransform: "initial",
+        fontSize: "14px",
+        color: "#e95f2b",
+        marginBottom: "16px",
+        cursor: "pointer",
+        position: "relative",
+        verticalAlign: "top",
+        display: "inline-block",
+        '& a': {
+            color: "#e95f2b"
+        },
+        '&::before': {
+            borderRadius: "0.25rem",
+            backgroundColor: "#dee2e6",
+            border: "none",
+            transition: 'background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out',
+            position: "absolute",
+            top: "0.25rem",
+            left: "-2.5rem",
+            display: "block",
+            width: "1.5rem",
+            height: "1.5rem",
+            pointerEvents: "none",
+            content: '""',
+        },
+        '&::after': {
+            borderRadius: "3px",
+            backgroundColor: prop.error ? 'red !important' : '#dee2e6 !important',
+            opacity: prop.error ? '.7' : 1,
+            position: "absolute",
+            top: "0.25rem",
+            left: "-2.5rem",
+            display: "block",
+            width: "1.5rem",
+            height: "1.5rem",
+            content: '""',
+            background: "no-repeat 50%/50% 50%",
+            // [`${CheckBoxCustom}:checked`]: {
+
+            //     bakgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e")`
+            // }
+        },
+    })
+})
 export const CustomBox = styled(Box)({
     position: "relative",
     display: "block",
     minHeight: "1.5rem",
     paddingLeft: "1.5rem",
-    [`& ${CheckBoxCustom}:checked~${LabelCustom}::before`]:{
-        color:"#fff",
-        borderColor:"#007bff",
-        backgroundColor:"#007bff",
-        borderRadius:"0.25rem",
-        border:"none",
+    [`& ${CheckBoxCustom}:checked~${LabelCustom}::before`]: {
+        color: "#fff",
+        borderColor: "#007bff",
+        backgroundColor: "#007bff",
+        borderRadius: "0.25rem",
+        border: "none",
     },
-    [`& ${CheckBoxCustom}:checked~${LabelCustom}:after`]:{
-        backgroundImage:`url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e")`,
+    [`& ${CheckBoxCustom}:checked~${LabelCustom}:after`]: {
+        borderColor: "#007bff !important",
+        backgroundColor: "#007bff !important",
+        backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e")`,
     }
 })
 
@@ -237,10 +250,10 @@ const socialColor = (social: string) => {
     }
 }
 
-export const ButtonForm = styled('button')({
+export const ButtonFormSubmit = styled(MuiButton)({
     color: '#fff',
-    backgroundImage: 'linear-gradient(to right,#243949 0,#517fa4 100%)',
-    backgroundColor: '#517fa4',
+    backgroundImage: 'linear-gradient(to right,#f78ca0 0,#f9748f 19%,#fd868c 60%,#fe9a8b 100%)',
+    backgroundColor: '#fe9a8b',
     padding: '10px 23px',
     textShadow: 'none',
     fontSize: '14px',
@@ -256,6 +269,11 @@ export const ButtonForm = styled('button')({
     textAlign: "center",
     width: "100%",
     borderRadius: "1.875rem",
-    border: "none"
+    border: "none",
+    '& :hover': {
+        color:"#fff",
+        textDecoration:"none",
+        boxShadow: '0 5px 20px 0 rgba(0,0,0,.3)',
+    },
 
 })

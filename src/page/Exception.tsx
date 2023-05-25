@@ -4,8 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 type Props = {}
 const Exception = (props: Props) => {
     const location = useLocation()
-    location.pathname.replace(location.pathname,"Execption")
-    console.log(location)
     return (
         <Box
             sx={{
