@@ -230,7 +230,8 @@ export const InputCustom = styled('input')({
     },
     '&::placeholder': {
         fontSize: "14px"
-    }
+    },
+    
 })
 
 export const TextAreaCustom = styled('textarea')({

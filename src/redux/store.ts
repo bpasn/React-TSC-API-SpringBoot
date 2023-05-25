@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose, Action } from 'redux'
+import { createStore, applyMiddleware, compose, Action, Dispatch } from 'redux'
 import thunk, { ThunkAction } from 'redux-thunk'
 import reducerCombinde from '../redux/combineReducer'
 import initialState from '../redux/initialState';
@@ -17,6 +17,7 @@ const store = createStore(reducerCombinde, initialState, composeEnhancers(applyM
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+export type AppDispatch2 = typeof store.dispatch<{ type: "SHOW" | "HIDE", payload: IError }>
 export type AppState = typeof store.getState
 
 

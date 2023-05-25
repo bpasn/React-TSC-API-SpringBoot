@@ -1,6 +1,7 @@
-import { Box, ThemeProvider, createTheme } from '@mui/material';
+import { Alert, Box, Stack, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react'
 import { Crumbs, CrumbsA, CrumbsLi, CrumbsUl, PageHeader, PageTitle, PageTitleH3 } from './ecommerce/addProduct/AddProductStyle';
+import { useAppDispatch2, useAppSelector } from '../../redux/hook';
 
 type Props = {
     titleHeader?: string;
@@ -12,7 +13,6 @@ type Props = {
 const theme = createTheme({
     components: {
         MuiOutlinedInput: {
-
             styleOverrides: {
                 root: {
                     fontSize: "14px",
@@ -52,11 +52,21 @@ const theme = createTheme({
     }
 })
 const ProductPageLayout: React.FC<Props> = (props: Props) => {
+    const { severity, message, status } = useAppSelector(state => state.Error)
+    const dispatch = useAppDispatch2()
+
     return (
         <ThemeProvider theme={theme} >
             <Box sx={{
                 padding: "0 30px",
-                maxWidth: "none !improtant"
+                
+                maxWidth: "none !improtant",
+                '& input, select , textarea, :focus': {
+                    outline: 'none !important',
+                    color: "#495057",
+                    backgroundColor: '#fff',
+                    borderClor: '#80bdff',
+                }
             }}>
                 <PageHeader>
                     <PageTitle>
@@ -89,7 +99,17 @@ const ProductPageLayout: React.FC<Props> = (props: Props) => {
                         </Crumbs>
                     </PageTitle>
                 </PageHeader>
-
+                {status ?
+                    (<Stack sx={{ width: '100%' }} mb={2} spacing={2} >
+                        <Alert sx={{
+                            alignItems: "center",
+                            fontSize:"14px",
+                            fontFamily:'Open Sans,"Helvetica Neue",Helvetica,Arial,sans-serif',
+                            fontWeight:600
+                        }} severity={severity}>{message}</Alert>
+                    </Stack>)
+                    : ''
+                }
                 {/* content */}
                 {props.children}
             </Box>

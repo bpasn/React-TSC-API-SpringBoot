@@ -5,15 +5,12 @@ import { BsFillImageFill } from "react-icons/bs"
 import { useAppDispatch } from '../../../redux/hook'
 import { SelectBox } from '../customComponent/SelectBox'
 import dataMock from '../../../mock/datamock.json'
-import axios from 'axios'
+import { insertProductImage } from '../../../action/product.action'
+import useAxiosHook from '../../../axios-hook/axiosHook'
 type Props = {}
-interface IFormManage1 {
-  attributeSet: string,
-  productType: string,
-  files: File[],
-}
+
 const ManageProductOne = (props: Props) => {
-  const [manageForm, setManageForm] = React.useState<IFormManage1>({
+  const [manageForm, setManageForm] = React.useState<IInsertImageProductRequest>({
     attributeSet: "Default",
     productType: "Simple Product",
     files: [],
@@ -25,6 +22,7 @@ const ManageProductOne = (props: Props) => {
   const [files, setFiles] = React.useState<File>();
 
   const dispatch = useAppDispatch();
+  const axiosHook = useAxiosHook()
   const formRef = React.useRef()
   const filesRef = React.useRef<HTMLInputElement | null>();
 
@@ -57,14 +55,8 @@ const ManageProductOne = (props: Props) => {
   const handleContinute = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     dispatch<any>({ type: "hide" })
-    const response = await axios.post('/api/product/test', {
-      ...manageForm
-    }, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    console.log(response.data.id)
+    dispatch<any>(insertProductImage(axiosHook, manageForm))
+
   }
   return (
     <Grid container sx={{
@@ -98,6 +90,16 @@ const ManageProductOne = (props: Props) => {
             ref={formRef}
             onSubmit={(e) => {
               e.preventDefault();
+              if (!manageForm.files.length) {
+                window.scrollTo(0, 0)
+                return dispatch({
+                  type: "SHOW", payload: {
+                    message: "Plase select file",
+                    status: true,
+                    severity: 'warning'
+                  }
+                })
+              }
               dispatch<any>({
                 type: "show",
                 payload: {

@@ -23,6 +23,17 @@ export default combineReducers(
                 default:
                     return state;
             }
+        },
+        Error: (state: IError = { message: "", status: false, severity: "success" }, action: { type: string, payload: IError }) => {
+            switch (action.type) {
+                case "SHOW":
+                    return { ...state, message: action.payload.message, status: true, severity: action.payload.severity }
+                case "HIDE":
+                    return { ...state, status: false }
+                default:
+                    return state;
+
+            }
         }
     }
 )

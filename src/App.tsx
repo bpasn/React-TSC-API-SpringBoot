@@ -13,7 +13,11 @@ import LayoutAdmin from './components/admin/LayoutAdmin';
 import AddCategory from './page/admin/ecommerce/addCategory';
 import { useAppSelector } from './redux/hook';
 import ModelPopup from './components/ModelPopup';
+<<<<<<< Updated upstream
 import AuthSignIn from './page/auth/signin';
+=======
+import SignIn from './page/auth';
+>>>>>>> Stashed changes
 function App() {
   const { settingPopup} = useAppSelector(state => state.Popup)
 

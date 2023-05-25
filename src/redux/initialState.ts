@@ -5,16 +5,22 @@ export default <InitialState>{
     SignUser: {
         userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!) : null
     },
-    Popup:{
-        settingPopup:false
+    Popup: {
+        settingPopup: false
+    },
+    Error: {
+        message: "",
+        status: false,
+        severity: 'success'
     }
 }
 
- interface InitialState {
+interface InitialState {
     SignUser: {
         userInfo: IUser
     },
-    Popup:IPopup
+    Popup: IPopup,
+    Error: IError
 }
 
 

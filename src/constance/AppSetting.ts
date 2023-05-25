@@ -11,7 +11,8 @@ export default class AppSetting {
     static readonly SIGNIN_FAIL = "SIGNIN_FAIL";
     static readonly SIGN_OUT = "SIGN_OUT";
 
-    static readonly PRODUCT_REQUEST= "PRODUCT_REQUEST";
-    static readonly PRODUCT_SUCCESS= "PRODUCT_SUCCESS";
-    static readonly PRODUCT_FAIL= "PRODUCT_FAIL";
+    static readonly PRODUCT_REQUEST = "PRODUCT_REQUEST";
+    static readonly PRODUCT_SUCCESS = "PRODUCT_SUCCESS";
+    static readonly PRODUCT_FAIL = "PRODUCT_FAIL";
+    static readonly INSERT_IMAGE_PRODUCT = "/api/product/insert-image-product";
 }

@@ -19,3 +19,9 @@ interface IInsertProductRequest {
     weight: string;
 
 }
+
+interface IInsertImageProductRequest {
+    attributeSet: string,
+    productType: string,
+    files: File[],
+  }
