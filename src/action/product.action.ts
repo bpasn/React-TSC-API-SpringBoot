@@ -17,13 +17,26 @@ export const productAction = (axiosHook: AxiosInstance) => async (dispatch: AppD
 
 export const insertProductImage = (axiosHook: AxiosInstance, body: IInsertImageProductRequest) => async (dispatch: AppDispatch) => {
     dispatch({ type: EProduct.PRODUCT_REQUEST })
+    dispatch<any>({ type: 'SHOW_LOADING' })
     try {
         const { data } = await axiosHook.post(AppSetting.INSERT_IMAGE_PRODUCT, body, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
         })
-        dispatch({ type: EProduct.PRODUCT_SUCCESS, payload: data})
+        setTimeout(() => {
+            dispatch<any>({ type: 'HIDE_LOADING' })
+            dispatch({ type: EProduct.PRODUCT_SUCCESS, payload: data})
+            dispatch({
+                type: "SHOW", payload: {
+                    message: "INSERT PRODUCT SUCCESS",
+                    status: true,
+                    severity: "success"
+                }
+            })
+        },3*1000)
+       
+
     } catch (error) {
         dispatch({
             type: "SHOW", payload: {

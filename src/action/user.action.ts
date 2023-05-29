@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosInstance } from "axios"
 import { AppDispatch, AppState } from "../redux/store"
 import AppSetting from "../constance/AppSetting"
-import { Sign } from "../constance/action.enum"
+import { ERole, Sign } from "../constance/action.enum"
+import { IUser } from "../interface/typing_action"
 
 export const signIn = (bodySign: ISignInRequest) => {
     return async (dispatch: AppDispatch) => {
@@ -17,7 +18,15 @@ export const signIn = (bodySign: ISignInRequest) => {
                 status:true,
                 severity:"success"
             }})
-            setTimeout(() => window.location.href = '/', 2 * 1000)
+            setTimeout(() => {
+                let users = data as IUser
+                if(users.roles.includes(ERole.ROLE_ADMIN)) {
+                    window.location.href = '/admin'
+                }else{
+                    window.location.href = '/'
+                }
+               
+            }, 2 * 1000)
         } catch (error) {
             dispatch({ type: Sign.SIGNIN_FAIL, error: error })
             dispatch({

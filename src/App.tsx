@@ -41,7 +41,7 @@ function App() {
         <Route path='/signin' element={<AuthSignIn />} />
         <Route path='/signup' element={<AuthSignUp />} />
         <Route path='/Execption' element={<Exception />} />
-        <Route path='/*' element={<Exception />} />
+        <Route path='*' element={<Exception />} />
       </Routes>
       <ModelPopup title="" description='' settingPopup={settingPopup} />
     </BrowserRouter>

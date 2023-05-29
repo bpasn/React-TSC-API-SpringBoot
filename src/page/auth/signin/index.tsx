@@ -1,5 +1,5 @@
 import { BoxAuthBackground, ButtonFormSubmit, Division, FormControlTextFied, FormGroupCustom, Line, SocialBox } from '../StyledAuth'
-import { Alert, Box, Grid, Stack, Typography } from '@mui/material'
+import { Alert, Box, CircularProgress, Grid, Stack, Typography } from '@mui/material'
 import ButtonSocialComponent from '../../../components/ButtonSocialComponent'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -7,9 +7,7 @@ import '../../../assets/css/index.css'
 import CheckBoxComponent from '../../../components/CheckBoxComponent'
 import InputComponent from '../../../components/InputComponent'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import useAxiosHook from '../../../axios-hook/axiosHook'
 import { signIn } from '../../../action/user.action'
-import { useEffect } from 'react'
 type Props = {}
 interface Request {
     username: string;
@@ -19,6 +17,7 @@ interface Request {
 const AuthSignIn = (props: Props) => {
     const { register, handleSubmit, formState } = useForm<Request>();
     const { severity, status, message } = useAppSelector(state => state.Error);
+    const { loading } = useAppSelector(state => state.SignUser)
     const dispatch = useAppDispatch();
     const onSubmit = (data: Request) => {
         dispatch<any>(signIn(data))
@@ -48,6 +47,7 @@ const AuthSignIn = (props: Props) => {
                         </Division>
 
                         {status ?
+
                             (<Stack sx={{ width: '100%' }} mb={2} spacing={2} >
                                 <Alert sx={{
                                     alignItems: "center",
@@ -100,8 +100,7 @@ const AuthSignIn = (props: Props) => {
                             </Box>
                         </Box>
 
-                        <ButtonFormSubmit disableTouchRipple type='submit'>Sign in</ButtonFormSubmit>
-
+                        <ButtonFormSubmit disableTouchRipple type='submit'>{loading ? <CircularProgress size={"25px"}  /> : 'Sign in'}</ButtonFormSubmit>
 
                     </Grid>
                     <Grid item sm={12} md={12}>

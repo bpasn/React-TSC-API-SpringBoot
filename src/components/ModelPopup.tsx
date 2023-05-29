@@ -55,7 +55,7 @@ const ModelPopup: React.FunctionComponent<Props> = (props: Props
                             <ButtonCustom2 type='button' variant={"danger"} onClick={() => dispatch<any>({type:"hide"})}>Cancle</ButtonCustom2>
                         </Box>
                         <Box textAlign={"center"} margin={"0 auto"}>
-                            <ButtonCustom type='button' onClick={callback}>Confirm</ButtonCustom>
+                            <ButtonCustom2  type='button' onClick={callback} >Confirm</ButtonCustom2>
                         </Box>
                     </Box>
                 </Box>

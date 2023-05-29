@@ -46,9 +46,10 @@ const InputComponent = ({
             <Box position="relative" sx={{
                 '& i': {
                     position: "absolute",
-                    top: "8px",
+                    top: "6px",
                     right: "5px",
-                    fontSize: "calc(.45rem + 15px)"
+                    fontSize: "calc(.45rem + 15px)",
+                    cursor:"pointer"
                 }
             }}>
                 {register ? (

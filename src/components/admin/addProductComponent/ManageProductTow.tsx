@@ -1,14 +1,17 @@
 import { Box, Card, CardContent, CardHeader, Grid, Typography } from '@mui/material'
-import { BoxCheckBoxCustom, ButtonCustom, CheckBoxCustom, CheckBoxLable, FromGroupGrid, InputCustom, InputFileCustom, TextAreaCustom } from '../../../page/admin/ecommerce/addProduct/AddProductStyle'
+import { BoxCheckBoxCustom, ButtonCustom, ButtonCustom2, CheckBoxCustom, CheckBoxLable, FromGroupGrid, InputCustom, InputFileCustom, TextAreaCustom } from '../../../page/admin/ecommerce/addProduct/AddProductStyle'
 import { SelectBox } from '../customComponent/SelectBox'
 import dataMock from '../../../mock/datamock.json';
 import React from 'react';
-type Props = {}
+import CheckBoxComponent from '../../CheckBoxComponent';
+type Props = {
+    idInsert: string
+}
 
-const ManageProductTow = (props: Props) => {
+const ManageProductTow = ({ idInsert }: Props) => {
 
     const [formData, setFormData] = React.useState({
-        
+
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -42,7 +45,7 @@ const ManageProductTow = (props: Props) => {
                         </Grid>
                     </Box>
                     <Box className="widget-content widget-content-area add-manage-product-2">
-                        <Grid container spacing={4}  padding="0 15px">
+                        <Grid container spacing={4} padding="0 15px">
                             {/* LEFT */}
                             <Grid item xl={7} lg={7} xs={12} md={12}>
                                 <Card
@@ -234,7 +237,7 @@ const ManageProductTow = (props: Props) => {
                             <Grid item xl={5} lg={5} md={12} >
                                 <Card
                                     sx={{
-                                       
+
                                         marginBottom: "20px",
                                         backgroundColor: "#fff",
                                         borderRadius: ".25rem"
@@ -308,11 +311,12 @@ const ManageProductTow = (props: Props) => {
                                             <FromGroupGrid container>
                                                 <Grid item xs={12} md={4} sm={12} component={"label"} display={"inline-block"} marginBottom={"0.5rem"} fontSize={"16px"} color={"#3b3f5c"} htmlFor='Attribute'>
                                                 </Grid>
-                                                <Grid item xs={12} md={8} sm={12}>
-                                                    <BoxCheckBoxCustom>
-                                                        <CheckBoxCustom onChange={handleChange} type='checkbox' />
-                                                        <CheckBoxLable >Check to Apply</CheckBoxLable>
-                                                    </BoxCheckBoxCustom>
+                                                <Grid item xs={12} md={8} sm={12} justifyContent={'start'}>
+                                                    {/* <BoxCheckBoxCustom>
+                                                        <CheckBoxCustom id="apply" onChange={handleChange} type='checkbox' />
+                                                        <CheckBoxLable htmlFor='apply'>Check to Apply</CheckBoxLable>
+                                                    </BoxCheckBoxCustom> */}
+                                                    <CheckBoxComponent id={'apply'} label="Check to Apply" name={'apply'} value=''  />
                                                 </Grid>
                                             </FromGroupGrid>
 
@@ -391,7 +395,7 @@ const ManageProductTow = (props: Props) => {
                                             </FromGroupGrid>
 
                                             <Box textAlign={"center"} margin={"0 auto"}>
-                                                <ButtonCustom>Insert Product</ButtonCustom>
+                                                <ButtonCustom2 disabled={!idInsert}>Insert Product</ButtonCustom2>
                                             </Box>
                                         </CardContent>
                                     </CardContent>

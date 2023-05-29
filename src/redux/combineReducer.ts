@@ -35,6 +35,17 @@ export default combineReducers(
 
             }
         },
+        LoadingProgress: (state: {loading:boolean} = { loading:false }, action: { type: 'SHOW_LOADING' | 'HIDE_LOADING', payload: {loading:boolean} }) => {
+            switch (action.type) {
+                case "SHOW_LOADING":
+                    return { loading:true }
+                case "HIDE_LOADING":
+                    return { loading:false }
+                default:
+                    return state;
+
+            }
+        },
         SignUp: signUpReducer
     }
 )

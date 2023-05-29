@@ -2,6 +2,7 @@ import { Alert, Box, Stack, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react'
 import { Crumbs, CrumbsA, CrumbsLi, CrumbsUl, PageHeader, PageTitle, PageTitleH3 } from './ecommerce/addProduct/AddProductStyle';
 import { useAppDispatch2, useAppSelector } from '../../redux/hook';
+import LoadingPage from '../../components/LoadingPage';
 
 type Props = {
     titleHeader?: string;
@@ -53,13 +54,12 @@ const theme = createTheme({
 })
 const ProductPageLayout: React.FC<Props> = (props: Props) => {
     const { severity, message, status } = useAppSelector(state => state.Error)
-    const dispatch = useAppDispatch2()
-
+    const { loading } = useAppSelector(state => state.LoadingProgress)
     return (
         <ThemeProvider theme={theme} >
             <Box sx={{
                 padding: "0 30px",
-                
+
                 maxWidth: "none !improtant",
                 '& input, select , textarea, :focus': {
                     outline: 'none !important',
@@ -88,6 +88,7 @@ const ProductPageLayout: React.FC<Props> = (props: Props) => {
                                 {props.subMenu?.map((sub: string, index: number) => {
                                     return <CrumbsLi key={sub + index}>
                                         <CrumbsA sx={{
+                                            
                                             fontWeight: `${props.subMenu?.length === index + 1 ? 700 : 'normal'} `
                                         }}>
                                             {sub}
@@ -103,13 +104,14 @@ const ProductPageLayout: React.FC<Props> = (props: Props) => {
                     (<Stack sx={{ width: '100%' }} mb={2} spacing={2} >
                         <Alert sx={{
                             alignItems: "center",
-                            fontSize:"14px",
-                            fontFamily:'Open Sans,"Helvetica Neue",Helvetica,Arial,sans-serif',
-                            fontWeight:600
+                            fontSize: "14px",
+                            fontFamily: 'Open Sans,"Helvetica Neue",Helvetica,Arial,sans-serif',
+                            fontWeight: 600
                         }} severity={severity}>{message}</Alert>
                     </Stack>)
                     : ''
                 }
+                {loading ? <LoadingPage /> : ''}
                 {/* content */}
                 {props.children}
             </Box>

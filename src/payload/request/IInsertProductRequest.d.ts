@@ -21,7 +21,9 @@ interface IInsertProductRequest {
 }
 
 interface IInsertImageProductRequest {
-    attributeSet: string,
-    productType: string,
-    files: File[],
+    id?:string;
+    attributeSet: string;
+    productType: string;
+    files: File[];
+    type:'SAVE' | 'UPDATE' | 'EDIT'
   }

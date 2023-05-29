@@ -1,26 +1,31 @@
 import { Box, FormControl, Grid, Typography } from '@mui/material'
-import React from 'react'
-import { ButtonCustom } from '../../../page/admin/ecommerce/addProduct/AddProductStyle'
+import React, { useEffect } from 'react'
+import { ButtonCustom, ButtonCustom2 } from '../../../page/admin/ecommerce/addProduct/AddProductStyle'
 import { BsFillImageFill } from "react-icons/bs"
-import { useAppDispatch } from '../../../redux/hook'
+import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { SelectBox } from '../customComponent/SelectBox'
 import dataMock from '../../../mock/datamock.json'
 import { insertProductImage } from '../../../action/product.action'
 import useAxiosHook from '../../../axios-hook/axiosHook'
-type Props = {}
+import AppSetting from '../../../constance/AppSetting'
+import { AxiosError } from 'axios'
+type Props = {
+  idInsert: string
+  setIdInsert: React.Dispatch<React.SetStateAction<any>>;
+}
 
 const ManageProductOne = (props: Props) => {
   const [manageForm, setManageForm] = React.useState<IInsertImageProductRequest>({
     attributeSet: "Default",
     productType: "Simple Product",
     files: [],
+    type: 'SAVE'
   })
   const [imageProduct, setImageProduct] = React.useState<{
     base64: string | ArrayBuffer | null;
     filename: string;
   }[]>([])
-  const [files, setFiles] = React.useState<File>();
-
+  const [isAction, setIsAction] = React.useState<'SAVE' | 'UPDATE' | 'EDIT'>('SAVE')
   const dispatch = useAppDispatch();
   const axiosHook = useAxiosHook()
   const formRef = React.useRef()
@@ -29,6 +34,10 @@ const ManageProductOne = (props: Props) => {
   const inputFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let files = event.target.files
     if (!files?.length) return;
+    dispatch<any>({ type: "HIDE" })
+    if (isAction === 'EDIT' && files.length) {
+      setIsAction("UPDATE")
+    }
     for (let i: number = 0; i < files.length; i++) {
       let reader = new FileReader();
       let file = files[i];
@@ -55,9 +64,58 @@ const ManageProductOne = (props: Props) => {
   const handleContinute = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     dispatch<any>({ type: "hide" })
-    dispatch<any>(insertProductImage(axiosHook, manageForm))
-
+    dispatch<any>({ type: "SHOW_LOADING" })
+    // dispatch<any>(insertProductImage(axiosHook, { ...manageForm, type: isAction}))
+    try {
+      if (isAction === 'SAVE') {
+        const { data } = await axiosHook.post(AppSetting.INSERT_IMAGE_PRODUCT, manageForm, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        if (data.success) {
+          dispatch<any>({ type: "HIDE_LOADING" })
+          props.setIdInsert(data.payload.id)
+          setIsAction("EDIT")
+          dispatch({
+            type: "SHOW", payload: {
+              message: data.payload.message,
+              status: true,
+              severity: 'success'
+            }
+          })
+        }
+      } else {
+        const { data } = await axiosHook.post(AppSetting.UPDATE_IMAGE_PRODUCT, { ...manageForm, id: props.idInsert }, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        if (data.success) {
+          dispatch<any>({ type: "HIDE_LOADING" })
+          props.setIdInsert(data.payload.id)
+          setIsAction("EDIT")
+          dispatch({
+            type: "SHOW", payload: {
+              message: data.payload.message,
+              status: true,
+              severity: 'success'
+            }
+          })
+        }
+      }
+    } catch (error) {
+      dispatch<any>({ type: "HIDE_LOADING" })
+      dispatch({
+        type: "SHOW", payload: {
+          message: error instanceof AxiosError && error.response && error.response.data && error.response.data.message ? error.response.data.message : (error instanceof Error && error.message),
+          status: true,
+          severity: 'error'
+        }
+      })
+    }
   }
+
   return (
     <Grid container sx={{
       backgroundColor: "#fff",
@@ -166,12 +224,7 @@ const ManageProductOne = (props: Props) => {
                       <img src={img.base64 as string} alt="product" />
                     </Box>
                   )) : <></>}
-                  {/* <Box mr={2}>
-                      <img src="https://designreset.com/preview-equation/default/assets/img/t-shirt-2.jpg" alt="" />
-                    </Box>
-                    <Box mr={2}>
-                      <img src="https://designreset.com/preview-equation/default/assets/img/t-shirt-4.jpg" alt="" />
-                    </Box> */}
+
                   {/* file-input */}
                   <Box sx={{
                     position: "relative",
@@ -197,7 +250,7 @@ const ManageProductOne = (props: Props) => {
                         bottom: 0,
                         opacity: 0,
                         cursor: "pointer",
-                        zIndex: '99999',
+                        zIndex: '100',
                         width: "50px",
                         height: "50px"
                       }} />
@@ -243,7 +296,7 @@ const ManageProductOne = (props: Props) => {
                   </Grid>
                   <br></br>
                   <Box textAlign={"center"} margin={"0 auto"}>
-                    <ButtonCustom type='submit'>Continute</ButtonCustom>
+                    <ButtonCustom2 disabled={isAction === 'EDIT' ? true : false} type='submit'>Continute</ButtonCustom2>
                   </Box>
                 </Box>
               </Grid>

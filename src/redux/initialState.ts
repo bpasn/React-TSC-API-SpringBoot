@@ -12,6 +12,9 @@ export default <InitialState>{
         message: "",
         status: false,
         severity: 'success'
+    },
+    LoadingProgress: {
+        loading: false
     }
 }
 
@@ -20,7 +23,8 @@ interface InitialState {
         userInfo: IUser
     },
     Popup: IPopup,
-    Error: IError
+    Error: IError,
+    LoadingProgress: { loading: boolean }
 }
 
 

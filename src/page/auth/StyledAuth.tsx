@@ -20,7 +20,7 @@ export const InputField = styled("input")({
     border: "1px solid #ced4da",
     borderRaduis: "0.25rem",
     transition: "border-color .15s ease-in-out,box-shadow .15s ease-in-out",
-   
+
 })
 export const BoxAuthBackground = styled(Box)({
     backgroundImage: "linear-gradient(to top, #88d3ce 0%, #6e45e2 100%)",
@@ -140,11 +140,11 @@ export const Division = styled(Box)({
     overflow: "hidden",
     position: "relative",
     textAlign: "center",
-    cursor: "pointer",
     width: "100%",
     color: "#e95f2b",
     '& span': {
-        fontSize: "13px"
+        fontSize: "13px",
+        cursor: 'pointer'
     }
 
 })
@@ -169,6 +169,7 @@ export const CheckBoxCustom = styled('input')((prop) => ({
 
 export const LabelCustom = styled("label")<{ error: boolean } & {
     children?: React.ReactNode,
+    color?: string;
     component?: React.ElementType<any> | undefined,
     ref?: React.Ref<unknown> | undefined;
     sx?: SxProps<any> | undefined
@@ -176,7 +177,7 @@ export const LabelCustom = styled("label")<{ error: boolean } & {
     return ({
         textTransform: "initial",
         fontSize: "14px",
-        color: "#e95f2b",
+        color: prop.color ? prop.color : "#e95f2b",
         marginBottom: "16px",
         cursor: "pointer",
         position: "relative",
@@ -271,8 +272,8 @@ export const ButtonFormSubmit = styled(MuiButton)({
     borderRadius: "1.875rem",
     border: "none",
     '& :hover': {
-        color:"#fff",
-        textDecoration:"none",
+        color: "#fff",
+        textDecoration: "none",
         boxShadow: '0 5px 20px 0 rgba(0,0,0,.3)',
     },
 

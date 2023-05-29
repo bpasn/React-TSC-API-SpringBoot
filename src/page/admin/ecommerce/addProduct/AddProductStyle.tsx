@@ -2,10 +2,10 @@ import { Grid, Typography, styled } from "@mui/material";
 import { TypographyProps } from '@mui/material/Typography';
 
 interface VariantProps {
-    variant: 'danger' | 'primary' | 'warning' | 'secondary' | 'success' | 'info' | 'dark'
+    variant?: 'danger' | 'primary' | 'warning' | 'secondary' | 'success' | 'info' | 'dark'
 }
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> , VariantProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps {
     // variant: ButtonVariantProps
 }
 export const PageHeader = styled('div')({
@@ -47,9 +47,9 @@ export const CrumbsUl = styled('ul')({
     listStyle: "none",
     backgroundColor: "#e9ecef",
     borderRadius: "0.25rem",
-    // '& li > a:first-of-type': {
-    //     color:"red"
-    // },
+    '& li ': {
+        cursor:"pointer"
+    },
     // '& i': {
     //     speak: 'none;',
     //     fontStyle: 'normal',
@@ -61,7 +61,8 @@ export const CrumbsUl = styled('ul')({
     //     webkitFontSmoothing: 'antialiased'
     // },
     '& li > i': {
-        padding: "0 5px"
+        padding: "0 5px",
+        cursor:"pointer",
     },
     '& li:not(:first-of-type):before': {
         // fontFamily: 'FontAwesome !improtant',
@@ -114,7 +115,7 @@ export const SelectCuttom = styled('select')({
     '@media(prefers-reduced-motion: reduce)': {
         transition: "none"
     },
-    '& ::focus-visable':{
+    '& ::focus-visable': {
         border: "1px solid #ced4da",
     },
     '& option': {
@@ -136,16 +137,17 @@ export const SelectCuttom = styled('select')({
     },
 })
 
-export const ButtonCustom = styled('button')({
+export const ButtonCustom = styled('button')<ButtonProps>(() => ({
     color: "#fff",
     backgroundColor: "#3232b7",
+    border:"1px solid transparent",
     borderColor: "#3232b7",
     borderRadius: "30px",
     boxShadow: "0px 5px 20px 0 rgba(0, 0, 0, 0.2)",
     willChange: "opacity transform",
     transition: "all 0.3s ease-out",
-    WebkitTransition: "all .3s ease-out",
-    padding: ".4375rem 1.25rem",
+    WebkitTransition: "all 0.3s ease-out",
+    padding: "7px 20px",
     textShadow: "none",
     fontSize: "14px",
     fontWeight: 400,
@@ -155,22 +157,29 @@ export const ButtonCustom = styled('button')({
     verticalAlign: "middle",
     userSelect: "none",
     lineHeight: 1.5,
-    cursor:"pointer"
-
-})
+    cursor: "pointer",
+    '&:disabled': {
+        backgroundColor: 'transparent',
+        opacity: 0.5,
+        borderColor: 'grey',
+        color:'grey',
+        cursor: 'default',
+    }
+}))
 
 export const ButtonCustom2 = styled('button', {
-})<ButtonProps>(({ theme,variant }) => ({
+})<ButtonProps>(({ theme, variant = "primary" }) => ({
     color: "#fff",
-    cursor:"pointer",
-    backgroundColor: varianColor({variant}),
-    borderColor: varianColor({variant}),
+    cursor: "pointer",
+    border:"1px solid transparent",
+    backgroundColor: varianColor({ variant }),
+    borderColor: varianColor({ variant }),
     borderRadius: "30px",
     boxShadow: "0px 5px 20px 0 rgba(0, 0, 0, 0.2)",
     willChange: "opacity transform",
     transition: "all 0.3s ease-out",
     WebkitTransition: "all .3s ease-out",
-    padding: ".4375rem 1.25rem",
+    padding: "7px 20px",
     textShadow: "none",
     fontSize: "14px",
     fontWeight: 400,
@@ -179,13 +188,25 @@ export const ButtonCustom2 = styled('button', {
     touchAction: "manipulation",
     verticalAlign: "middle",
     userSelect: "none",
-    lineHeight: 1.5
+    lineHeight: 1.5,
+    // '&:disabled': {
+    //     backgroundColor: 'transparent',
+    //     opacity: 0.5,
+    //     borderColor: 'grey',
+    //     color:'grey',
+    //     cursor: 'default',
+    // },
+    '&:not(:disabled):active':{
+        color: '#fff',
+        backgroundColor: '#24ccda',
+        borderColor:' #24ccda',
+    }
 }))
 
 export const TypographyCustom = styled(Typography, {
-})<TypographyProps>(({ theme,variant }) => ({
+})<TypographyProps>(({ theme, variant }) => ({
     color: "#fff",
-    
+
 }))
 
 export const FormGroup = styled('div')({
@@ -231,7 +252,7 @@ export const InputCustom = styled('input')({
     '&::placeholder': {
         fontSize: "14px"
     },
-    
+
 })
 
 export const TextAreaCustom = styled('textarea')({
@@ -324,7 +345,7 @@ export const InputFileCustom = styled('input')({
 
 })
 
-const varianColor = (variant:VariantProps):string => {
+const varianColor = (variant: VariantProps): string => {
     switch (variant.variant) {
         case "primary":
             return "#3232b7";

@@ -6,6 +6,7 @@ import { FormState, RegisterOptions, FieldValues, UseFormRegister } from "react-
 type Props = {
     id: string;
     name: string;
+    color?: string;
     label?: React.ReactNode | React.ReactElement | JSX.Element | JSX.Element[];
     value: string;
     formState?: FormState<FieldValues>,
@@ -16,9 +17,11 @@ type Props = {
 const CheckBoxComponent = ({ value, label, id, options,
     formState,
     name,
+    color = '#3b3f5c',
     register }: Props) => {
     let err = formState?.errors[name];
     let ref = err?.ref as HTMLInputElement;
+    console.log(label)
     return (
         <Box marginBottom="1rem">
             <Box display={"flex"} justifyContent={"center"} >
@@ -26,7 +29,7 @@ const CheckBoxComponent = ({ value, label, id, options,
                     marginRight: "1rem"
                 }}>
                     <CheckBoxCustom {...register?.(name, { ...options })} id={id} type='checkbox' />
-                    <LabelCustom error={(err && ref && !ref.checked) ? true : false} htmlFor={id}>{label}</LabelCustom>
+                    <LabelCustom color={color}  error={(err && ref && !ref.checked) ? true : false} htmlFor={id}>{label}</LabelCustom>
                 </CustomBox>
             </Box>
         </Box>

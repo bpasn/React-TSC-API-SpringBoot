@@ -1,5 +1,5 @@
 import React from 'react'
-import { BoxAuthBackground, ButtonFormSubmit, CheckBoxCustom, CustomBox, FormControlTextFied, FormGroupCustom, InputField, LabelCustom, LabelForm } from '../StyledAuth'
+import { BoxAuthBackground, ButtonFormSubmit, FormControlTextFied, FormGroupCustom, } from '../StyledAuth'
 import { Alert, Box, Grid, Stack } from '@mui/material'
 import '../../../assets/css/admin.css'
 import { Link } from 'react-router-dom'
@@ -9,15 +9,6 @@ import CheckBoxComponent from '../../../components/CheckBoxComponent'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { signUp } from '../../../action/user.action'
 type Props = {}
-interface RequestSignUp {
-    email: string;
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    telephone: string;
-    agree: boolean;
-}
 const AuthSignUp = (props: Props) => {
     const { register, handleSubmit, formState } = useForm<ISignUpRequest>()
     const { severity, status, message } = useAppSelector(state => state.Error);

@@ -50,7 +50,7 @@ const useAxiosHook = () => {
                     //         error:error
                     //     }
                     // })
-                    return dispatch<any>({ type: "show", payload: { title: "Internal Server Error", description: error.response?.data && error.response.data.message ? error.response.data.message : error.message } })
+                    // return dispatch<any>({ type: "show", payload: { title: "Internal Server Error", description: error.response?.data && error.response.data.message ? error.response.data.message : error.message } })
                 }
                 return Promise.reject(error);
             },
