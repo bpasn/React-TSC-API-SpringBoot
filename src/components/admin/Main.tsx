@@ -12,12 +12,24 @@ export const MainAppBar = styled('main', { shouldForwardProp: (prop) => prop !==
     }),
     paddingRight:"0",
     marginLeft: `-${drawerwidth}px`,
+    display:"none",
     ...(open && {
+        display: "none",
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
         marginLeft: 0,
-
     }),
+    [theme.breakpoints.down(769)]:{
+        display: "none",
+        ...(open && {
+            display: "none",
+            transition: theme.transitions.create('margin', {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            marginLeft: `-${drawerwidth}px`,
+        }),
+    }
 }));

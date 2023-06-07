@@ -21,7 +21,6 @@ const CheckBoxComponent = ({ value, label, id, options,
     register }: Props) => {
     let err = formState?.errors[name];
     let ref = err?.ref as HTMLInputElement;
-    console.log(label)
     return (
         <Box marginBottom="1rem">
             <Box display={"flex"} justifyContent={"center"} >

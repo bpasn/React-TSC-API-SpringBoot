@@ -104,7 +104,7 @@ function addCategory({ type, title, form }: { type: 'SUB' | 'MAIN', title: strin
                                                 </Grid>
                                                 <Grid item xs={12} md={8} sm={12}>
                                                     <SelectBox
-                                                    options={['Yes', 'No']}
+                                                    options={[]}
                                                     value=''
                                                     name='isActive'
                                                     onChange={() => {}}

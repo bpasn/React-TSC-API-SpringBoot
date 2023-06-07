@@ -1,6 +1,6 @@
 interface IError {
     message: string;
-    status: boolean;
+    errorStatus: boolean;
     severity: AlertColor;
     payload?: any
 }

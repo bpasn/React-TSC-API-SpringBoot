@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance } from "axios"
+import axios, { AxiosError} from "axios"
 import { AppDispatch, AppState } from "../redux/store"
 import AppSetting from "../constance/AppSetting"
 import { ERole, Sign } from "../constance/action.enum"
@@ -15,7 +15,7 @@ export const signIn = (bodySign: ISignInRequest) => {
             }
             dispatch({type:"SHOW",payload:{
                 message:"Login Success",
-                status:true,
+                errorStatus:true,
                 severity:"success"
             }})
             setTimeout(() => {
@@ -32,7 +32,7 @@ export const signIn = (bodySign: ISignInRequest) => {
             dispatch({
                 type: "SHOW", payload: {
                     message: error instanceof AxiosError && error.response && error.response.data && error.response.data.message ? error.response.data.message : (error instanceof Error && error.message),
-                    status: true,
+                    errorStatus: true,
                     severity: "error"
                 }
             })
@@ -50,7 +50,7 @@ export const signUp = (bodySign: ISignUpRequest) => async (dispatch: AppDispatch
         dispatch({
             type: "SHOW", payload: {
                 message: response.data.message,
-                status: true,
+                errorStatus: true,
                 severity: "success"
             }
         })
@@ -62,7 +62,7 @@ export const signUp = (bodySign: ISignUpRequest) => async (dispatch: AppDispatch
         dispatch({
             type: "SHOW", payload: {
                 message: error instanceof AxiosError && error.response && error.response.data && error.response.data.message ? error.response.data.message : (error instanceof Error && error.message),
-                status: true,
+                errorStatus: true,
                 severity: "error"
             }
         })

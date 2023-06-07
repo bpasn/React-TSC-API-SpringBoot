@@ -11,7 +11,7 @@ type Props = {
     value?: string;
     disabled?: boolean;
     className?: string;
-    options: string[];
+    options?: Options[] | undefined;
     name?:string;
     defaultText?: string;
     onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
@@ -23,7 +23,7 @@ const SelectBox = ({
     disabled = false,
     name,
     defaultText,
-    options,
+    options = [],
     onChange,
 }: Props) => {
     const selectBox = (
@@ -33,10 +33,10 @@ const SelectBox = ({
         disabled={disabled}
         defaultValue={value}>
             {defaultText && <option value={''}>{defaultText}</option>}
-            {options.map((option: string, index: number) => {
+            {options.length && options.map((option: Options, index: number) => {
                 return (<option
-                    key={option}
-                    value={option}>{option}
+                    key={option.id}
+                    value={option.name}>{option.name}
                 </option>)
             })}
         </SelectCuttom>

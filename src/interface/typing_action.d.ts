@@ -1,3 +1,4 @@
+import { AxiosError } from "axios"
 import { Sign, EProduct } from "../constance/action.enum"
 
 
@@ -63,3 +64,23 @@ interface IProduct {
 }
 
 export type IPopupAction = { type: "show", payload: IPopup } | { type: "hide" }
+
+
+interface ILoadRequest {
+    type: EProduct.LOAD_PAGE_REQUEST
+}
+interface ILoadSuccess {
+    type: EProduct.LOAD_PAGE_SUCCESS
+    payload?: ILoadingPage[]
+}
+
+interface ILoadFail {
+    type: EProduct.LOAD_PAGE_FAIL
+    error?: Error | AxiosError | undefined | any
+}
+export type LoadPageAction =  ILoadFail | ILoadRequest | ILoadSuccess
+interface ILoadPage {
+    loading: boolean, 
+    error: any, 
+    loadPage: ILoadingPage[]
+}

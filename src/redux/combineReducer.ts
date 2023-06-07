@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 import { signUpReducer, userReducer } from '../reducer/user.reducer'
 import { productReducer } from '../reducer/product.reducer'
+import { EProduct } from '../constance/action.enum';
+import { LoadPageAction } from '../interface/typing_action';
 export default combineReducers(
     {
         SignUser: userReducer,
@@ -24,28 +26,42 @@ export default combineReducers(
                     return state;
             }
         },
-        Error: (state: IError = { message: "", status: false, severity: "success" }, action: { type: 'SHOW' | 'HIDE', payload: IError }) => {
+        Error: (state: IError = { message: "", errorStatus: false, severity: "success" }, action: { type: 'SHOW' | 'HIDE', payload: IError }) => {
             switch (action.type) {
                 case "SHOW":
-                    return { ...state, message: action.payload.message, status: true, severity: action.payload.severity }
+                    return { ...state, message: action.payload.message, errorStatus: true, severity: action.payload.severity }
                 case "HIDE":
-                    return { ...state, status: false }
+                    return { ...state, errorStatus: false }
                 default:
                     return state;
 
             }
         },
-        LoadingProgress: (state: {loading:boolean} = { loading:false }, action: { type: 'SHOW_LOADING' | 'HIDE_LOADING', payload: {loading:boolean} }) => {
+        LoadingProgress: (state: { loading: boolean } = { loading: false }, action: { type: 'SHOW_LOADING' | 'HIDE_LOADING', payload: { loading: boolean } }) => {
             switch (action.type) {
                 case "SHOW_LOADING":
-                    return { loading:true }
+                    return { loading: true }
                 case "HIDE_LOADING":
-                    return { loading:false }
+                    return { loading: false }
                 default:
                     return state;
 
             }
         },
-        SignUp: signUpReducer
+        SignUp: signUpReducer,
+        LoadPage: (
+            state: { loading: boolean, error: any, loadPage: ILoadingPage[] } = { loading: false, error: null, loadPage: [] },
+            action: LoadPageAction) => {
+            switch (action.type) {
+                case EProduct.LOAD_PAGE_REQUEST:
+                    return { ...state, loading: true };
+                case EProduct.LOAD_PAGE_SUCCESS:
+                    return { ...state, loading: false, loadPage: action.payload };
+                case EProduct.LOAD_PAGE_FAIL:
+                    return { ...state, loading: false, loadPage: [], error: action.error }
+                default:
+                    return state;
+            }
+        }
     }
 )

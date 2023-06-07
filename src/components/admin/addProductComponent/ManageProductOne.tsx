@@ -1,32 +1,42 @@
 import { Box, FormControl, Grid, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
-import { ButtonCustom, ButtonCustom2 } from '../../../page/admin/ecommerce/addProduct/AddProductStyle'
+import React from 'react'
+import { ButtonCustom2 } from '../../../page/admin/ecommerce/addProduct/AddProductStyle'
 import { BsFillImageFill } from "react-icons/bs"
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { SelectBox } from '../customComponent/SelectBox'
-import dataMock from '../../../mock/datamock.json'
-import { insertProductImage } from '../../../action/product.action'
 import useAxiosHook from '../../../axios-hook/axiosHook'
 import AppSetting from '../../../constance/AppSetting'
 import { AxiosError } from 'axios'
+
 type Props = {
   idInsert: string
+  attributes?: Options[],
+  productType?: Options[],
+  loadPage: ILoadingPage[],
   setIdInsert: React.Dispatch<React.SetStateAction<any>>;
 }
 
-const ManageProductOne = (props: Props) => {
+const ManageProductOne = ({
+  attributes = [],
+  productType = [],
+  setIdInsert,
+  loadPage = [],
+  idInsert
+}: Props) => {
   const [manageForm, setManageForm] = React.useState<IInsertImageProductRequest>({
     attributeSet: "Default",
     productType: "Simple Product",
     files: [],
     type: 'SAVE'
   })
+
   const [imageProduct, setImageProduct] = React.useState<{
     base64: string | ArrayBuffer | null;
     filename: string;
   }[]>([])
   const [isAction, setIsAction] = React.useState<'SAVE' | 'UPDATE' | 'EDIT'>('SAVE')
   const dispatch = useAppDispatch();
+  const { errorStatus: ErrorStatus } = useAppSelector(state => state.Error);
   const axiosHook = useAxiosHook()
   const formRef = React.useRef()
   const filesRef = React.useRef<HTMLInputElement | null>();
@@ -65,7 +75,6 @@ const ManageProductOne = (props: Props) => {
     event.preventDefault();
     dispatch<any>({ type: "hide" })
     dispatch<any>({ type: "SHOW_LOADING" })
-    // dispatch<any>(insertProductImage(axiosHook, { ...manageForm, type: isAction}))
     try {
       if (isAction === 'SAVE') {
         const { data } = await axiosHook.post(AppSetting.INSERT_IMAGE_PRODUCT, manageForm, {
@@ -75,30 +84,30 @@ const ManageProductOne = (props: Props) => {
         })
         if (data.success) {
           dispatch<any>({ type: "HIDE_LOADING" })
-          props.setIdInsert(data.payload.id)
+          setIdInsert(data.payload.id)
           setIsAction("EDIT")
           dispatch({
             type: "SHOW", payload: {
               message: data.payload.message,
-              status: true,
+              errorStatus: true,
               severity: 'success'
             }
           })
         }
       } else {
-        const { data } = await axiosHook.post(AppSetting.UPDATE_IMAGE_PRODUCT, { ...manageForm, id: props.idInsert }, {
+        const { data } = await axiosHook.post(AppSetting.UPDATE_IMAGE_PRODUCT, { ...manageForm, id: idInsert }, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
         })
         if (data.success) {
           dispatch<any>({ type: "HIDE_LOADING" })
-          props.setIdInsert(data.payload.id)
+          setIdInsert(data.payload.id)
           setIsAction("EDIT")
           dispatch({
             type: "SHOW", payload: {
               message: data.payload.message,
-              status: true,
+              errorStatus: true,
               severity: 'success'
             }
           })
@@ -109,7 +118,7 @@ const ManageProductOne = (props: Props) => {
       dispatch({
         type: "SHOW", payload: {
           message: error instanceof AxiosError && error.response && error.response.data && error.response.data.message ? error.response.data.message : (error instanceof Error && error.message),
-          status: true,
+          errorStatus: true,
           severity: 'error'
         }
       })
@@ -153,7 +162,7 @@ const ManageProductOne = (props: Props) => {
                 return dispatch({
                   type: "SHOW", payload: {
                     message: "Plase select file",
-                    status: true,
+                    errorStatus: true,
                     severity: 'warning'
                   }
                 })
@@ -273,7 +282,7 @@ const ManageProductOne = (props: Props) => {
                     </Grid>
                     <Grid item md={7} sm={12} xs={12}>
                       <SelectBox
-                        options={dataMock.attributeSet}
+                        options={loadPage.length ? loadPage.find(item => item.name === "attributeSet")?.options : []}
                         onChange={handleChange}
                         name={'attributeSet'} />
 
@@ -291,12 +300,12 @@ const ManageProductOne = (props: Props) => {
                         name="productType"
                         onChange={handleChange}
                         value={manageForm.productType}
-                        options={dataMock.productType} />
+                        options={loadPage.length ? loadPage.find(item => item.name === "productType")?.options : []} />
                     </Grid>
                   </Grid>
                   <br></br>
                   <Box textAlign={"center"} margin={"0 auto"}>
-                    <ButtonCustom2 disabled={isAction === 'EDIT' ? true : false} type='submit'>Continute</ButtonCustom2>
+                    <ButtonCustom2 disabled={isAction === 'EDIT' ? true : ErrorStatus ? true : false} type='submit'>Continute</ButtonCustom2>
                   </Box>
                 </Box>
               </Grid>

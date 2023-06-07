@@ -1,7 +1,7 @@
 import { Alert, Box, Stack, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react'
 import { Crumbs, CrumbsA, CrumbsLi, CrumbsUl, PageHeader, PageTitle, PageTitleH3 } from './ecommerce/addProduct/AddProductStyle';
-import { useAppDispatch2, useAppSelector } from '../../redux/hook';
+import { useAppSelector } from '../../redux/hook';
 import LoadingPage from '../../components/LoadingPage';
 
 type Props = {
@@ -53,7 +53,7 @@ const theme = createTheme({
     }
 })
 const ProductPageLayout: React.FC<Props> = (props: Props) => {
-    const { severity, message, status } = useAppSelector(state => state.Error)
+    const { severity, message, errorStatus } = useAppSelector(state => state.Error)
     const { loading } = useAppSelector(state => state.LoadingProgress)
     return (
         <ThemeProvider theme={theme} >
@@ -100,7 +100,7 @@ const ProductPageLayout: React.FC<Props> = (props: Props) => {
                         </Crumbs>
                     </PageTitle>
                 </PageHeader>
-                {status ?
+                {errorStatus ?
                     (<Stack sx={{ width: '100%' }} mb={2} spacing={2} >
                         <Alert sx={{
                             alignItems: "center",
