@@ -260,7 +260,7 @@ export default function PersistentDrawerLeft() {
                                                         padding: '17px 12px 17px 48px',
                                                         paddingLeft: "14px",
                                                         marginLeft: "16px",
-                                                        color: `${(openSub === index && textSubMenu === sub.name) ? '#fff' : '#888ea8'}`,
+                                                        color: `${(openSub === index && textSubMenu === sub.name || location.pathname.includes(sub.url)) ? '#fff' : '#888ea8'}`,
                                                         '&:hover': {
                                                             color: "#fff",
                                                         },

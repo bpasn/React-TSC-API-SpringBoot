@@ -1,5 +1,5 @@
 // import { useEffect } from 'react'
-import React, { useCallback } from 'react'
+import React from 'react'
 import ManageProductOne from '../../../../components/admin/addProductComponent/ManageProductOne'
 import ManageProductTow from '../../../../components/admin/addProductComponent/ManageProductTow'
 import ProductPageLayout from '../../ProductPageLayout'

@@ -3,9 +3,7 @@ import React from 'react'
 import { ButtonCustom2 } from '../../../page/admin/ecommerce/addProduct/AddProductStyle'
 import { BsFillImageFill } from "react-icons/bs"
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import { Options, SelectBox } from '../customComponent/SelectBox'
-import dataMock from '../../../mock/datamock.json'
-import { insertProductImage } from '../../../action/product.action'
+import { SelectBox } from '../customComponent/SelectBox'
 import useAxiosHook from '../../../axios-hook/axiosHook'
 import AppSetting from '../../../constance/AppSetting'
 import { AxiosError } from 'axios'
@@ -285,7 +283,7 @@ const ManageProductOne = ({
                     </Grid>
                     <Grid item md={7} sm={12} xs={12}>
                       <SelectBox
-                        options={loadPage.length ? loadPage.find(item => item.name === "attributeSet")?.options : []}
+                        options={loadPage.find(item => item.name === "attributeSet")?.options}
                         onChange={handleChange}
                         name={'attributeSet'} />
 
@@ -303,7 +301,7 @@ const ManageProductOne = ({
                         name="productType"
                         onChange={handleChange}
                         value={manageForm.productType}
-                        options={loadPage.length ? loadPage.find(item => item.name === "productType")?.options : []} />
+                        options={loadPage.find(item => item.name === "productType")?.options} />
                     </Grid>
                   </Grid>
                   <br></br>
