@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Button, Collapse, ListItem, Menu, MenuItem } from '@mui/material';
 import { TiShoppingCart } from 'react-icons/ti'
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
@@ -20,6 +20,7 @@ import '../../assets/css/admin.css'
 import { AppBar } from './AppBar';
 import { DrawerHeader } from './DrawerHeader';
 import { MainAppBar } from './Main';
+import { DrawerCustom } from './DrawerCustom';
 const drawerwidth = 255;
 
 
@@ -46,19 +47,19 @@ const theme = createTheme({
                 }
             }
         },
-        MuiModal:{
-            styleOverrides:{
-                root:{
-                    [`${AppBar}`]:{
-                        backgroundColor:"tranparent"
+        MuiModal: {
+            styleOverrides: {
+                root: {
+                    [`${AppBar}`]: {
+                        backgroundColor: "tranparent"
                     }
                 }
             }
         },
-        MuiAppBar:{
-            styleOverrides:{
-                root:{
-                    paddingRight:"0px !improtant"
+        MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    paddingRight: "0px !improtant"
                 }
             }
         }
@@ -72,7 +73,8 @@ export default function PersistentDrawerLeft() {
     const [_open, set_Open] = React.useState(0);
     const [openSub, setOpenSub] = React.useState(-1);
     const [textSubMenu, setTextSubMenu] = React.useState("");
-
+    let location = useLocation();
+    
     const handleDrawerOpen = () => {
         setOpen(!open);
     };
@@ -85,12 +87,15 @@ export default function PersistentDrawerLeft() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    React.useEffect(() => {
+        console.log(window.innerWidth)
+    },[])
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ display: 'flex', backgroundColor: "#e9ecef" }}>
-                <AppBar  drawerwidth={drawerwidth} position="fixed" open={open}>
+                <AppBar drawerwidth={drawerwidth} position="fixed" open={open}>
                     <Toolbar sx={{
-                        paddingRight:"0px",
+                        paddingRight: "0px",
                         backgroundColor: "#fff",
                         '& .css-jzk4qw-MuiPaper-root-MuiAppBar-root': {
                             boxShadow: "none !improtant",
@@ -133,39 +138,25 @@ export default function PersistentDrawerLeft() {
                         <DraftsIcon color="primary"></DraftsIcon>
                     </Toolbar>
                 </AppBar>
-                <Drawer
+                <DrawerCustom
                     sx={{
-                        width: drawerwidth,
-                        flexShrink: 0,
-                        '& .MuiDrawer-paper': {
-                            width: drawerwidth,
-                            boxSizing: 'border-box',
-                            backgroundColor: "#181722",
-                            color: "#beb3b6",
-                            verticalAlign: 'middle',
-                            padding: '7px',
-                            '& svg': {
-                                width: "21px",
-                                height: "21px",
-                                color: "#beb3b6"
-                            },
-                        },
+                        
                     }}
                     variant="persistent"
                     anchor="left"
                     open={open}
                 >
-                    <DrawerHeader>
-                    </DrawerHeader>
+                    <DrawerHeader />
                     <Divider /> {/* Divider -> is tag hr */}
 
                     <List>
                         {dataMock.menu.map((text, index) => (
-                            <Box key={text.main.replace(/S/,"")+index} id={"menuItem"+(index+1)}>
+                            <Box key={text.main.replace(/S/, "") + index} id={"menuItem" + (index + 1)}>
                                 <List
-                                    sx={{ 
-                                        color:`${_open === index ? "#fff" : '#beb3b6'}`,
-                                        cursor: "pointer", '&:hover': { color: "#fff" }, fontSize: "21px" }}
+                                    sx={{
+                                        color: `${_open === index ? "#fff" : '#beb3b6'}`,
+                                        cursor: "pointer", '&:hover': { color: "#fff" }, fontSize: "21px"
+                                    }}
                                     onClick={() => set_Open(_open === index ? -1 : index)}>
                                     <ListItem>
                                         <ListItemIcon>
@@ -187,7 +178,7 @@ export default function PersistentDrawerLeft() {
                                     paddingBottom: 0
                                 }}>
                                     <List component={"div"} >
-                                        {text.sub.map((sub,index:number) => (
+                                        {text.sub.map((sub, index: number) => (
                                             <ListItem
                                                 onClick={() => {
                                                     setOpenSub(openSub === index ? -1 : index)
@@ -208,16 +199,24 @@ export default function PersistentDrawerLeft() {
                                                 }}>
                                                 <ListItemText
                                                     sx={{
+                                                        display:"flex",
+                                                        alignItems:"baseline",
                                                         fontSize: 20,
                                                         padding: '17px 12px 17px 48px',
                                                         paddingLeft: "14px",
                                                         marginLeft: "16px",
-                                                        color:`${(openSub === index && textSubMenu === sub.name) ? '#fff' : '#888ea8'}`,
+                                                        color: `${(openSub === index && textSubMenu === sub.name || location.pathname.includes(sub.url)) ? '#fff' : '#888ea8'}`,
                                                         '&:hover': {
                                                             color: "#fff",
                                                         },
+                                                        '&:before':{
+                                                            display:"flex",
+                                                            alignItems:"center",
+                                                            padding: '0 5px 0 0',
+                                                            content:'"- "'
+                                                        }
                                                     }}
-                                                    primary={"- " + sub.name}
+                                                    primary={sub.name}
                                                 />
                                             </ListItem>
                                         ))}
@@ -226,9 +225,9 @@ export default function PersistentDrawerLeft() {
                             </Box>
                         ))}
                     </List>
-                </Drawer>
-                <MainAppBar  drawerwidth={drawerwidth} open={open}>
-                    <DrawerHeader />
+                </DrawerCustom>
+                <MainAppBar drawerwidth={drawerwidth} open={open}>
+                    {/* <DrawerHeader /> */}
                     {<Outlet />}
                 </MainAppBar>
             </Box>

@@ -10,7 +10,7 @@ export default <InitialState>{
     },
     Error: {
         message: "",
-        status: false,
+        errorStatus: false,
         severity: 'success'
     },
     LoadingProgress: {

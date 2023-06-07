@@ -11,7 +11,7 @@ import { signUp } from '../../../action/user.action'
 type Props = {}
 const AuthSignUp = (props: Props) => {
     const { register, handleSubmit, formState } = useForm<ISignUpRequest>()
-    const { severity, status, message } = useAppSelector(state => state.Error);
+    const { severity, errorStatus, message } = useAppSelector(state => state.Error);
     const dispatch = useAppDispatch();
     const handleSend = (data: ISignUpRequest) => {
         dispatch<any>(signUp(data))
@@ -24,7 +24,7 @@ const AuthSignUp = (props: Props) => {
                         <img src={require('../../../assets/img/logo-5.png')} alt="logo" />
                     </Grid>
                     <Grid item sm={12} md={12} >
-                        {status ?
+                        {errorStatus ?
                             (<Stack sx={{ width: '100%' }} mb={2} spacing={2} >
                                 <Alert sx={{
                                     alignItems: "center",

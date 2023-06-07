@@ -16,7 +16,7 @@ interface Request {
 }
 const AuthSignIn = (props: Props) => {
     const { register, handleSubmit, formState } = useForm<Request>();
-    const { severity, status, message } = useAppSelector(state => state.Error);
+    const { severity, errorStatus, message } = useAppSelector(state => state.Error);
     const { loading } = useAppSelector(state => state.SignUser)
     const dispatch = useAppDispatch();
     const onSubmit = (data: Request) => {
@@ -46,7 +46,7 @@ const AuthSignIn = (props: Props) => {
                             <Line side='right' />
                         </Division>
 
-                        {status ?
+                        {errorStatus ?
 
                             (<Stack sx={{ width: '100%' }} mb={2} spacing={2} >
                                 <Alert sx={{
