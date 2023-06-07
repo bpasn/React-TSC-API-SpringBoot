@@ -16,20 +16,20 @@ const AddProduct = (props: Props) => {
   const axiosHook = useAxiosHook();
   const { loading, loadPage } = useAppSelector(state => state.LoadPage);
   useEffectHook(() => {
-    dispatch<any>(loadingPage(axiosHook));
+    !loadPage?.length && dispatch<any>(loadingPage(axiosHook));
   })
-  return loading ? 
-  (<Box display={"flex"} justifyContent={"center"}>
-    <CircularProgress />
-  </Box>) : (
-    <ProductPageLayout
-      titleHeader='Add/Edit Products'
-      mainMenu={"ecommerce"}
-      subMenu={['Add/Edit Products']}>
-      <ManageProductOne loadPage={loadPage as ILoadingPage[]} setIdInsert={setIdInsert} idInsert={idInsert} />
-      <ManageProductTow loadPage={loadPage  as ILoadingPage[]} idInsert={idInsert} />
-    </ProductPageLayout>
-  )
+  return loading ?
+    (<Box display={"flex"} justifyContent={"center"}>
+      <CircularProgress />
+    </Box>) : (
+      <ProductPageLayout
+        titleHeader='Add/Edit Products'
+        mainMenu={"ecommerce"}
+        subMenu={['Add/Edit Products']}>
+        <ManageProductOne loadPage={loadPage as ILoadingPage[]} setIdInsert={setIdInsert} idInsert={idInsert} />
+        <ManageProductTow loadPage={loadPage as ILoadingPage[]} idInsert={idInsert} />
+      </ProductPageLayout>
+    )
 }
 
 export default AddProduct

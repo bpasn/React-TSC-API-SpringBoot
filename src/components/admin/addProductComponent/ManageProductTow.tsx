@@ -110,7 +110,7 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
                                                         <SelectBox
-                                                            options={loadPage.find(item => item.name === "category")?.options}
+                                                            options={loadPage.length ?loadPage.find(item => item.name === "category")?.options:[]}
                                                             name="category"
                                                             value=""
                                                             defaultText='Select Category'
@@ -127,7 +127,7 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                                                     <Grid item xs={12} md={8} sm={12}>
                                                         <SelectBox
                                                             defaultText='Select Brand'
-                                                            options={loadPage.find(item => item.name === "brand")?.options}
+                                                            options={loadPage.length ?loadPage.find(item => item.name === "brand")?.options:[]}
                                                             name="brand"
                                                             value=""
                                                             onChange={handleChange}
@@ -143,7 +143,7 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                                                     <Grid item xs={12} md={8} sm={12}>
                                                         <SelectBox
                                                             defaultText='Select Color'
-                                                            options={loadPage.find(item => item.name === "color")?.options}
+                                                            options={loadPage.length ?loadPage.find(item => item.name === "color")?.options:[]}
                                                             name="color"
                                                             value=""
                                                             onChange={handleChange}
@@ -159,7 +159,7 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                                                     <Grid item xs={12} md={8} sm={12}>
                                                         <SelectBox
                                                             defaultText='Select Size'
-                                                            options={loadPage.find(item => item.name === "size")?.options}
+                                                            options={loadPage.length ?loadPage.find(item => item.name === "size")?.options:[]}
                                                             name="size"
                                                             value=""
                                                             onChange={handleChange}
@@ -177,16 +177,6 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                                                     </Grid>
                                                 </FromGroupGrid>
 
-                                                {/* Weight */}
-                                                <FromGroupGrid container>
-                                                    <Grid item xs={12} md={4} sm={12} component={"label"} display={"inline-block"} marginBottom={"0.5rem"} fontSize={"16px"} color={"#3b3f5c"} htmlFor='Attribute'>
-                                                        Weight :
-                                                    </Grid>
-                                                    <Grid item xs={12} md={8} sm={12}>
-                                                        <InputCustom onChange={handleChange} name='weight' />
-                                                    </Grid>
-                                                </FromGroupGrid>
-
                                                 {/* Status */}
                                                 <FromGroupGrid container>
                                                     <Grid item xs={12} md={4} sm={12} component={"label"} display={"inline-block"} marginBottom={"0.5rem"} fontSize={"16px"} color={"#3b3f5c"} htmlFor='Attribute'>
@@ -194,7 +184,7 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                                                     </Grid>
                                                     <Grid item xs={12} md={8} sm={12}>
                                                         <SelectBox
-                                                            options={loadPage.find(item => item.name === "status")?.options}
+                                                            options={loadPage.length ?loadPage.find(item => item.name === "status")?.options:[]}
                                                             name="status"
                                                             value=""
                                                             onChange={handleChange}
@@ -253,7 +243,7 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                                                 </Grid>
                                                 <Grid item xs={12} md={8} sm={12}>
                                                     <SelectBox
-                                                        options={loadPage.find(item => item.name === "taxClass")?.options}
+                                                        options={loadPage.length ?loadPage.find(item => item.name === "taxClass")?.options:[]}
                                                         name="textClass"
                                                         value=""
                                                         onChange={handleChange}
@@ -332,28 +322,6 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                                                     <InputCustom onChange={handleChange} name="inventory" />
                                                 </Grid>
                                             </FromGroupGrid>
-                                            {/*  KEYWORD */}
-                                            <FromGroupGrid container>
-                                                <Grid item xs={12} md={12} sm={12}>
-                                                    <Typography variant="h4" sx={{
-                                                        textDecoration: "underline",
-                                                        color: "#ee3d50",
-                                                        textTransform: "uppercase",
-                                                        fontSize: "17px"
-                                                    }} color="initial">KEYWORD</Typography>
-                                                </Grid>
-                                            </FromGroupGrid>
-
-                                            {/*  image file upload */}
-                                            <FromGroupGrid container>
-                                                <Grid item xs={12} md={4} sm={12} component={"label"} display={"inline-block"} marginBottom={"0.5rem"} fontSize={"16px"} color={"#3b3f5c"} htmlFor='Attribute'>
-                                                    Keywords :
-                                                </Grid>
-                                                <Grid item xs={12} md={8} sm={12}>
-                                                    <InputCustom onChange={handleChange} name="keyword" />
-                                                </Grid>
-                                            </FromGroupGrid>
-
                                             <Box textAlign={"center"} margin={"0 auto"}>
                                                 <ButtonCustom2 disabled={!idInsert}>Insert Product</ButtonCustom2>
                                             </Box>

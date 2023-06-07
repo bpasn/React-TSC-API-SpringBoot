@@ -177,7 +177,7 @@ const ManageProductOne = ({
               })
             }}
           >
-            <Grid container >
+            <Grid container spacing={4} padding="0 15px">
               {/* LEFT */}
               <Grid item xl={4} lg={4} md={12} sm={12} xs={12} textAlign={"center"} mb={5} >
                 {/* product-img */}

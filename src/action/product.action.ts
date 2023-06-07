@@ -18,8 +18,8 @@ export const productAction = (axiosHook: AxiosInstance) => async (dispatch: AppD
 export const loadingPage = (axiosHook: AxiosInstance) => async (dispatch: AppDispatch) => {
     dispatch({ type: EProduct.LOAD_PAGE_REQUEST })
     try {
-        const { data } = await axios.get<ILoadingPage[]>(AppSetting.LOAD_PAGE);
-        dispatch({ type: EProduct.LOAD_PAGE_SUCCESS, payload: data })
+        const { data: { payload, success } } = await axios.get<{ payload: ILoadingPage[], success: boolean }>(AppSetting.LOAD_PAGE);
+        dispatch({ type: EProduct.LOAD_PAGE_SUCCESS, payload: payload })
     } catch (error) {
         let _error = error instanceof AxiosError && error.response && error.response.data && error.response.data.message ? error.response.data.message : (error instanceof Error && error.message)
         dispatch({
@@ -35,7 +35,7 @@ export const loadingPage = (axiosHook: AxiosInstance) => async (dispatch: AppDis
                 errorStatus: false,
                 severity: "error"
             }
-          }) 
+        })
     }
 }
 export const insertProductImage = (axiosHook: AxiosInstance, body: IInsertImageProductRequest) => async (dispatch: AppDispatch) => {

@@ -74,7 +74,7 @@ export default function PersistentDrawerLeft() {
     const [openSub, setOpenSub] = React.useState(-1);
     const [textSubMenu, setTextSubMenu] = React.useState("");
     let location = useLocation();
-    
+
     const handleDrawerOpen = () => {
         setOpen(!open);
     };
@@ -89,7 +89,7 @@ export default function PersistentDrawerLeft() {
     };
     React.useEffect(() => {
         console.log(window.innerWidth)
-    },[])
+    }, [])
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ display: 'flex', backgroundColor: "#e9ecef" }}>
@@ -138,9 +138,23 @@ export default function PersistentDrawerLeft() {
                         <DraftsIcon color="primary"></DraftsIcon>
                     </Toolbar>
                 </AppBar>
-                <DrawerCustom
+                <Drawer
                     sx={{
-                        
+                        width: drawerwidth,
+                        flexShrink: 0,
+                        '& .MuiDrawer-paper': {
+                            width: drawerwidth,
+                            boxSizing: 'border-box',
+                            backgroundColor: "#181722",
+                            color: "#beb3b6",
+                            verticalAlign: 'middle',
+                            padding: '7px',
+                            '& svg': {
+                                width: "21px",
+                                height: "21px",
+                                color: "#beb3b6"
+                            },
+                        },
                     }}
                     variant="persistent"
                     anchor="left"
@@ -199,8 +213,8 @@ export default function PersistentDrawerLeft() {
                                                 }}>
                                                 <ListItemText
                                                     sx={{
-                                                        display:"flex",
-                                                        alignItems:"baseline",
+                                                        display: "flex",
+                                                        alignItems: "baseline",
                                                         fontSize: 20,
                                                         padding: '17px 12px 17px 48px',
                                                         paddingLeft: "14px",
@@ -209,11 +223,11 @@ export default function PersistentDrawerLeft() {
                                                         '&:hover': {
                                                             color: "#fff",
                                                         },
-                                                        '&:before':{
-                                                            display:"flex",
-                                                            alignItems:"center",
+                                                        '&:before': {
+                                                            display: "flex",
+                                                            alignItems: "center",
                                                             padding: '0 5px 0 0',
-                                                            content:'"- "'
+                                                            content: '"- "'
                                                         }
                                                     }}
                                                     primary={sub.name}
@@ -225,8 +239,8 @@ export default function PersistentDrawerLeft() {
                             </Box>
                         ))}
                     </List>
-                </DrawerCustom>
-                <MainAppBar drawerwidth={drawerwidth} open={open}>
+                </Drawer>
+                <MainAppBar  drawerwidth={drawerwidth} open={open}>
                     {/* <DrawerHeader /> */}
                     {<Outlet />}
                 </MainAppBar>

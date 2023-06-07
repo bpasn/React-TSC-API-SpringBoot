@@ -71,12 +71,12 @@ interface ILoadRequest {
 }
 interface ILoadSuccess {
     type: EProduct.LOAD_PAGE_SUCCESS
-    payload?: ILoadingPage[]
+    payload: ILoadingPage[]
 }
 
 interface ILoadFail {
     type: EProduct.LOAD_PAGE_FAIL
-    error?: Error | AxiosError | undefined | any
+    error: Error | AxiosError | undefined | any
 }
 export type LoadPageAction =  ILoadFail | ILoadRequest | ILoadSuccess
 interface ILoadPage {

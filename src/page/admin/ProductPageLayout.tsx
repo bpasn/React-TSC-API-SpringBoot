@@ -58,8 +58,8 @@ const ProductPageLayout: React.FC<Props> = (props: Props) => {
     return (
         <ThemeProvider theme={theme} >
             <Box sx={{
+                marginTop:"30px",
                 padding: "0 30px",
-
                 maxWidth: "none !improtant",
                 '& input, select , textarea, :focus': {
                     outline: 'none !important',

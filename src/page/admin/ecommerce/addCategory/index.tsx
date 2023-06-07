@@ -104,10 +104,9 @@ function addCategory({ type, title, form }: { type: 'SUB' | 'MAIN', title: strin
                                                 </Grid>
                                                 <Grid item xs={12} md={8} sm={12}>
                                                     <SelectBox
-                                                    options={[]}
-                                                    value=''
-                                                    name='isActive'
-                                                    onChange={() => {}}
+                                                        options={[{ name: "ACTIVE", id: "1" },{name:"INACTIVE",id:"2"}]}
+                                                        name='isActive'
+                                                        onChange={() => { }}
                                                     />
                                                 </Grid>
                                             </FromGroupGrid>
@@ -196,9 +195,9 @@ function addCategory({ type, title, form }: { type: 'SUB' | 'MAIN', title: strin
 
                                             <Box textAlign={"center"} margin={"0 auto"}>
                                                 <ButtonCustom sx={{
-                                                    marginTop:"3rem",
-                                                    marginBottom:"1.5rem",
-                                                    fontSize:"14px",
+                                                    marginTop: "3rem",
+                                                    marginBottom: "1.5rem",
+                                                    fontSize: "14px",
                                                 }}>Submit</ButtonCustom>
                                             </Box>
                                         </Box>

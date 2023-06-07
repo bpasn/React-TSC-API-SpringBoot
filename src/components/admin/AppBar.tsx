@@ -21,14 +21,14 @@ export const AppBar = styled(MuiAppBar, {
             duration: theme.transitions.duration.enteringScreen,
         }),
     }),
-    [theme.breakpoints.down(900)]: {
-        ...(open && {
-            width: `100%`,
-            marginLeft: `0`,
-            transition: theme.transitions.create(['margin', 'width'], {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-        }),
-    }
+    // [theme.breakpoints.down(900)]: {
+    //     ...(open && {
+    //         width: `100%`,
+    //         marginLeft: `0`,
+    //         transition: theme.transitions.create(['margin', 'width'], {
+    //             easing: theme.transitions.easing.easeOut,
+    //             duration: theme.transitions.duration.enteringScreen,
+    //         }),
+    //     }),
+    // }
 }));
