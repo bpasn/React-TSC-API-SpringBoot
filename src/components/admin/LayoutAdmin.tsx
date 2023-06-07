@@ -17,7 +17,7 @@ import { Button, Collapse, ListItem, Menu, MenuItem } from '@mui/material';
 import { TiShoppingCart } from 'react-icons/ti'
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
 import '../../assets/css/admin.css'
-import { AppBar } from './AppBar';
+import { AppBarCustom } from './AppBar';
 import { DrawerHeader } from './DrawerHeader';
 import { MainAppBar } from './Main';
 import { DrawerCustom } from './DrawerCustom';
@@ -50,7 +50,7 @@ const theme = createTheme({
         MuiModal: {
             styleOverrides: {
                 root: {
-                    [`${AppBar}`]: {
+                    [`${AppBarCustom}`]: {
                         backgroundColor: "tranparent"
                     }
                 }
@@ -62,7 +62,27 @@ const theme = createTheme({
                     paddingRight: "0px !improtant"
                 }
             }
-        }
+        },
+        MuiSvgIcon: {
+            styleOverrides: {
+                root: {
+                    fontSize: "24px"
+                }
+            }
+        },
+        // MuiList:{
+        //     styleOverrides:{
+        //         root:{
+        //             paddingLeft:"0",
+        //             display:"flex",
+        //             flexDirection:"row",
+        //             marginBottom:"0",
+        //             listStyle:"none",
+        //             marginLeft:"auto",
+        //             marginRight
+        //         }
+        //     }
+        // }
     }
 })
 
@@ -93,13 +113,13 @@ export default function PersistentDrawerLeft() {
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ display: 'flex', backgroundColor: "#e9ecef" }}>
-                <AppBar drawerwidth={drawerwidth} position="fixed" open={open}>
+                <AppBarCustom drawerwidth={drawerwidth} position="fixed" open={open}>
                     <Toolbar sx={{
                         paddingRight: "0px",
                         backgroundColor: "#fff",
                         '& .css-jzk4qw-MuiPaper-root-MuiAppBar-root': {
                             boxShadow: "none !improtant",
-                        }
+                        },
 
                     }}>
                         <IconButton
@@ -112,13 +132,14 @@ export default function PersistentDrawerLeft() {
                         </IconButton>
                         {/* Select country */}
                         <Button
+                            disableTouchRipple
                             id="basic-button"
                             aria-controls={openMenu ? 'basic-menu' : undefined}
                             aria-haspopup="true"
                             aria-expanded={openMenu ? 'true' : undefined}
-                            onClick={handleClick}
+                        // onClick={handleClick}
                         >
-                            <img src="https://designreset.com/preview-equation/default/assets/img/ca.svg" alt="" />
+                            <img style={{ width: "24px", borderRadius: "4px" }} src="https://designreset.com/preview-equation/default/assets/img/ca.svg" alt="" />
                         </Button>
                         <Menu
                             id="basic-menu"
@@ -133,11 +154,45 @@ export default function PersistentDrawerLeft() {
                             <MenuItem onClick={handleClose}>My account</MenuItem>
                             <MenuItem onClick={handleClose}>Logout</MenuItem>
                         </Menu>
+                        {/** Left */}
+                        <List sx={{
+                            display:"flex",
+                            flexDirection:"row",
+                            marginRight:"auto",
+                            marginLeft:"0"
+                        }}>
+                            {/* email */}
+                            <ListItem>
+                                <ListItemIcon>
+                                    <DraftsIcon color="primary"></DraftsIcon></ListItemIcon>
+                            </ListItem>
+                            {/* email */}
+                            <ListItem>
+                                <ListItemIcon>
+                                    <DraftsIcon color="primary"></DraftsIcon></ListItemIcon>
+                            </ListItem>
+                        </List>
 
-                        {/* email */}
-                        <DraftsIcon color="primary"></DraftsIcon>
+                        {/** Right */}
+                        <List  sx={{
+                            display:"flex",
+                            flexDirection:"row",
+                            // marginRight:"auto",
+                            marginLeft:"auto"
+                        }}>
+                            {/* email */}
+                            <ListItem>
+                                <ListItemIcon>
+                                    <DraftsIcon color="primary"></DraftsIcon></ListItemIcon>
+                            </ListItem>
+                            {/* email */}
+                            <ListItem>
+                                <ListItemIcon>
+                                    <DraftsIcon color="primary"></DraftsIcon></ListItemIcon>
+                            </ListItem>
+                        </List>
                     </Toolbar>
-                </AppBar>
+                </AppBarCustom>
                 <DrawerCustom
                     sx={{
                         
@@ -205,7 +260,7 @@ export default function PersistentDrawerLeft() {
                                                         padding: '17px 12px 17px 48px',
                                                         paddingLeft: "14px",
                                                         marginLeft: "16px",
-                                                        color: `${(openSub === index && textSubMenu === sub.name || location.pathname.includes(sub.url)) ? '#fff' : '#888ea8'}`,
+                                                        color: `${(openSub === index && textSubMenu === sub.name) ? '#fff' : '#888ea8'}`,
                                                         '&:hover': {
                                                             color: "#fff",
                                                         },

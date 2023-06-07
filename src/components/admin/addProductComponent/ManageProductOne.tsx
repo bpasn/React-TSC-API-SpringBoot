@@ -3,7 +3,9 @@ import React from 'react'
 import { ButtonCustom2 } from '../../../page/admin/ecommerce/addProduct/AddProductStyle'
 import { BsFillImageFill } from "react-icons/bs"
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import { SelectBox } from '../customComponent/SelectBox'
+import { Options, SelectBox } from '../customComponent/SelectBox'
+import dataMock from '../../../mock/datamock.json'
+import { insertProductImage } from '../../../action/product.action'
 import useAxiosHook from '../../../axios-hook/axiosHook'
 import AppSetting from '../../../constance/AppSetting'
 import { AxiosError } from 'axios'
@@ -14,6 +16,7 @@ type Props = {
   productType?: Options[],
   loadPage: ILoadingPage[],
   setIdInsert: React.Dispatch<React.SetStateAction<any>>;
+  
 }
 
 const ManageProductOne = ({

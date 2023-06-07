@@ -6,7 +6,7 @@ export interface AppBarProps extends MuiAppBarProps {
     drawerwidth?: number;
 }
 
-export const AppBar = styled(MuiAppBar, {
+export const AppBarCustom = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'className',
 })<AppBarProps>(({ theme, open, drawerwidth }) => ({
     transition: theme.transitions.create(['margin', 'width'], {

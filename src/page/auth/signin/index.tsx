@@ -63,7 +63,7 @@ const AuthSignIn = (props: Props) => {
                                 formState={formState}
                                 options={{
                                     required: true, maxLength: 30, minLength: {
-                                        value: 6,
+                                        value: 4,
                                         message: "Username requirements: 6 characters or more"
                                     }
                                 }}

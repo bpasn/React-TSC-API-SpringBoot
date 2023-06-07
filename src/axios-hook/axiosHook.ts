@@ -34,23 +34,10 @@ const useAxiosHook = () => {
                 "error": string;
                 "message": string;
             }>) => {
+                console.log(error)
                 if (error.response?.status === 401) {
-                    // return navigate("/login",{
-                    //     state:{
-                    //         form:"eii",
-                    //         error:error
-                    //     }
-                    // })
+                   localStorage.removeItem("userInfo")
                     return dispatch<any>({ type: "show", payload: { title: "Unauthorization", description: error.response.data && error.response.data.error ? error.response.data.error : error.message } })
-                }
-                if (error.response?.status === 500) {
-                    // return navigate("/login",{
-                    //     state:{
-                    //         form:"eii",
-                    //         error:error
-                    //     }
-                    // })
-                    // return dispatch<any>({ type: "show", payload: { title: "Internal Server Error", description: error.response?.data && error.response.data.message ? error.response.data.message : error.message } })
                 }
                 return Promise.reject(error);
             },

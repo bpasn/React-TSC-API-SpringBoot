@@ -196,9 +196,9 @@ function addCategory({ type, title, form }: { type: 'SUB' | 'MAIN', title: strin
 
                                             <Box textAlign={"center"} margin={"0 auto"}>
                                                 <ButtonCustom sx={{
-                                                    marginTop:"3rem",
-                                                    marginBottom:"1.5rem",
-                                                    fontSize:"14px",
+                                                    marginTop: "3rem",
+                                                    marginBottom: "1.5rem",
+                                                    fontSize: "14px",
                                                 }}>Submit</ButtonCustom>
                                             </Box>
                                         </Box>

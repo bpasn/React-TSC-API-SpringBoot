@@ -27,12 +27,24 @@
         "Green"
     ],
     "status": [
-        "In Stock",
-        "Out Of Stock"
+        {
+            "id":"1",
+            "name":"In Stock"
+        },
+        {
+            "id":"2",
+            "name":"Out Of Stock"
+        }
     ],
     "visibility": [
-        "Yes",
-        "No"
+        {
+            "id":"1",
+            "name":"Yes"
+        },
+        {
+            "id":"2",
+            "name":"No"
+        }
     ],
     "attributeSet": [
         "Default",
@@ -43,10 +55,22 @@
         "Clothing"
     ],
     "taxClass": [
-        "Electronics",
-        "Apparel",
-        "Clothing",
-        "Furniture"
+        {
+            "id":"1",
+            "name":"Electronics"
+        },
+        {
+            "id":"2",
+            "name":"Apparel"
+        },
+        {
+            "id":"3",
+            "name":"Clothing"
+        },
+        {
+            "id":"3",
+            "name":"Furniture"
+        }
     ],
     "productType": [
         "Simple Product",

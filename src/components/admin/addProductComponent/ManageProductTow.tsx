@@ -3,6 +3,7 @@ import { ButtonCustom2, FromGroupGrid, InputCustom, InputFileCustom, TextAreaCus
 import { SelectBox } from '../customComponent/SelectBox'
 import React from 'react';
 import CheckBoxComponent from '../../CheckBoxComponent';
+import { ProductOption } from '../../../page/admin/ecommerce/addProduct/AddProduct';
 type Props = {
     idInsert: string;
     loadPage: ILoadingPage[]
@@ -42,7 +43,7 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                             </Grid>
                         </Grid>
                     </Box>
-                    <Box className="widget-content widget-content-area add-manage-product-2">
+                    <Box className="widget-content widget-content-area add-manage-product-2" component={"form"}>
                         <Grid container spacing={4} padding="0 15px">
                             {/* LEFT */}
                             <Grid item xl={7} lg={7} xs={12} md={12}>
@@ -72,7 +73,7 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                                         <CardContent sx={{
                                             padding: "20px"
                                         }}>
-                                            <Box component={"form"}>
+                                            <Box>
                                                 {/*  Name */}
                                                 <FromGroupGrid container>
                                                     <Grid item xs={12} md={4} sm={12} component={"label"} display={"inline-block"} marginBottom={"0.5rem"} fontSize={"16px"} color={"#3b3f5c"} htmlFor='Attribute'>
@@ -177,16 +178,6 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                                                     </Grid>
                                                 </FromGroupGrid>
 
-                                                {/* Weight */}
-                                                <FromGroupGrid container>
-                                                    <Grid item xs={12} md={4} sm={12} component={"label"} display={"inline-block"} marginBottom={"0.5rem"} fontSize={"16px"} color={"#3b3f5c"} htmlFor='Attribute'>
-                                                        Weight :
-                                                    </Grid>
-                                                    <Grid item xs={12} md={8} sm={12}>
-                                                        <InputCustom onChange={handleChange} name='weight' />
-                                                    </Grid>
-                                                </FromGroupGrid>
-
                                                 {/* Status */}
                                                 <FromGroupGrid container>
                                                     <Grid item xs={12} md={4} sm={12} component={"label"} display={"inline-block"} marginBottom={"0.5rem"} fontSize={"16px"} color={"#3b3f5c"} htmlFor='Attribute'>
@@ -201,7 +192,6 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                                                         />
                                                     </Grid>
                                                 </FromGroupGrid>
-
                                             </Box>
                                         </CardContent>
                                     </CardContent>

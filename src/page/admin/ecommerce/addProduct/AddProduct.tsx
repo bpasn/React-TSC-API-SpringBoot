@@ -1,5 +1,5 @@
 // import { useEffect } from 'react'
-import React from 'react'
+import React, { useCallback } from 'react'
 import ManageProductOne from '../../../../components/admin/addProductComponent/ManageProductOne'
 import ManageProductTow from '../../../../components/admin/addProductComponent/ManageProductTow'
 import ProductPageLayout from '../../ProductPageLayout'
@@ -9,6 +9,14 @@ import { loadingPage } from '../../../../action/product.action'
 import useEffectHook from '../../../../hook/useEffectHook'
 import { Box, CircularProgress } from '@mui/material'
 type Props = {}
+export interface ProductOption {
+  categories: Options[]
+  attributes: Options[]
+  sizes: Options[]
+  productTypes: Options[]
+  brands: Options[]
+  colors: Options[]
+}
 
 const AddProduct = (props: Props) => {
   const [idInsert, setIdInsert] = React.useState<string>("")

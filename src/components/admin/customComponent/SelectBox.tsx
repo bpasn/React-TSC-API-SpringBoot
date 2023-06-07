@@ -6,7 +6,10 @@ type SelectOption = {
     label: string;
     value: string;
 };
-
+export interface Options{
+    name:string;
+    id:string;
+}
 type Props = {
     value?: string;
     disabled?: boolean;
@@ -28,10 +31,10 @@ const SelectBox = ({
 }: Props) => {
     const selectBox = (
         <SelectCuttom
-        onChange={onChange}
-        name={name}
-        disabled={disabled}
-        defaultValue={value}>
+            onChange={onChange}
+            name={name}
+            disabled={disabled}
+            defaultValue={value}>
             {defaultText && <option value={''}>{defaultText}</option>}
             {options.length && options.map((option: Options, index: number) => {
                 return (<option
