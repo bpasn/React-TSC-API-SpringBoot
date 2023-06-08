@@ -1,4 +1,4 @@
-import ProductPageLayout from '../../ProductPageLayout'
+import ProductPageLayout from '../../../ProductPageLayout'
 import { Box, Card, CardContent, CardHeader, Grid, Typography } from '@mui/material'
 import { ButtonCustom, FromGroupGrid, InputCustom, InputFileCustom, TextAreaCustom } from '../addProduct/AddProductStyle'
 import { SelectBox } from '../../../../components/admin/customComponent/SelectBox'
@@ -13,7 +13,7 @@ const AddCategory = (props: Props) => {
             subMenu={['Add/Edit Categories']}>
 
             {addCategory({ type: 'MAIN', title: "Add Categories", form: "categoryMain" })}
-            {addCategory({ type: "SUB", title: "Add Sub Categories", form: "categorySub" })}
+            {/* {addCategory({ type: "SUB", title: "Add Sub Categories", form: "categorySub" })} */}
 
         </ProductPageLayout>
     )

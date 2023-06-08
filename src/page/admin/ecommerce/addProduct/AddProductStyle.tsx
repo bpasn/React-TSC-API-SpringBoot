@@ -1,6 +1,6 @@
 import { Grid, Typography, styled } from "@mui/material";
 import { TypographyProps } from '@mui/material/Typography';
-
+import "../../../../assets/css/index.css"
 interface VariantProps {
     variant?: 'danger' | 'primary' | 'warning' | 'secondary' | 'success' | 'info' | 'dark'
 }
@@ -36,19 +36,28 @@ export const Crumbs = styled('div')({
         backgroundColor: "transparent",
     },
 })
-
+export const CrumbsLi = styled('li')({
+    '& :not(:first-of-type) :before':{
+       fontSize:"30px",
+    //    content:'"\f105"',
+    //    fontFamily: '"FontAwesome"',
+       
+    }
+})
 export const CrumbsUl = styled('ul')({
     display: "flex",
     fontSize: '1.2rem',
     FlexWrap: 'wrap',
     flexWrap: "wrap",
-    // padding: "0.75rem 1rem",
+    padding: "0.75rem 1rem",
     marginBottom: "1rem",
+    marginTop: "20px",
     listStyle: "none",
     backgroundColor: "#e9ecef",
     borderRadius: "0.25rem",
-    '& li ': {
-        cursor:"pointer"
+    '& li :not(:first-of-type)': {
+        cursor: "pointer",
+        backgroundColor:"red"
     },
     // '& i': {
     //     speak: 'none;',
@@ -62,32 +71,33 @@ export const CrumbsUl = styled('ul')({
     // },
     '& li > i': {
         padding: "0 5px",
-        cursor:"pointer",
+        color: "red",
+        cursor: "pointer",
     },
+
     '& li:not(:first-of-type):before': {
-        // fontFamily: 'FontAwesome !improtant',
+        fontFamily: 'FontAwesome',
         fontWeight: '400',
         fontStyle: 'normal !improtant',
         webkitFontSmoothing: 'antialiased',
-        content: '">"',
+        content: '"\f015"',
         display: 'inline-block',
         paddingRight: "0.5rem",
         paddingLeft: '0.5rem',
         vericalAlign: 'middle',
     },
-
+   
     // '& li > a, i': {
     //     color: '#555',
     //     textDecoration: "none"
     // },
 
 })
-export const CrumbsLi = styled('li')({
 
-})
 
 export const CrumbsA = styled('a')({
     color: '#555',
+    fontSize: "14px",
     '& :not(:first-of-type)': {
         color: "green",
     }
@@ -140,7 +150,7 @@ export const SelectCuttom = styled('select')({
 export const ButtonCustom = styled('button')<ButtonProps>(() => ({
     color: "#fff",
     backgroundColor: "#3232b7",
-    border:"1px solid transparent",
+    border: "1px solid transparent",
     borderColor: "#3232b7",
     borderRadius: "30px",
     boxShadow: "0px 5px 20px 0 rgba(0, 0, 0, 0.2)",
@@ -162,7 +172,7 @@ export const ButtonCustom = styled('button')<ButtonProps>(() => ({
         backgroundColor: 'transparent',
         opacity: 0.5,
         borderColor: 'grey',
-        color:'grey',
+        color: 'grey',
         cursor: 'default',
     }
 }))
@@ -171,7 +181,7 @@ export const ButtonCustom2 = styled('button', {
 })<ButtonProps>(({ theme, variant = "primary" }) => ({
     color: "#fff",
     cursor: "pointer",
-    border:"1px solid transparent",
+    border: "1px solid transparent",
     backgroundColor: varianColor({ variant }),
     borderColor: varianColor({ variant }),
     borderRadius: "30px",
@@ -196,10 +206,10 @@ export const ButtonCustom2 = styled('button', {
     //     color:'grey',
     //     cursor: 'default',
     // },
-    '&:not(:disabled):active':{
+    '&:not(:disabled):active': {
         color: '#fff',
         backgroundColor: '#24ccda',
-        borderColor:' #24ccda',
+        borderColor: ' #24ccda',
     }
 }))
 

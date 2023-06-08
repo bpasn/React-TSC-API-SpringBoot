@@ -1,9 +1,9 @@
 import { Alert, Box, Stack, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react'
-import { Crumbs, CrumbsA, CrumbsLi, CrumbsUl, PageHeader, PageTitle, PageTitleH3 } from './ecommerce/addProduct/AddProductStyle';
-import { useAppSelector } from '../../redux/hook';
-import LoadingPage from '../../components/LoadingPage';
-
+import { Crumbs, CrumbsA, CrumbsLi, CrumbsUl, PageHeader, PageTitle, PageTitleH3 } from './admin/ecommerce/addProduct/AddProductStyle';
+import { useAppSelector } from '../redux/hook';
+import LoadingPage from '../components/LoadingPage';
+import "../assets/css/fa-icons.css"
 type Props = {
     titleHeader?: string;
     mainMenu?: string;

@@ -2,7 +2,7 @@
 import React from 'react'
 import ManageProductOne from '../../../../components/admin/addProductComponent/ManageProductOne'
 import ManageProductTow from '../../../../components/admin/addProductComponent/ManageProductTow'
-import ProductPageLayout from '../../ProductPageLayout'
+import ProductPageLayout from '../../../ProductPageLayout'
 import { useAppDispatch, useAppSelector } from '../../../../redux/hook'
 import useAxiosHook from '../../../../axios-hook/axiosHook'
 import { loadingPage } from '../../../../action/product.action'

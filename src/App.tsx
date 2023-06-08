@@ -15,6 +15,7 @@ import { useAppSelector } from './redux/hook';
 import ModelPopup from './components/ModelPopup';
 import AuthSignIn from './page/auth/signin';
 import AuthSignUp from './page/auth/signup';
+import CategoriesPage from './page/categories/CategoriesPage';
 
 
 function App() {
@@ -34,7 +35,9 @@ function App() {
             <Route path="ecommerce" element={<Outlet />}>
               <Route path='add-product' element={<AddProduct />} />
               <Route path='add-categories' element={<AddCategory />} />
+              <Route path='categories' element={<CategoriesPage />} />
             </Route>
+
           </Route>
         </Route>
         <Route path='/login' element={<Signinpage />} />

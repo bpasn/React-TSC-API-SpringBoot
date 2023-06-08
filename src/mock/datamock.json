@@ -62,6 +62,10 @@
             "url": "/admin/ecommerce",
             "sub": [
                 {
+                    "name": "Product Category",
+                    "url": "/admin/ecommerce/categories"
+                },
+                {
                     "name": "Add/Edit Product",
                     "url": "/admin/ecommerce/add-product"
                 },
