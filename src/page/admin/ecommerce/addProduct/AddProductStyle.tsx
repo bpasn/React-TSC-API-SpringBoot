@@ -8,16 +8,21 @@ interface VariantProps {
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps {
     // variant: ButtonVariantProps
 }
-export const PageHeader = styled('div')({
-    '& div > ::before': {
-        display: "table",
-        content: '" "',
-        lineHeight: 0
+export const BoxPageLayout = styled('div')({
+    marginTop:"75px",
+    padding: "0 30px",
+    maxWidth: "none !improtant",
+    '& input, select , textarea, :focus': {
+        outline: 'none !important',
+        color: "#495057",
+        backgroundColor: '#fff',
+        borderClor: '#80bdff',
     },
+    
 })
 
 export const PageTitle = styled('div')({
-    float: "left",
+    // float: "left",
     marginBottom: "35px",
     marginTop: "35px"
 })

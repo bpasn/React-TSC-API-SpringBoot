@@ -17,4 +17,5 @@ export default class AppSetting {
     static readonly INSERT_IMAGE_PRODUCT = "/api/product/insert-image-product";
     static readonly UPDATE_IMAGE_PRODUCT = "/api/product/update-image-product";
     static readonly LOAD_PAGE = "/api/product/loading-page";
+    static readonly GET_CATEGORIES = "/api/categories/get-all";
 }

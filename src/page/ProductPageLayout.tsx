@@ -1,6 +1,6 @@
-import { Alert, Box, Stack, ThemeProvider, createTheme } from '@mui/material';
+import { Alert, Box, Stack, Tab, Tabs, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react'
-import { Crumbs, CrumbsA, CrumbsLi, CrumbsUl, PageHeader, PageTitle, PageTitleH3 } from './admin/ecommerce/addProduct/AddProductStyle';
+import { Crumbs, CrumbsA, CrumbsLi, CrumbsUl, BoxPageLayout, PageTitle, PageTitleH3 } from './admin/ecommerce/addProduct/AddProductStyle';
 import { useAppSelector } from '../redux/hook';
 import LoadingPage from '../components/LoadingPage';
 import "../assets/css/fa-icons.css"
@@ -57,7 +57,7 @@ const ProductPageLayout: React.FC<Props> = (props: Props) => {
     const { loading } = useAppSelector(state => state.LoadingProgress)
     return (
         <ThemeProvider theme={theme} >
-            <Box sx={{
+            {/* <Box sx={{
                 marginTop:"30px",
                 padding: "0 30px",
                 maxWidth: "none !improtant",
@@ -68,38 +68,39 @@ const ProductPageLayout: React.FC<Props> = (props: Props) => {
                     borderClor: '#80bdff',
                 }
             }}>
-                <PageHeader>
-                    <PageTitle>
-                        <PageTitleH3>
-                            {props.titleHeader}
-                        </PageTitleH3>
-                        <Crumbs>
-                            <CrumbsUl>
-                                <CrumbsLi>
-                                    <CrumbsA>
-                                        <i className="fa fa-home"></i>
-                                    </CrumbsA>
-                                </CrumbsLi>
-                                <CrumbsLi>
-                                    <CrumbsA>
-                                        {props.mainMenu}
-                                    </CrumbsA>
-                                </CrumbsLi>
-                                {props.subMenu?.map((sub: string, index: number) => {
-                                    return <CrumbsLi key={sub + index}>
-                                        <CrumbsA sx={{
-                                            
-                                            fontWeight: `${props.subMenu?.length === index + 1 ? 700 : 'normal'} `
-                                        }}>
-                                            {sub}
-                                        </CrumbsA>
-                                    </CrumbsLi>
-                                })}
+                
+            </Box> */}
+            <BoxPageLayout>
+                <PageTitle>
+                    <PageTitleH3>
+                        {props.titleHeader}
+                    </PageTitleH3>
+                    <Crumbs>
+                        <CrumbsUl>
+                            <CrumbsLi>
+                                <CrumbsA>
+                                    <i className="fa fa-home"></i>
+                                </CrumbsA>
+                            </CrumbsLi>
+                            <CrumbsLi>
+                                <CrumbsA>
+                                    {props.mainMenu}
+                                </CrumbsA>
+                            </CrumbsLi>
+                            {props.subMenu?.map((sub: string, index: number) => {
+                                return <CrumbsLi key={sub + index}>
+                                    <CrumbsA sx={{
 
-                            </CrumbsUl>
-                        </Crumbs>
-                    </PageTitle>
-                </PageHeader>
+                                        fontWeight: `${props.subMenu?.length === index + 1 ? 700 : 'normal'} `
+                                    }}>
+                                        {sub}
+                                    </CrumbsA>
+                                </CrumbsLi>
+                            })}
+
+                        </CrumbsUl>
+                    </Crumbs>
+                </PageTitle>
                 {errorStatus ?
                     (<Stack sx={{ width: '100%' }} mb={2} spacing={2} >
                         <Alert sx={{
@@ -114,7 +115,10 @@ const ProductPageLayout: React.FC<Props> = (props: Props) => {
                 {loading ? <LoadingPage /> : ''}
                 {/* content */}
                 {props.children}
-            </Box>
+            </BoxPageLayout>
+
+
+
         </ThemeProvider>
     )
 }

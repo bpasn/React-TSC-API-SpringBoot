@@ -21,6 +21,7 @@ import { AppBar } from './AppBar';
 import { DrawerHeader } from './DrawerHeader';
 import { MainAppBar } from './Main';
 import { DrawerCustom } from './DrawerCustom';
+import { useAppDispatch } from '../../redux/hook';
 const drawerwidth = 255;
 
 
@@ -72,6 +73,7 @@ export default function PersistentDrawerLeft() {
     const [open, setOpen] = React.useState(true);
     const [_open, set_Open] = React.useState(0);
     const [openSub, setOpenSub] = React.useState(-1);
+    const dispatch = useAppDispatch()
     const [textSubMenu, setTextSubMenu] = React.useState("");
     let location = useLocation();
 
@@ -88,7 +90,7 @@ export default function PersistentDrawerLeft() {
         setAnchorEl(null);
     };
     React.useEffect(() => {
-        console.log(window.innerWidth)
+
     }, [])
     return (
         <ThemeProvider theme={theme}>
@@ -171,7 +173,10 @@ export default function PersistentDrawerLeft() {
                                         color: `${_open === index ? "#fff" : '#beb3b6'}`,
                                         cursor: "pointer", '&:hover': { color: "#fff" }, fontSize: "21px"
                                     }}
-                                    onClick={() => set_Open(_open === index ? -1 : index)}>
+                                    onClick={() => {
+                                        set_Open(_open === index ? -1 : index);
+                                        
+                                    }}>
                                     <ListItem>
                                         <ListItemIcon>
                                             <TiShoppingCart />
@@ -240,7 +245,7 @@ export default function PersistentDrawerLeft() {
                         ))}
                     </List>
                 </Drawer>
-                <MainAppBar  drawerwidth={drawerwidth} open={open}>
+                <MainAppBar drawerwidth={drawerwidth} open={open}>
                     {/* <DrawerHeader /> */}
                     {<Outlet />}
                 </MainAppBar>
