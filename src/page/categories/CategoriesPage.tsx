@@ -6,13 +6,15 @@ import { orange } from "@mui/material/colors";
 
 
 import CardCategoryComponent from '../../components/category/CardCategoryComponent'
-import { Box, CircularProgress, Tab, Tabs, Typography } from '@mui/material'
+import { Box, CircularProgress, Stack, Tab, Tabs, Typography } from '@mui/material'
 import { TabsCustom, TabCustom } from '../../components/Tabs/TabsCustom';
 import { TabPanel } from './TapPanel';
 import useEffectHook from '../../hook/useEffectHook';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import AppSetting from '../../constance/AppSetting';
+import useAxiosHook from '../../axios-hook/axiosHook';
+import PaginationComponent from '../../components/pagination/PaginationComponent';
 
 type Props = {}
 export interface Categories {
@@ -50,53 +52,55 @@ const theme = createTheme({
 
     }
 });
+
 const CategoriesPage = (props: Props) => {
-    const [value, setValue] = React.useState<string>('');
     const [categoires, setCategories] = React.useState<Categories[]>([]);
-    const [loading, setLoading] = React.useState<boolean>(false);
     const [currentPage, setCurrentPage] = React.useState<number>(1)
-    const [itemPage] = React.useState<number>(9)
-    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-        setValue(newValue);
-    };
+    const [itemPage] = React.useState<number>(3)
+
+    const dispatch = useAppDispatch();
+    const axioshook = useAxiosHook();
+    const [loading, setLoading] = React.useState<boolean>(false);
     const loadingCategories = async (offset: number = 0, limit: number = 10) => {
-        const { data: { payload, success } } = await axios.get<CategoriesRes>(AppSetting.GET_CATEGORIES)
-        if (success) {
-            setCategories(payload)
-            setValue(payload[0].categoryName)
+        try {
+            const { data: { payload, success } } = await axioshook.get<CategoriesRes>(AppSetting.GET_CATEGORIES)
+            if (success) {
+                setCategories(payload)
+            }
+        } catch (error) {
+            dispatch<any>({
+                type: "SHOW", payload: {
+                    severity: "error",
+                    errorStatus: true,
+                    message: error instanceof AxiosError && error.response && error.response.data && error.response.data.message ? error.response.data.message : (error instanceof Error && error.message),
+                }
+            })
         }
     }
-    console.log(value)
     useEffectHook(() => {
         loadingCategories();
-        
         return () => {
             setLoading(false);
         }
     })
-    
-    return loading && !categoires.length ? <Box display="flex" justifyContent={"center"}><CircularProgress/></Box>: (
+    const indexOfLastPage = currentPage * itemPage
+    const indexOfFirstPage = indexOfLastPage - itemPage
+    const currentOfPage = categoires?.slice(indexOfFirstPage, indexOfLastPage)
+    return loading ? <Box display="flex" justifyContent={"center"}><CircularProgress /></Box> : (
         <ThemeProvider theme={theme}>
             <ProductPageLayout
                 titleHeader='Product Catalog'
                 mainMenu={"ecommerce"}
                 subMenu={['Product Catalog']}>
-                <Box sx={{ width: '100%' }} >
-                    <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <TabsCustom value={categoires.length && categoires[0].categoryName} onChange={handleChange} aria-label="basic tabs example">
-                            {categoires.map((item: Categories, index: number) => {
-                                return <TabCustom key={item.id} label={item.categoryName} {...a11yProps(item.categoryName.replace(/\s/g,""))} />
-                            })}
-                        </TabsCustom>
-                    </Box>
+                {categoires.length ? <CardCategoryComponent categories={currentOfPage} /> : <Box display={"flex"} justifyContent={"center"} marginBottom={"40px"}>No Product Categories</Box>}
+                <Stack spacing={2} >
+                    <PaginationComponent
+                        itemPerPage={itemPage}
+                        totalPage={categoires.length}
+                        setCurrentPage={setCurrentPage} />
+                </Stack>
 
-                    {categoires.map(item => {
-                        return <TabPanel key={item.id} value={item.categoryName} index={item.categoryName}>
-                                    <CardCategoryComponent categories={categoires} />
-                                </TabPanel>
-                    })}
-                </Box>
-                {/* <CardCategoryComponent /> */}
+
             </ProductPageLayout>
         </ThemeProvider>
     )

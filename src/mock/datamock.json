@@ -1,93 +1,66 @@
 {
-    "category": [
-        "Electronics",
-        "Apparel",
-        "Clothing",
-        "Furniture"
-    ],
-    "size": [
-        "S",
-        "M",
-        "L",
-        "XL",
-        "XXL",
-        "XXXL"
-    ],
-    "brand": [
-        "Microsoft",
-        "Samsung",
-        "HP",
-        "Ford"
-    ],
-    "color": [
-        "Black",
-        "White",
-        "Blue",
-        "Red",
-        "Green"
-    ],
-    "status": [
-        "In Stock",
-        "Out Of Stock"
-    ],
-    "visibility": [
-        "Yes",
-        "No"
-    ],
-    "attributeSet": [
-        "Default",
-        "Furniture",
-        "Shoes",
-        "Cell Phones",
-        "Monitors",
-        "Clothing"
-    ],
-    "taxClass": [
-        "Electronics",
-        "Apparel",
-        "Clothing",
-        "Furniture"
-    ],
-    "productType": [
-        "Simple Product",
-        "Configurable Product",
-        "Bundle Product",
-        "Grouped Product",
-        "Virtual Product",
-        "Downloadable Product"
-    ],
-    "menu": [
+  "category": ["Electronics", "Apparel", "Clothing", "Furniture"],
+  "size": ["S", "M", "L", "XL", "XXL", "XXXL"],
+  "brand": ["Microsoft", "Samsung", "HP", "Ford"],
+  "color": ["Black", "White", "Blue", "Red", "Green"],
+  "status": ["In Stock", "Out Of Stock"],
+  "visibility": ["Yes", "No"],
+  "attributeSet": [
+    "Default",
+    "Furniture",
+    "Shoes",
+    "Cell Phones",
+    "Monitors",
+    "Clothing"
+  ],
+  "taxClass": ["Electronics", "Apparel", "Clothing", "Furniture"],
+  "productType": [
+    "Simple Product",
+    "Configurable Product",
+    "Bundle Product",
+    "Grouped Product",
+    "Virtual Product",
+    "Downloadable Product"
+  ],
+  "menu": [
+    {
+     "roles": ["ROLE_USER","ROLE_ADMIN"],
+      "main": "Ecommerce",
+      "url": "/admin/ecommerce",
+      "sub": [
         {
-            "main": "Ecommerce",
-            "url": "/admin/ecommerce",
-            "sub": [
-                {
-                    "name": "Product Category",
-                    "url": "/admin/ecommerce/categories"
-                },
-                {
-                    "name": "Add/Edit Product",
-                    "url": "/admin/ecommerce/add-product"
-                },
-                {
-                    "name": "Add/Edit Categories",
-                    "url": "/admin/ecommerce/add-categories"
-                }
-            ]
+          "name": "Product Category",
+          "url": "/admin/ecommerce/categories",
+          "roles": ["ROLE_USER"]
         },
         {
-            "main": "UI Kit",
-            "url": "/admin/ui-kit",
-            "sub": [
-                {
-                    "name": "Helper Classes",
-                    "url": "/admin/ui-kit/helper-classes"
-                },
-                {
-                    "name": "Color Library",
-                    "url": "/admin/ui-kit/color-library"
-                }
-            ]
+          "name": "Add/Edit Product",
+          "url": "/admin/ecommerce/add-product",
+          "roles": ["ROLE_ADMIN"]
+        },
+        {
+          "name": "Add/Edit Categories",
+          "url": "/admin/ecommerce/add-categories",
+          "roles": ["ROLE_ADMIN"]
         }
-    ]
+      ]
+    },
+    {
+      "roles": ["ROLE_USER"],
+      "main": "UI Kit",
+      "url": "/admin/ui-kit",
+      "sub": [
+        {
+          "name": "Helper Classes",
+          "url": "/admin/ui-kit/helper-classes",
+          "roles": ["ROLE_USER"]
+        },
+        {
+          "name": "Color Library",
+          "url": "/admin/ui-kit/color-library",
+          "roles": ["ROLE_USER"]
+        }
+      ]
+    }
+  ]
 }

@@ -13,46 +13,8 @@ type Props = {
 }
 
 const CardCategoryComponent = ({ categories }: Props) => {
-    
-    // const [loading, setLoading] = React.useState(false);
-    // const [categories, setCategories] = React.useState<any[]>();
 
-    const [currentPage, setCurrentPage] = React.useState<number>(1)
-    const [itemPage] = React.useState<number>(9)
-
-    // const [page, setPage] = React.useState(0);
-    // const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-    // // Avoid a layout jump when reaching the last page with empty rows.
-    // const emptyRows = categories?.length &&
-    //     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - categories.length) : 0;
-
-    // const handleChangePage = (
-    //     event: React.MouseEvent<HTMLButtonElement> | null,
-    //     newPage: number,
-    // ) => {
-    //     setPage(newPage);
-    // };
-
-    // const handleChangeRowsPerPage = (
-    //     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    // ) => {
-    //     setRowsPerPage(parseInt(event.target.value, 10));
-    //     setPage(0);
-    // };
-    // const dispatch = useAppDispatch();
-    // useEffectHook(() => {
-    //     const getCatalog = async () => {
-    //         setLoading(true);
-    //         const { data: result } = await axios.get(AppSetting.GET_CATEGORIES);
-    //         if (result.success) {
-    //             setCategories(result.payload)
-    //             setLoading(false)
-    //         }
-    //     }
-    //     getCatalog()
-
-    // })
+  
     return (
         <Grid container>
             <Grid item xs={12} md={12} sm={12}>
@@ -62,7 +24,7 @@ const CardCategoryComponent = ({ categories }: Props) => {
                             <Card >
                                 <CardMedia
                                     sx={{ height: 260 }}
-                                    image={"/Users/prpasn/Desktop/authentication_spring/" + item.imagePath}
+                                    image={"/" + item.imagePath.replace(/[\\]/g, "/").replace(/(src\/main\/resources\/storage\/)/, "")}
                                     title="green iguana"
                                 />
                                 <CardContent sx={{ paddingLeft: "17px", paddingRight: "17px" }}>
@@ -71,15 +33,14 @@ const CardCategoryComponent = ({ categories }: Props) => {
                                         textAlign: "center",
                                         fontFamily: '"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
                                     }} component="div">
-                                        Lizard
+                                        {item.categoryName}
                                     </Typography>
                                     <Typography variant="body2" sx={{
                                         fontFamily: '"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif',
                                         color: "#888ea8",
                                         fontSize: "15px"
                                     }} color="text.secondary">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
+                                        {item.categoryDescription}
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
@@ -91,13 +52,7 @@ const CardCategoryComponent = ({ categories }: Props) => {
                         </Grid>)
                     })}
                 </Grid>
-                <Stack spacing={2} >
-                    <PaginationComponent
-                        itemPerPage={currentPage} 
-                        totalPage={categories.length}
-                        setCurrentPage={setCurrentPage} />
-
-                </Stack>
+               
             </Grid>
 
         </Grid>

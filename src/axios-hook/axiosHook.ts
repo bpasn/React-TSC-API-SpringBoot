@@ -2,6 +2,7 @@ import axios, { AxiosError,AxiosResponse, InternalAxiosRequestConfig } from 'axi
 import { useAppDispatch, useAppSelector } from '../redux/hook'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { signOut } from '../action/user.action'
 // import { signOut } from '../action/user.action'
 const axiosPrivate = axios.create({
     withCredentials: true,
@@ -41,16 +42,8 @@ const useAxiosHook = () => {
                     //         error:error
                     //     }
                     // })
+                    // dispatch<any>(signOut())
                     return dispatch<any>({ type: "show", payload: { title: "Unauthorization", description: error.response.data && error.response.data.error ? error.response.data.error : error.message } })
-                }
-                if (error.response?.status === 500) {
-                    // return navigate("/login",{
-                    //     state:{
-                    //         form:"eii",
-                    //         error:error
-                    //     }
-                    // })
-                    // return dispatch<any>({ type: "show", payload: { title: "Internal Server Error", description: error.response?.data && error.response.data.message ? error.response.data.message : error.message } })
                 }
                 return Promise.reject(error);
             },

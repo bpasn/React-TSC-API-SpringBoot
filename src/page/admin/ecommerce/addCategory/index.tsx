@@ -93,7 +93,7 @@ function addCategory({ type, title, form }: { type: 'SUB' | 'MAIN', title: strin
                                                     Name :
                                                 </Grid>
                                                 <Grid item xs={12} md={8} sm={12}>
-                                                    <InputCustom name="name" />
+                                                    <InputCustom name="categoryName" />
                                                 </Grid>
                                             </FromGroupGrid>
 
@@ -105,7 +105,7 @@ function addCategory({ type, title, form }: { type: 'SUB' | 'MAIN', title: strin
                                                 <Grid item xs={12} md={8} sm={12}>
                                                     <SelectBox
                                                         options={[{ name: "ACTIVE", id: "1" },{name:"INACTIVE",id:"2"}]}
-                                                        name='isActive'
+                                                        name='active'
                                                         onChange={() => { }}
                                                     />
                                                 </Grid>
