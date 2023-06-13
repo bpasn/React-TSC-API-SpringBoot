@@ -6,7 +6,7 @@ const ProtectProduct = (props: Props) => {
     const userState = useAppSelector(state => state.SignUser)
     const { userInfo } = userState
 
-    return userInfo?.roles?.includes("ROLE_ADMIN") ? <Navigate to={"/admin/ecommerce/add-product"}/> : <Outlet />
+    return userInfo?.roles?.includes("ROLE_ADMIN") ? <Navigate to={"/admin/ecommerce"}/> : <Outlet />
     //  : <Navigate to={'/Execption'} replace state={{
     //     form: location.pathname,
     //     message: "Access denide",

@@ -96,7 +96,7 @@ export default function PersistentDrawerLeft() {
             let role = item.sub.filter(item => {
                 return item.roles.filter(arr => userInfo?.roles.includes(arr)).length > 0
             })
-            console.log(role)
+            //console.log(role)
         })
         }, [])
         return (

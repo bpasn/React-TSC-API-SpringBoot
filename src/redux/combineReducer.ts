@@ -29,6 +29,7 @@ export default combineReducers(
         Error: (state: IError = { message: "", errorStatus: false, severity: "success" }, action: { type: 'SHOW' | 'HIDE', payload: IError }) => {
             switch (action.type) {
                 case "SHOW":
+                    window.scrollTo(0, 0)
                     return { ...state, message: action.payload.message, errorStatus: true, severity: action.payload.severity }
                 case "HIDE":
                     return { ...state, errorStatus: false }
@@ -37,7 +38,7 @@ export default combineReducers(
 
             }
         },
-        LoadingProgress: (state: { loading: boolean } = { loading: false }, action: { type: 'SHOW_LOADING' | 'HIDE_LOADING', payload: { loading: boolean } }) => {
+        LoadingProgress: (state: { loading: boolean } = { loading: false }, action: { type: 'SHOW_LOADING' | 'HIDE_LOADING'}) => {
             switch (action.type) {
                 case "SHOW_LOADING":
                     return { loading: true }

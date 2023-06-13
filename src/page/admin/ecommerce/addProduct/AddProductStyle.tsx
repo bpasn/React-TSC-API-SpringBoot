@@ -274,7 +274,7 @@ export const TextAreaCustom = styled('textarea')({
     display: 'block',
     width: '100%',
     // height: 'calc(1.5em + .75rem + 10px)',
-    padding: '10px .75rem',
+    padding: '20px 10px',
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: 1.5,

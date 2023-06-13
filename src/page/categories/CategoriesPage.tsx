@@ -99,8 +99,6 @@ const CategoriesPage = (props: Props) => {
                         totalPage={categoires.length}
                         setCurrentPage={setCurrentPage} />
                 </Stack>
-
-
             </ProductPageLayout>
         </ThemeProvider>
     )
