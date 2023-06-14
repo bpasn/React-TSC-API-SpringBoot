@@ -8,6 +8,8 @@ import useAxiosHook from '../../../../axios-hook/axiosHook'
 import { loadingPage } from '../../../../action/product.action'
 import useEffectHook from '../../../../hook/useEffectHook'
 import { Box, CircularProgress } from '@mui/material'
+import PageLayOutHeader from '../../../PageLayOutHeader'
+import { ILoadingPage } from '../../../../interface/IProduct'
 type Props = {}
 
 const AddProduct = (props: Props) => {
@@ -26,8 +28,12 @@ const AddProduct = (props: Props) => {
         titleHeader='Add/Edit Products'
         mainMenu={"ecommerce"}
         subMenu={['Add/Edit Products']}>
-        <ManageProductOne loadPage={loadPage as ILoadingPage[]} setIdInsert={setIdInsert} idInsert={idInsert} />
-        <ManageProductTow loadPage={loadPage as ILoadingPage[]} idInsert={idInsert} />
+        <PageLayOutHeader title={'Add / Manage Product'}>
+          <ManageProductOne loadPage={loadPage as ILoadingPage[]} setIdInsert={setIdInsert} idInsert={idInsert} />
+        </PageLayOutHeader>
+        <PageLayOutHeader title={'Add / Manage Product'}>
+          <ManageProductTow loadPage={loadPage as ILoadingPage[]} idInsert={idInsert} />
+        </PageLayOutHeader>
       </ProductPageLayout>
     )
 }

@@ -16,10 +16,11 @@ import ModelPopup from './components/ModelPopup';
 import AuthSignIn from './page/auth/signin';
 import AuthSignUp from './page/auth/signup';
 import CategoriesPage from './page/categories/CategoriesPage';
+import ProductPageAdmin from './page/admin/ecommerce/products/ProductPageAdmin';
 
 
 function App() {
-  const { settingPopup} = useAppSelector(state => state.Popup)
+  const { settingPopup } = useAppSelector(state => state.Popup)
 
   return (
     <BrowserRouter >
@@ -32,12 +33,13 @@ function App() {
             </Route>
           </Route>
           <Route path='admin' element={<LayoutAdmin />}>
+
             <Route path="ecommerce" element={<Outlet />}>
               <Route path='add-product' element={<AddProduct />} />
               <Route path='add-categories' element={<AddCategory />} />
-              <Route path='categories' element={<CategoriesPage />} />
             </Route>
-
+            <Route path='categories' element={<CategoriesPage />} />
+            <Route path='products' element={<ProductPageAdmin />} />
           </Route>
         </Route>
         <Route path='/login' element={<Signinpage />} />

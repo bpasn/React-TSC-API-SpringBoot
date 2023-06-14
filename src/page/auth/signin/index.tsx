@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import '../../../assets/css/index.css'
 import CheckBoxComponent from '../../../components/CheckBoxComponent'
-import InputComponent from '../../../components/InputComponent'
+import InputComponent from '../../../components/InputSignComponent'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { signIn } from '../../../action/user.action'
 type Props = {}

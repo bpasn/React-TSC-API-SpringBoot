@@ -85,7 +85,7 @@ export const CrumbsUl = styled('ul')({
         fontWeight: '400',
         fontStyle: 'normal !improtant',
         webkitFontSmoothing: 'antialiased',
-        content: '"\f015"',
+        content: '">"',
         display: 'inline-block',
         paddingRight: "0.5rem",
         paddingLeft: '0.5rem',

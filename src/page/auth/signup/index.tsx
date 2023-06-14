@@ -3,7 +3,7 @@ import { BoxAuthBackground, ButtonFormSubmit, FormControlTextFied, FormGroupCust
 import { Alert, Box, Grid, Stack } from '@mui/material'
 import '../../../assets/css/admin.css'
 import { Link } from 'react-router-dom'
-import InputComponent from '../../../components/InputComponent'
+import InputComponent from '../../../components/InputSignComponent'
 import { useForm } from 'react-hook-form'
 import CheckBoxComponent from '../../../components/CheckBoxComponent'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'

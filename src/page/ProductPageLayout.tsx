@@ -1,9 +1,10 @@
 import { Alert, Box, Stack, Tab, Tabs, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react'
 import { Crumbs, CrumbsA, CrumbsLi, CrumbsUl, BoxPageLayout, PageTitle, PageTitleH3 } from './admin/ecommerce/addProduct/AddProductStyle';
-import { useAppSelector } from '../redux/hook';
+import { useAppDispatch, useAppSelector } from '../redux/hook';
 import LoadingPage from '../components/LoadingPage';
 import "../assets/css/fa-icons.css"
+import useEffectHook from '../hook/useEffectHook';
 type Props = {
     titleHeader?: string;
     mainMenu?: string;
@@ -55,6 +56,11 @@ const theme = createTheme({
 const ProductPageLayout: React.FC<Props> = (props: Props) => {
     const { severity, message, errorStatus } = useAppSelector(state => state.Error)
     const { loading } = useAppSelector(state => state.LoadingProgress)
+    const dispatch = useAppDispatch()
+
+    useEffectHook(() => {
+       
+    })
     return (
         <ThemeProvider theme={theme} >
             {/* <Box sx={{

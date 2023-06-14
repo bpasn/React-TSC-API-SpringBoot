@@ -30,8 +30,13 @@
       "sub": [
         {
           "name": "Product Category",
-          "url": "/admin/ecommerce/categories",
-          "roles": ["ROLE_USER"]
+          "url": "/admin/categories",
+          "roles": ["ROLE_USER","ROLE_ADMIN"]
+        },
+        {
+          "name": "Products",
+          "url": "/admin/products",
+          "roles": ["ROLE_USER","ROLE_ADMIN"]
         },
         {
           "name": "Add/Edit Product",

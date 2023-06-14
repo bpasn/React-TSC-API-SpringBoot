@@ -1,17 +1,33 @@
+import { Attributes } from "react";
+
 interface IProducts {
     id: string,
-    desc: string,
-    name: string,
-    category: ICategory,
-    inventory: IInventory,
-    price: number,
-    discount: IDiscount,
-    sku: string
+    categories: ICategory,
+    attributes: Attributes[]
+    productName: string;
+    SKU: string;
+    price: string;
+    discount: string;
+    quantity: string;
+    status: string;
+    shortDescription: string;
+    description: string;
 }
 
 interface ICategory {
     name: string,
     desc: string
+}
+interface IAttributes {
+    attributeName: string;
+    attributeValues: IAttributeValues[];
+    id: string
+}
+interface IAttributeValues {
+    attributeId: string;
+    attributeValue: string;
+    id: string;
+
 }
 interface IInventory {
     quantity: number
