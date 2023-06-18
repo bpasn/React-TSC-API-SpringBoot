@@ -9,7 +9,6 @@ import { loadingPage } from '../../../../action/product.action'
 import useEffectHook from '../../../../hook/useEffectHook'
 import { Box, CircularProgress } from '@mui/material'
 import PageLayOutHeader from '../../../PageLayOutHeader'
-import { ILoadingPage } from '../../../../interface/IProduct'
 type Props = {}
 
 const AddProduct = (props: Props) => {

@@ -1,4 +1,3 @@
-import { Attributes } from "react";
 
 interface IProducts {
     id: string,

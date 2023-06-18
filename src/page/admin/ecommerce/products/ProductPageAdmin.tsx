@@ -1,44 +1,72 @@
 import ProductPageLayout from '../../../ProductPageLayout'
 import PageLayOutHeader from '../../../PageLayOutHeader'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import { Box, CircularProgress } from '@mui/material'
+import { Box, CircularProgress, Grid, ThemeProvider, createTheme } from '@mui/material'
 import useEffectHook from '../../../../hook/useEffectHook'
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../redux/hook'
 import axios, { AxiosError } from 'axios'
 import AppSetting from '../../../../constance/AppSetting'
-import { ButtonCustom2 } from '../addProduct/AddProductStyle'
-import { IProducts } from '../../../../interface/IProduct'
+import LocalMallIcon from '@mui/icons-material/LocalMall';
+import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import { pink } from '@mui/material/colors'
+import SearchAutocomplete from '../../../../components/autocomplete/SearchAutoComplete'
+import { LabelType, labels } from '../../../../components/autocomplete/datamock'
 type Props = {}
-
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      "FontAwesome"
+    ].join(",")
+  },
+})
 const ProductPageAdmin = (props: Props) => {
   const [product, setProduct] = React.useState<IProducts[]>([]);
+  const [search,setSearch] = React.useState<"search" | 'success' | ''>('');
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [value, setValue] = React.useState<string>("");
   const dispatch = useAppDispatch()
+  const [getLabels, setLabels] = React.useState<LabelType[]>([]);
+
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
-
     {
-      field: '',
+      field: 'imagePath',
+      width: 80,
       headerName: 'Image',
       sortable: false,
-      width: 100,
       headerClassName: 'hideRightSeparator',
       renderCell: (param) => {
-        console.log(param.row.categories.imagePath)
-        return <Box width={"60px"} height={"60px"} borderRadius={20}>
-          <img style={{
-            objectFit:"fill",
-            width:"100%",
-            height:"100%"
-          }}src={"/" + param.row.categories.imagePath.replace(/(src\/main\/resources\/storage\/)/, "")} />
-        </Box>
+        return (
+          <div style={{
+            borderRadius: "20px",
+            margin: 'auto',
+            width: '100%',
+            height: '100%',
+            display: 'grid',
+            padding: "12px 7px"
+          }}>
+            <Box
+              component={"img"}
+              sx={{
+
+                maxWidth: '100%',
+                maxHeight: '100%',
+                height: "100%",
+                margin: 'auto',/* x,y center if inside a grid or flex box */
+                objectFit: 'cover',/* useless by now, img should keep its ratio */
+                borderRadius: '10px',
+                backgroundColor: 'Crimson',
+              }} src={"/" + param.row.categories.imagePath.replace(/(src\/main\/resources\/storage\/)/, "")} />
+          </div>
+        )
       }
     },
     {
       field: 'productName',
       headerName: 'Name',
       sortable: false,
+      width: 150,
       headerClassName: 'hideRightSeparator',
     },
     {
@@ -55,7 +83,7 @@ const ProductPageAdmin = (props: Props) => {
       headerName: 'SKU',
       headerClassName: 'hideRightSeparator',
       sortable: false,
-      minWidth: 150
+      minWidth: 170
     },
     {
       field: 'price',
@@ -72,35 +100,52 @@ const ProductPageAdmin = (props: Props) => {
       hideSortIcons: true,
       headerName: 'Quantity',
       sortable: false,
-      headerClassName: 'hideRightSeparator',
+      // headerClassName: 'hideRightSeparator',
       headerAlign: 'center',
       align: "center",
       // renderCell: (data) => ButtonAction(data)
     },
     {
-      field: '',
+      field: 'active',
       headerName: 'Status',
       sortable: false,
-      headerClassName: 'hideRightSeparator',
-      valueGetter(params) {
-        return params?.row.categories?.status ? `${params?.row.categories?.status}` : ''
+      align: "center",
+      minWidth: 40,
+      renderCell(params) {
+        return params.row.categories.active === "ACTIVE" ? <LocalMallIcon color="primary" /> : <LocalMallIcon sx={{
+          width: "2.5em",
+          height: "2.5em",
+          color: pink[500]
+        }} />
       },
     },
-    // {
-    //   field: '',
-    //   hideSortIcons: true,
-    //   headerName: 'Action',
-    //   sortable: false,
-    //   headerClassName: 'hideRightSeparator',
-    //   minWidth: 350,
-    //   headerAlign: 'center',
-    //   align: "center",
-    //   renderCell: (data) => <ButtonCustom2>Action</ButtonCustom2>
-    // },
+    {
+      flex: 1,
+      field: 'action',
+      hideSortIcons: true,
+      headerName: 'Action',
+      sortable: false,
+      headerClassName: 'hideRightSeparator',
+      minWidth: 100,
+      headerAlign: 'center',
+      align: "center",
+      renderCell: (data) => <Box display={"flex"} justifyContent={"center"} gap={"1rem"}>
+        <FaPencilAlt size={24} color='#d3d3d3' />
+        <FaTrashAlt size={24} color='#d3d3d3' />
+      </Box>
+    },
+
   ];
   interface IResp {
     success: boolean;
     payload: IProducts[]
+  }
+  const autocomplete = () => {
+    setSearch("search")
+    setTimeout(() => {
+      setLabels(labels)
+      setSearch("success")
+    },3*1000)
   }
   useEffectHook(() => {
     const fetchData = async () => {
@@ -124,6 +169,7 @@ const ProductPageAdmin = (props: Props) => {
         dispatch<any>({
           type: "SHOW",
           payload: {
+            severity: "error",
             message: error instanceof AxiosError ? error.response && error.response.data.message : error instanceof Error && error.message
           }
         })
@@ -137,46 +183,71 @@ const ProductPageAdmin = (props: Props) => {
       setLoading(false)
     }
   })
+  React.useEffect(() => {
+    if (!getLabels.length && value.length >= 4) {
+      autocomplete();
+    }
+    if(!value){
+      setLabels([])
+      setSearch('')
+    }
+  }, [value, getLabels])
+  console.log(getLabels)
   return loading ? <></> : (
-    <ProductPageLayout
-      titleHeader='Products'
-      mainMenu={"ecommerce"}
-      subMenu={['Products']}
-    >
-      <Box>
+    <ThemeProvider theme={theme}>
+      <ProductPageLayout
+        titleHeader='Products'
+        mainMenu={"ecommerce"}
+        subMenu={['Products']}
+      >
+        <Box component={Grid} container >
+          <Grid item md={4} xl={2} sm={12} xs={12}>
+            <SearchAutocomplete searching={search} labels={getLabels} setState={setValue} />
+          </Grid>
+        </Box>
         {product.length ? <PageLayOutHeader title={'Products List'}>
-          <DataGrid
+          <Box sx={{
+            padding: '2rem'
+          }}>
+            <DataGrid
 
-            slots={{
-              loadIcon: CircularProgress,
-            }}
-            sx={{
-              '& .hideRightSeparator > .MuiDataGrid-columnSeparator': {
-                display: 'none',
-              },
-            }}
-            getRowId={(row) => row.id}
-            rows={product}
-            initialState={{
-              // ...product,
-              pagination: { paginationModel: { pageSize: 10 } },
-            }}
-            columns={columns}
-            pageSizeOptions={[5, 10, 15]}
-            // rowsPerPageOptions={[10]}
-            disableRowSelectionOnClick
-            disableColumnMenu
-            disableDensitySelector
-            disableColumnSelector
-            // disableRowSelectionOnClick
-            components={{
-              LoadingOverlay: CircularProgress,
-            }}
-            loading={false}
-          />
+              slots={{
+                loadIcon: CircularProgress,
+              }}
+              showCellVerticalBorder
+              showColumnVerticalBorder
+              sx={{
+                fontSize: "14px",
+                boxShadow: 2,
+                '& .MuiDataGrid-cell:hover': {
+                  color: 'primary.main',
+                },
+                '& .hideRightSeparator > .MuiDataGrid-columnSeparator': {
+                  display: 'none',
+                },
+              }}
+              getRowId={(row) => row.id}
+              rows={product}
+              initialState={{
+                // ...product,
+                pagination: { paginationModel: { pageSize: 10 } },
+              }}
+              rowHeight={70}
+              columns={columns}
+              pageSizeOptions={[5, 10, 15]}
+              disableRowSelectionOnClick
+              disableColumnMenu
+              // disableDensitySelector
+              // disableColumnSelector
+              components={{
+                LoadingOverlay: CircularProgress,
+              }}
+              loading={false}
+            />
+          </Box>
         </PageLayOutHeader> : ''}
-      </Box>
-    </ProductPageLayout>
+      </ProductPageLayout>
+    </ThemeProvider>
   )
 }
 

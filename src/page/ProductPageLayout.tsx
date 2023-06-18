@@ -76,7 +76,14 @@ const ProductPageLayout: React.FC<Props> = (props: Props) => {
             }}>
                 
             </Box> */}
-            <BoxPageLayout>
+            <BoxPageLayout sx={{
+                padding:{
+                    xl:"0 30px",
+                    md:"0 30px",
+                    sm:"10px",
+                    xs:"10px",
+                }
+            }}>
                 <PageTitle>
                     <PageTitleH3>
                         {props.titleHeader}

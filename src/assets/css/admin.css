@@ -6,7 +6,6 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     letter-spacing: .0312rem;
-    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
 }
 
 input:-webkit-autofill,

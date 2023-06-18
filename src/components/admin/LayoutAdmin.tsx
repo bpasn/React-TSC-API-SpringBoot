@@ -71,7 +71,7 @@ const theme = createTheme({
 
 export default function PersistentDrawerLeft() {
 
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const [_open, set_Open] = React.useState(0);
     const [openSub, setOpenSub] = React.useState(-1);
     const { userInfo } = useAppSelector(state => state.SignUser)
