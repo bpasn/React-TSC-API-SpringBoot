@@ -9,6 +9,7 @@ import { Button, StyledInput } from './StyledComponent';
 type Props = {
   labels: LabelType[];
   searching?: string;
+  message?:string;
   setState: React.Dispatch<React.SetStateAction<string>>
 }
 const SearchAutocomplete: React.FC<Props> = (props: Props) => {
@@ -90,10 +91,10 @@ const SearchAutocomplete: React.FC<Props> = (props: Props) => {
                 })}
               </Box>
               {
-                props.searching && props.searching === 'success' && !props.labels.length ? <Box sx={{ fontSize: "16px", maxHeight: "200px", padding: "6px", color: "#212529" }}>No results found</Box>
-                : props.searching && props.searching === 'search'
-                  ?(<Box sx={{ fontSize: "16px", maxHeight: "200px", padding: "6px", color: "#212529" }}>Loading</Box>)
-                    : props.labels ? <></> : <Box sx={{ fontSize: "16px", maxHeight: "200px", padding: "6px", color: "#212529" }}>Please enter 4 or mor characters</Box>
+                props.message ? <Box sx={{ fontSize: "16px", maxHeight: "200px", padding: "6px", color: "#212529" }}>{props.message}</Box>
+                : props.searching === 'search'
+                  ?(<Box sx={{ fontSize: "16px", maxHeight: "200px", padding: "6px", color: "#212529" }}>Searching</Box>)
+                   : <Box sx={{ fontSize: "16px", maxHeight: "200px", padding: "6px", color: "#212529" }}>Please enter 4 or mor characters</Box>
               }
             </Box>
           </ClickAwayListener>

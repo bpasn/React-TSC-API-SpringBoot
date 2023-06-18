@@ -22,7 +22,8 @@ const theme = createTheme({
 })
 const ProductPageAdmin = (props: Props) => {
   const [product, setProduct] = React.useState<IProducts[]>([]);
-  const [search,setSearch] = React.useState<"search" | 'success' | ''>('');
+  const [search, setSearch] = React.useState<"search" | 'success' | ''>('');
+  const [message, setMessage] = React.useState<string>('Please enter 4 or mor characters');
   const [loading, setLoading] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
   const dispatch = useAppDispatch()
@@ -31,7 +32,7 @@ const ProductPageAdmin = (props: Props) => {
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
     {
-      field: 'imagePath',
+      field: 'image',
       width: 80,
       headerName: 'Image',
       sortable: false,
@@ -57,7 +58,7 @@ const ProductPageAdmin = (props: Props) => {
                 objectFit: 'cover',/* useless by now, img should keep its ratio */
                 borderRadius: '10px',
                 backgroundColor: 'Crimson',
-              }} src={"/" + param.row.categories.imagePath.replace(/(src\/main\/resources\/storage\/)/, "")} />
+              }} src={param.value} />
           </div>
         )
       }
@@ -70,13 +71,10 @@ const ProductPageAdmin = (props: Props) => {
       headerClassName: 'hideRightSeparator',
     },
     {
-      field: 'categories',
+      field: 'categoryName',
       headerName: 'Category',
       sortable: false,
       headerClassName: 'hideRightSeparator',
-      valueGetter(params) {
-        return params.value.categoryName.substring(0, 1).toUpperCase() + params.value.categoryName.substring(1)
-      },
     },
     {
       field: 'sku',
@@ -112,7 +110,7 @@ const ProductPageAdmin = (props: Props) => {
       align: "center",
       minWidth: 40,
       renderCell(params) {
-        return params.row.categories.active === "ACTIVE" ? <LocalMallIcon color="primary" /> : <LocalMallIcon sx={{
+        return params.value === "ACTIVE" ? <LocalMallIcon color="primary" /> : <LocalMallIcon sx={{
           width: "2.5em",
           height: "2.5em",
           color: pink[500]
@@ -145,7 +143,7 @@ const ProductPageAdmin = (props: Props) => {
     setTimeout(() => {
       setLabels(labels)
       setSearch("success")
-    },3*1000)
+    }, 3 * 1000)
   }
   useEffectHook(() => {
     const fetchData = async () => {
@@ -184,14 +182,14 @@ const ProductPageAdmin = (props: Props) => {
     }
   })
   React.useEffect(() => {
-    if (!getLabels.length && value.length >= 4) {
+    if (value.length >= 4) {
       autocomplete();
-    }
-    if(!value){
+    } else if(value && value.length < 4){
       setLabels([])
-      setSearch('')
+      setMessage("Please enter 4 or more charactor")
     }
-  }, [value, getLabels])
+    
+  }, [value])
   console.log(getLabels)
   return loading ? <></> : (
     <ThemeProvider theme={theme}>
@@ -202,7 +200,7 @@ const ProductPageAdmin = (props: Props) => {
       >
         <Box component={Grid} container >
           <Grid item md={4} xl={2} sm={12} xs={12}>
-            <SearchAutocomplete searching={search} labels={getLabels} setState={setValue} />
+            <SearchAutocomplete message={message} searching={search} labels={getLabels} setState={setValue} />
           </Grid>
         </Box>
         {product.length ? <PageLayOutHeader title={'Products List'}>

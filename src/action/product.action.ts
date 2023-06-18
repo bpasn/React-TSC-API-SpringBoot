@@ -15,10 +15,11 @@ export const productAction = (axiosHook: AxiosInstance) => async (dispatch: AppD
         })
     }
 }
+
 export const loadingPage = (axiosHook: AxiosInstance) => async (dispatch: AppDispatch) => {
     dispatch({ type: EProduct.LOAD_PAGE_REQUEST })
     try {
-        const { data: { payload, success } } = await axios.get<{ payload: ILoadingPage[], success: boolean }>(AppSetting.LOAD_PAGE);
+        const { data: { payload, success } } = await axios.get<{ payload: ILoadingPage[], success: boolean }>(AppSetting.LOAD_ATTRIBUTE);
         dispatch({ type: EProduct.LOAD_PAGE_SUCCESS, payload: payload })
     } catch (error) {
         let _error = error instanceof AxiosError && error.response && error.response.data && error.response.data.message ? error.response.data.message : (error instanceof Error && error.message)
