@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ProductPageLayout from '../ProductPageLayout'
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { orange } from "@mui/material/colors";
@@ -6,12 +6,10 @@ import { orange } from "@mui/material/colors";
 
 
 import CardCategoryComponent from '../../components/category/CardCategoryComponent'
-import { Box, CircularProgress, Stack, Tab, Tabs, Typography } from '@mui/material'
-import { TabsCustom, TabCustom } from '../../components/Tabs/TabsCustom';
-import { TabPanel } from './TapPanel';
+import { Box, CircularProgress, Stack} from '@mui/material'
 import useEffectHook from '../../hook/useEffectHook';
-import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import axios, { AxiosError } from 'axios';
+import { useAppDispatch } from '../../redux/hook';
+import { AxiosError } from 'axios';
 import AppSetting from '../../constance/AppSetting';
 import useAxiosHook from '../../axios-hook/axiosHook';
 import PaginationComponent from '../../components/pagination/PaginationComponent';
@@ -29,13 +27,6 @@ interface CategoriesRes {
     success: boolean
 }
 
-
-function a11yProps(index: string) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
 
 const theme = createTheme({
     components: {

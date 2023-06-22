@@ -1,17 +1,21 @@
 import ProductPageLayout from '../../../ProductPageLayout'
 import PageLayOutHeader from '../../../PageLayOutHeader'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import { Box, CircularProgress, Grid, Stack, ThemeProvider, createTheme } from '@mui/material'
+import { Box, CircularProgress, Pagination, Stack, ThemeProvider, createTheme } from '@mui/material'
 import useEffectHook from '../../../../hook/useEffectHook'
 import React from 'react'
-import { useAppDispatch, useAppSelector } from '../../../../redux/hook'
+import { useAppDispatch } from '../../../../redux/hook'
 import axios, { AxiosError } from 'axios'
 import AppSetting from '../../../../constance/AppSetting'
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import { pink } from '@mui/material/colors'
-import SearchAutocomplete from '../../../../components/autocomplete/SearchAutoComplete'
-import { LabelType, labels } from '../../../../components/autocomplete/datamock'
+import { LabelType } from '../../../../components/autocomplete/datamock'
+
+import { useDemoData } from '@mui/x-data-grid-generator';
+import PaginationComponent from '../../../../components/pagination/PaginationComponent'
+
+
 type Props = {}
 const theme = createTheme({
   typography: {
@@ -22,12 +26,14 @@ const theme = createTheme({
 })
 const ProductPageAdmin = (props: Props) => {
   const [product, setProduct] = React.useState<IProducts[]>([]);
-  const [search, setSearch] = React.useState<"search" | 'success' | ''>('');
-  const [message, setMessage] = React.useState<string>('Please enter 4 or mor characters');
+  const [indexOfFirstPage, setIndexOfFirstPage] = React.useState<number>(0);
+  const [indexOfLastPage, setIndexOfLastPage] = React.useState<number>(5);
+  const [countProduct, setCountProduct] = React.useState<number>(0)
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [value, setValue] = React.useState<string>("");
   const dispatch = useAppDispatch()
-  const [getLabels, setLabels] = React.useState<LabelType[]>([]);
+  const [currentPage, setCurrentPage] = React.useState<number>(1)
+  const [itemPage] = React.useState<number>(5)
+ 
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -74,7 +80,7 @@ const ProductPageAdmin = (props: Props) => {
       field: 'categoryName',
       headerName: 'Category',
       sortable: false,
-      minWidth:100,
+      minWidth: 100,
       headerClassName: 'hideRightSeparator',
     },
     {
@@ -111,7 +117,6 @@ const ProductPageAdmin = (props: Props) => {
       align: "center",
       minWidth: 40,
       renderCell(params) {
-        console.log(params.row.id)
         return params.row.id % 2 === 0 ? <LocalMallIcon sx={{
           width: "2.5em",
           height: "2.5em",
@@ -141,47 +146,56 @@ const ProductPageAdmin = (props: Props) => {
   ];
   interface IResp {
     success: boolean;
-    payload: IProducts[]
-  }
-
-  useEffectHook(() => {
-    const fetchData = async () => {
-      dispatch<any>({
-        type: "SHOW_LOADING",
-      })
-      setLoading(true)
-      try {
-        const { data } = await axios.get<IResp>(AppSetting.GET_PRODUCT_LIST)
-        console.log(data.payload)
-        if (data.success) {
-          setProduct(data.payload)
-        }
-        dispatch<any>({
-          type: "HIDE_LOADING",
-        })
-
-        setLoading(false)
-      } catch (error) {
-        setLoading(false)
-        dispatch<any>({
-          type: "SHOW",
-          payload: {
-            severity: "error",
-            message: error instanceof AxiosError ? error.response && error.response.data.message : error instanceof Error && error.message
-          }
-        })
-        dispatch<any>({
-          type: "HIDE_LOADING",
-        })
-      }
+    payload: {
+      count: number,
+      products: IProducts[]
     }
+  }
+  const fetchData = async () => {
+    dispatch<any>({
+      type: "SHOW_LOADING",
+    })
+    setLoading(true)
+    try {
+      const { data } = await axios.get<IResp>(AppSetting.GET_PRODUCT_LIST, {
+        params: {
+          limit: indexOfFirstPage,
+          offset: indexOfLastPage
+        }
+      })
+      if (data.success) {
+        setProduct(data.payload.products)
+        setCountProduct(data.payload.count)
+      }
+      dispatch<any>({
+        type: "HIDE_LOADING",
+      })
+
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      dispatch<any>({
+        type: "SHOW",
+        payload: {
+          severity: "error",
+          message: error instanceof AxiosError ? error.response && error.response.data.message : error instanceof Error && error.message
+        }
+      })
+      dispatch<any>({
+        type: "HIDE_LOADING",
+      })
+    }
+  }
+  useEffectHook(() => {
+    setIndexOfLastPage(currentPage * itemPage)
+    setIndexOfFirstPage(indexOfLastPage - itemPage)
     fetchData()
     return () => {
       setLoading(false)
     }
   })
 
-  console.log(getLabels)
+
   return loading ? <></> : (
     <ThemeProvider theme={theme}>
       <ProductPageLayout
@@ -194,7 +208,27 @@ const ProductPageAdmin = (props: Props) => {
             padding: '2rem'
           }}>
             <DataGrid
+              initialState={{
+                pagination: {
+                  paginationModel: { pageSize: itemPage }
+                },
+              }}
               slots={{
+                pagination: () => {
+                  return (
+                    <PaginationComponent
+                      shape="rounded"
+                      currentPage={currentPage}
+                      itemPerPage={itemPage}
+                      totalPage={countProduct}
+                      onChange={(e: React.ChangeEvent<unknown>, value: number) => {
+                        setCurrentPage(value)
+                        setIndexOfFirstPage(indexOfLastPage)
+                        setIndexOfLastPage(indexOfLastPage + 5)
+                        fetchData()
+                      }}
+                    />)
+                },
                 noResultsOverlay: () => (
                   <Stack height={!product.length ? "150px" : "100%"} alignItems="center" justifyContent="center">
                     No rows in DataGrid
@@ -230,16 +264,13 @@ const ProductPageAdmin = (props: Props) => {
 
               getRowId={(row) => row.id}
               rows={product}
-              initialState={{
-                pagination: { paginationModel: { pageSize: 10 } },
-              }}
               rowHeight={70}
               columns={columns}
               pageSizeOptions={[5, 10, 15]}
               disableRowSelectionOnClick
               disableColumnMenu
-              // disableDensitySelector
-              // disableColumnSelector
+            // disableDensitySelector
+            // disableColumnSelector
             />
           </Box>
         </PageLayOutHeader>

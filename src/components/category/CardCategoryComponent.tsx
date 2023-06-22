@@ -5,8 +5,6 @@ import { ButtonCustom2 } from '../../page/admin/ecommerce/addProduct/AddProductS
 import useEffectHook from '../../hook/useEffectHook'
 import { useAppDispatch } from '../../redux/hook'
 import axios from 'axios'
-import AppSetting from '../../constance/AppSetting'
-import PaginationComponent from '../pagination/PaginationComponent'
 import { Categories } from '../../page/categories/CategoriesPage'
 type Props = {
     categories: Categories[]
