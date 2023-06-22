@@ -1,7 +1,7 @@
 import ProductPageLayout from '../../../ProductPageLayout'
 import PageLayOutHeader from '../../../PageLayOutHeader'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import { Box, CircularProgress, Grid, ThemeProvider, createTheme } from '@mui/material'
+import { Box, CircularProgress, Grid, Stack, ThemeProvider, createTheme } from '@mui/material'
 import useEffectHook from '../../../../hook/useEffectHook'
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../redux/hook'
@@ -67,13 +67,14 @@ const ProductPageAdmin = (props: Props) => {
       field: 'productName',
       headerName: 'Name',
       sortable: false,
-      width: 150,
+      minWidth: 150,
       headerClassName: 'hideRightSeparator',
     },
     {
       field: 'categoryName',
       headerName: 'Category',
       sortable: false,
+      minWidth:100,
       headerClassName: 'hideRightSeparator',
     },
     {
@@ -110,7 +111,11 @@ const ProductPageAdmin = (props: Props) => {
       align: "center",
       minWidth: 40,
       renderCell(params) {
-        return params.value === "ACTIVE" ? <LocalMallIcon color="primary" /> : <LocalMallIcon sx={{
+        console.log(params.row.id)
+        return params.row.id % 2 === 0 ? <LocalMallIcon sx={{
+          width: "2.5em",
+          height: "2.5em",
+        }} color="primary" /> : <LocalMallIcon sx={{
           width: "2.5em",
           height: "2.5em",
           color: pink[500]
@@ -119,12 +124,12 @@ const ProductPageAdmin = (props: Props) => {
     },
     {
       flex: 1,
+      minWidth: 150,
       field: 'action',
       hideSortIcons: true,
       headerName: 'Action',
       sortable: false,
       headerClassName: 'hideRightSeparator',
-      minWidth: 100,
       headerAlign: 'center',
       align: "center",
       renderCell: (data) => <Box display={"flex"} justifyContent={"center"} gap={"1rem"}>
@@ -138,13 +143,7 @@ const ProductPageAdmin = (props: Props) => {
     success: boolean;
     payload: IProducts[]
   }
-  const autocomplete = () => {
-    setSearch("search")
-    setTimeout(() => {
-      setLabels(labels)
-      setSearch("success")
-    }, 3 * 1000)
-  }
+
   useEffectHook(() => {
     const fetchData = async () => {
       dispatch<any>({
@@ -181,15 +180,7 @@ const ProductPageAdmin = (props: Props) => {
       setLoading(false)
     }
   })
-  React.useEffect(() => {
-    if (value.length >= 4) {
-      autocomplete();
-    } else if(value && value.length < 4){
-      setLabels([])
-      setMessage("Please enter 4 or more charactor")
-    }
-    
-  }, [value])
+
   console.log(getLabels)
   return loading ? <></> : (
     <ThemeProvider theme={theme}>
@@ -198,19 +189,23 @@ const ProductPageAdmin = (props: Props) => {
         mainMenu={"ecommerce"}
         subMenu={['Products']}
       >
-        <Box component={Grid} container >
-          <Grid item md={4} xl={2} sm={12} xs={12}>
-            <SearchAutocomplete message={message} searching={search} labels={getLabels} setState={setValue} />
-          </Grid>
-        </Box>
-        {product.length ? <PageLayOutHeader title={'Products List'}>
+        <PageLayOutHeader title={'Products List'}>
           <Box sx={{
             padding: '2rem'
           }}>
             <DataGrid
-
               slots={{
+                noResultsOverlay: () => (
+                  <Stack height={!product.length ? "150px" : "100%"} alignItems="center" justifyContent="center">
+                    No rows in DataGrid
+                  </Stack>
+                ),
                 loadIcon: CircularProgress,
+                noRowsOverlay() {
+                  return (<Stack height={!product.length ? "150px" : "100%"} alignItems="center" justifyContent="center">
+                    No rows in DataGrid
+                  </Stack>)
+                }
               }}
               showCellVerticalBorder
               showColumnVerticalBorder
@@ -223,11 +218,19 @@ const ProductPageAdmin = (props: Props) => {
                 '& .hideRightSeparator > .MuiDataGrid-columnSeparator': {
                   display: 'none',
                 },
+                '& .MuiDataGrid-columnHeader--withRightBorder:last-child': {
+                  borderColor: "transparent",
+                  borderRightWidth: "0",
+                  borderRightStyle: "none"
+                },
+                '& .MuiDataGrid-virtualScroller': {
+                  height: !product.length ? "150px !important" : "100% !important"
+                }
               }}
+
               getRowId={(row) => row.id}
               rows={product}
               initialState={{
-                // ...product,
                 pagination: { paginationModel: { pageSize: 10 } },
               }}
               rowHeight={70}
@@ -237,13 +240,9 @@ const ProductPageAdmin = (props: Props) => {
               disableColumnMenu
               // disableDensitySelector
               // disableColumnSelector
-              components={{
-                LoadingOverlay: CircularProgress,
-              }}
-              loading={false}
             />
           </Box>
-        </PageLayOutHeader> : ''}
+        </PageLayOutHeader>
       </ProductPageLayout>
     </ThemeProvider>
   )

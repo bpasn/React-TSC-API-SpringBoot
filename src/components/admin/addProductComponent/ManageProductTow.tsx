@@ -141,16 +141,6 @@ const ManageProductTow = ({ idInsert, loadPage }: Props) => {
                                         </Grid>
                                     </FromGroupGrid>
 
-                                    {/* SKU */}
-                                    <FromGroupGrid container>
-                                        <Grid item xs={12} md={4} sm={12} component={"label"} display={"inline-block"} marginBottom={"0.5rem"} fontSize={"16px"} color={"#3b3f5c"} htmlFor='Attribute'>
-                                            SKU :
-                                        </Grid>
-                                        <Grid item xs={12} md={8} sm={12}>
-                                            <InputCustom onChange={handleChange} name='SKU' />
-                                        </Grid>
-                                    </FromGroupGrid>
-
                                     {/* Status */}
                                     <FromGroupGrid container>
                                         <Grid item xs={12} md={4} sm={12} component={"label"} display={"inline-block"} marginBottom={"0.5rem"} fontSize={"16px"} color={"#3b3f5c"} htmlFor='Attribute'>
